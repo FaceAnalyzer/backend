@@ -21,18 +21,39 @@ Some folders does not exist yet.
     - **/Enum**: Enumeration types.
     - **/Constants**: Shared constants.
     - **/Utils**: Shared utility functions.
-    - **/Contracts**: Describes the communication between the service and other layers. (dtos for example)
     - **/Exceptions**: Shared exceptions thrown by the application. 
+  
 
 ## Getting Started
 
 To run the FaceAnalyzer project, follow these steps:
 
-1. Clone the repository: `git clone <repository-url>`
+1. Install .Net6 from [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+2. Clone the repository:
+ ```bash
+  git clone https://github.com/FaceAnalyzer/backend.git
+ ```
 2. Open the project in your preferred IDE.
-3. Configure your database connection in `appsettings.json`. (this will probably change later !!)
-4. Run migrations to create the database: `dotnet ef database update`
-5. Start the application: `dotnet run`
+3. Configure your database connection. (Put the connection string in the appropriate file. see next section! )
+4. Run migrations to create the database: 
+```bash 
+dotnet ef database update
+```
+5. Start the application:
+```bash
+dotnet run
+```
+## Environment Setup
+
+ASP.NET Core's Configuration Manager supports multiple configuration sources with a specific priority order. You can learn more about the priority order [here](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration).
+
+The primary configuration sources for development are:
+
+- **appsettings.json**: This serves as the foundational configuration file, containing common settings for the application.
+
+- **appsettings.Development.json**: Designed for the development environment, this file is used to override configurations from the base `appsettings.json`.
+
+- Notably, the `appsettings.Development.json` file is excluded from the Git repository. You must manually add it to your project and use it to specify configurations that should be overridden, such as your **local database connection string**.
 
 ## Deployment
 ...
