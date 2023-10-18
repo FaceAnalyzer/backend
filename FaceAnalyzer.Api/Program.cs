@@ -1,5 +1,5 @@
 using FaceAnalyzer.Api.Business;
-using FaceAnalyzer.Api.Shared.Infrastructure;
+using FaceAnalyzer.Api.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 

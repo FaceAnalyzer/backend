@@ -1,4 +1,4 @@
-﻿namespace FaceAnalyzer.Api.Shared.Infrastructure;
+namespace FaceAnalyzer.Api.Shared;
 
 public record ConnectionStrings
 {
