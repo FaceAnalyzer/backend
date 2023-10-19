@@ -4,17 +4,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:37405",
+      "applicationUrl": "http://localhost:61564",
       "sslPort": 44374
     }
   },
   "profiles": {
-    "FaceAnalyzer.Api": {
+    "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": false,
+      "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7201;http://localhost:5272",
+      "applicationUrl": "https://localhost:7116;http://localhost:5019",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
