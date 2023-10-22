@@ -2,13 +2,13 @@
 
 namespace FaceAnalyzer.ApiPlayground.Controllers;
 
-[Route("files")]
+[Route("[controller]")]
 [ApiController]
-public class FilesController : Controller
+public class FileUploadTechniquesController : Controller
 {
     private readonly string _filePathBase = "/code/FaceAnalyzer/";
     
-   public FilesController(IWebHostEnvironment hostingEnvironment)
+   public FileUploadTechniquesController(IWebHostEnvironment hostingEnvironment)
     {
         _filePathBase = Path.Combine(hostingEnvironment.ContentRootPath, "..", "uploaded-files/");
 
