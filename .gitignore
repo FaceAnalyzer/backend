@@ -4,3 +4,4 @@ bin/
 obj/
 .idea
 FaceAnalyzer.Api/appsettings.Development.json
+uploaded-files
