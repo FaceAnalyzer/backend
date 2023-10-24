@@ -1,7 +1,7 @@
-﻿namespace FaceAnalyzer.Api.Data;
+﻿namespace FaceAnalyzer.Api.Data.Entities;
 
 public class User: EntityBase
 {
-    public string Firstname { get; set; }
-    public string Lastname   { get; set; }
+    public required string Firstname { get; set; }
+    public required string Lastname   { get; set; }
 }
