@@ -18,6 +18,10 @@ public static class IServiceCollectionExtensions
         }
     }
 
+    public static void AddMappers(this IServiceCollection services)
+    {
+        services.AddAutoMapper(typeof(BusinessModelBase).Assembly);
+    }
     public static void AddDbContexts(this IServiceCollection services, string connectionString)
     {
         services.AddDbContext<AppDbContext>(opt =>
