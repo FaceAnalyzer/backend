@@ -2,6 +2,7 @@ using FaceAnalyzer.Api.Business.BusinessModels;
 using FaceAnalyzer.Api.Business.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
 
@@ -17,15 +18,14 @@ public class ExperimentController: ControllerBase
     }
 
     [HttpPost]
-    [AllowAnonymous]
     public async Task<ActionResult<ExperimentDto>> Create([FromBody] ExperimentDto dto)
     {
         var result = await _businessModel.Create(dto);
+        if (result is null) return BadRequest();
         return Created($"/experiments/{result.Id}", result);
     }
 
     [HttpPut]
-    [AllowAnonymous]
     public async Task<ActionResult<ExperimentDto>> Edit([FromBody] ExperimentDto dto)
     {
         var result = await _businessModel.Edit(dto);
@@ -34,7 +34,6 @@ public class ExperimentController: ControllerBase
     }
 
     [HttpDelete]
-    [AllowAnonymous]
     public async Task<ActionResult<ExperimentDto>> Delete([FromBody] ExperimentDto dto)
     {
         var result = await _businessModel.Delete(dto);

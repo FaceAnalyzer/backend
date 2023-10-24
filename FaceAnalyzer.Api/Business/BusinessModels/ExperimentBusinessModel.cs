@@ -12,8 +12,13 @@ public class ExperimentBusinessModel: BusinessModelBase
     {
     }
 
-    public async Task<ExperimentDto> Create(ExperimentDto dto)
+    public async Task<ExperimentDto?> Create(ExperimentDto dto)
     {
+        var project = DbContext.Find<Project>(dto.ProjectId);
+        if (project is null)
+        {
+            return null;
+        }
         var experiment = Mapper.Map<Experiment>(dto);
         DbContext.Add(experiment);
         await DbContext.SaveChangesAsync();
