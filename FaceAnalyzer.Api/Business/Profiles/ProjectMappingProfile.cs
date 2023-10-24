@@ -1,6 +1,14 @@
-﻿namespace FaceAnalyzer.Api.Business.Profiles;
+﻿using AutoMapper;
+using FaceAnalyzer.Api.Business.Contracts;
+using FaceAnalyzer.Api.Data.Entities;
 
-public class ProjectMappingProfile
+namespace FaceAnalyzer.Api.Business.Profiles;
+
+public class ProjectMappingProfile : Profile
 {
-    
+    public ProjectMappingProfile()
+    {
+        CreateMap<Project, ProjectDto>()
+            .ReverseMap();
+    }
 }
