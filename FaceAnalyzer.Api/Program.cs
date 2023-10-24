@@ -8,42 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 #region Services
 
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(option =>
-{
-     option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Description = "Please enter a valid token",
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        BearerFormat = "JWT",
-        Scheme = "Bearer"
-    });
-     option.AddSecurityRequirement(new OpenApiSecurityRequirement
-     {
-         {
-             new OpenApiSecurityScheme
-             {
-                 Reference = new OpenApiReference
-                 {
-                     Type=ReferenceType.SecurityScheme,
-                     Id="Bearer"
-                 }
-             },
-             new string[]{}
-         }
-     });
-     
- 
-} );
+builder.Services.AddSwagger();
 var config = new AppConfiguration();
 
 builder.Configuration.Bind(config);
 builder.Services.AddSingleton(config);
 builder.Services.AddBusinessModels();
-builder.Services.AddDbContexts(config.ConnectionStrings.AppDatabase);
+builder.Services.AddDbContexts(config.ConnectionStrings.AppDatabase, config.ConnectionStrings.DbVersion);
 builder.Services.AddAppAuthentication(config);
+builder.Services.AddMappers();
 builder.Services.AddHttpContextAccessor();
 #endregion
 

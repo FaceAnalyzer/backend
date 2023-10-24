@@ -1,5 +1,6 @@
 ﻿using FaceAnalyzer.Api.Business.BusinessModels;
 using FaceAnalyzer.Api.Data;
+using FaceAnalyzer.Api.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace FaceAnalyzer.Api.Business;
@@ -18,12 +19,17 @@ public static class IServiceCollectionExtensions
         }
     }
 
-    public static void AddDbContexts(this IServiceCollection services, string connectionString)
+    public static void AddMappers(this IServiceCollection services)
+    {
+        services.AddAutoMapper(typeof(BusinessModelBase).Assembly);
+    }
+    
+    public static void AddDbContexts(this IServiceCollection services, string connectionString, string dbVersion)
     {
         services.AddDbContext<AppDbContext>(opt =>
         {
             // var connectionString = "server=localhost;user=root;password=1234;database=ef";
-            var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
+            var serverVersion = new MySqlServerVersion(new Version(dbVersion));
             opt.UseMySql(connectionString, serverVersion);
         });
     }
