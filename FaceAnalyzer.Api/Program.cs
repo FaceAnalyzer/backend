@@ -44,6 +44,7 @@ builder.Services.AddSingleton(config);
 builder.Services.AddBusinessModels();
 builder.Services.AddDbContexts(config.ConnectionStrings.AppDatabase, config.ConnectionStrings.DbVersion);
 builder.Services.AddAppAuthentication(config);
+builder.Services.AddMappers();
 builder.Services.AddHttpContextAccessor();
 #endregion
 
