@@ -11,7 +11,7 @@ public class Experiment : EntityBase, IDeletable
     #region Navigations
 
     public Project? Project { get; set; }
-    public ICollection<Stimuli> Stimuli { get; set; } = (ICollection<Stimuli>) Enumerable.Empty<Stimuli>();
+    public ICollection<Stimuli> Stimuli { get; set; }
     #endregion
     
     public DateTime? DeletedAt { get; set; }
