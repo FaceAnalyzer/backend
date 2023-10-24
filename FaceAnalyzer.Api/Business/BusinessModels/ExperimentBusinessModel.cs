@@ -14,35 +14,37 @@ public class ExperimentBusinessModel: BusinessModelBase
 
     public async Task<ExperimentDto> Create(ExperimentDto dto)
     {
-        DbContext.Add(Mapper.Map<Experiment>(dto));
+        var experiment = Mapper.Map<Experiment>(dto);
+        DbContext.Add(experiment);
         await DbContext.SaveChangesAsync();
-        return dto;
+        return Mapper.Map<ExperimentDto>(experiment);
     }
 
     public async Task<ExperimentDto?> Edit(ExperimentDto dto)
     {
-        var oldExperiment = DbContext.Find<Experiment>(dto.Id);
-        if (oldExperiment is null)
+        var experiment = DbContext.Find<Experiment>(dto.Id);
+        if (experiment is null)
         {
             return null;
         }
-        oldExperiment.Name = dto.Name;
-        oldExperiment.Description = dto.Description;
-        DbContext.Update(oldExperiment);
+        experiment.Name = dto.Name;
+        experiment.Description = dto.Description;
+        experiment.UpdatedAt = DateTime.UtcNow;
+        DbContext.Update(experiment);
         await DbContext.SaveChangesAsync();
-        return dto;
+        return Mapper.Map<ExperimentDto>(experiment);
     }
 
     public async Task<ExperimentDto?> Delete(ExperimentDto dto)
     {
-        var oldExperiment = DbContext.Find<Experiment>(dto.Id);
-        if (oldExperiment is null)
+        var experiment = DbContext.Find<Experiment>(dto.Id);
+        if (experiment is null)
         {
             return null;
         }
-        oldExperiment.DeletedAt = DateTime.UtcNow;
-        DbContext.Update(oldExperiment);
+        experiment.DeletedAt = DateTime.UtcNow;
+        DbContext.Update(experiment);
         await DbContext.SaveChangesAsync();
-        return dto;
+        return Mapper.Map<ExperimentDto>(experiment);
     }
 }
