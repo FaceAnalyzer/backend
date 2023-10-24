@@ -18,8 +18,6 @@ public class ProjectController : ControllerBase
     public async Task<ActionResult<ProjectDto>> Create([FromBody] ProjectDto dto)
     {
         var project = await _businessModel.Create(dto);
-        // var result = new ActionResult<ProjectDto>(project);
-
         return Created($"/projects/{project.Id}", project);
     }
 }
