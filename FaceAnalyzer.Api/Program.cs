@@ -42,7 +42,7 @@ var config = new AppConfiguration();
 builder.Configuration.Bind(config);
 builder.Services.AddSingleton(config);
 builder.Services.AddBusinessModels();
-builder.Services.AddDbContexts(config.ConnectionStrings.AppDatabase);
+builder.Services.AddDbContexts(config.ConnectionStrings.AppDatabase, config.ConnectionStrings.DbVersion);
 builder.Services.AddAppAuthentication(config);
 builder.Services.AddMappers();
 builder.Services.AddHttpContextAccessor();
