@@ -28,7 +28,7 @@ Some folders does not exist yet.
 
 To run the FaceAnalyzer project, follow these steps:
 
-1. Install .Net6 from [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+1. Install .Net7 from [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 2. Clone the repository:
  ```bash
   git clone https://github.com/FaceAnalyzer/backend.git
@@ -54,14 +54,30 @@ The primary configuration sources for development are:
 - **appsettings.Development.json**: Designed for the development environment, this file is used to override configurations from the base `appsettings.json`.
 
 - Notably, the `appsettings.Development.json` file is excluded from the Git repository. You must manually add it to your project and use it to specify configurations that should be overridden, such as your **local database connection string**.
-
+Here is an example of appsettings.Development.json
+```json
+{
+  "ConnectionStrings": {
+    "AppDatabase": "server=localhost;user=<db user>;password=<password>;database=<datatabase name>",
+    "DbVersion": "<mysql version>",
+    "RawData": "<mongodb connection string>",
+    "NoSqlDatabaseName": "<mongodb database>"
+  },
+  "JwtConfig": {
+    "Secret": "secret key of 16 bytes long",
+    "Expiry": "expiry period in minutes"
+  }
+}
+```
 ## Deployment
 ...
 ## Project Dependencies
 
 - ASP.NET Core: [Link to ASP.NET Core](https://dotnet.microsoft.com/apps/aspnet)
 - Entity Framework Core: [Link to EF Core](https://docs.microsoft.com/en-us/ef/core/)
-- Other dependencies...
+- MySql version 8.0.34
+- MongoDB server
+- .NET7.0
 
 
 ## Git Workflow
