@@ -8,13 +8,20 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
 [Route("experiments")]
-public class ExperimentController: ControllerBase
+public class ExperimentController : ControllerBase
 {
     private readonly ExperimentBusinessModel _businessModel;
 
     public ExperimentController(ExperimentBusinessModel businessModel)
     {
         _businessModel = businessModel;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<ExperimentDto>>> Get()
+    {
+        var result = await _businessModel.Get();
+        return Ok(result);
     }
 
     [HttpPost]
