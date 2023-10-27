@@ -7,3 +7,4 @@ FaceAnalyzer.Api/appsettings.Development.json
 uploaded-files
 # Sqlite files
 **/*.db 
+FaceAnalyzer.ConsolePlayground/

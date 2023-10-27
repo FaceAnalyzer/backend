@@ -1,15 +1,25 @@
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace FaceAnalyzer.Api.Business.BusinessModels;
 
-public class ExperimentBusinessModel: BusinessModelBase
+public class ExperimentBusinessModel : BusinessModelBase
 {
-    
     public ExperimentBusinessModel(IMapper mapper, AppDbContext dbContext) : base(mapper, dbContext)
     {
+    }
+
+    public async Task<IList<ExperimentDto>> Get()
+    {
+        var results = await DbContext.Experiments
+            .ProjectTo<ExperimentDto>(Mapper.ConfigurationProvider)
+            .ToListAsync();
+
+        return results;
     }
 
     public async Task<ExperimentDto?> Create(ExperimentDto dto)
@@ -19,6 +29,7 @@ public class ExperimentBusinessModel: BusinessModelBase
         {
             return null;
         }
+
         var experiment = Mapper.Map<Experiment>(dto);
         DbContext.Add(experiment);
         await DbContext.SaveChangesAsync();
@@ -32,6 +43,7 @@ public class ExperimentBusinessModel: BusinessModelBase
         {
             return null;
         }
+
         experiment.Name = dto.Name;
         experiment.Description = dto.Description;
         experiment.UpdatedAt = DateTime.UtcNow;
@@ -47,6 +59,7 @@ public class ExperimentBusinessModel: BusinessModelBase
         {
             return null;
         }
+
         experiment.DeletedAt = DateTime.UtcNow;
         DbContext.Update(experiment);
         await DbContext.SaveChangesAsync();
