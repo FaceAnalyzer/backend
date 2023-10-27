@@ -1,9 +1,8 @@
 ﻿using System.Text;
-using FaceAnalyzer.Api.Service.Providers;
+using FaceAnalyzer.Api.Service.Middlewares;
 using FaceAnalyzer.Api.Shared;
-using Microsoft.AspNetCore.Authentication;
+using FaceAnalyzer.Api.Shared.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -15,7 +14,7 @@ public static class IServiceCollectionExtensions
     {
         // services.AddControllers()
         //     .AddMvcOptions(options => options.Filters.Add(new AuthorizeFilter()));
-       
+        services.AddScoped<SetSecurityPrincipalMiddleware>();
         services.AddAuthentication(options =>
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -30,7 +29,7 @@ public static class IServiceCollectionExtensions
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.JwtConfig.Secret))
             });
 
-        services.AddScoped<AuthenticationManager>();
+        services.AddScoped<SecurityContext>();
     }
 
 
