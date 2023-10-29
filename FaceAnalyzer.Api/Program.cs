@@ -1,5 +1,6 @@
 using FaceAnalyzer.Api.Business;
 using FaceAnalyzer.Api.Service;
+using FaceAnalyzer.Api.Service.Middlewares;
 using FaceAnalyzer.Api.Shared;
 using Microsoft.OpenApi.Models;
 
@@ -36,6 +37,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<SetSecurityPrincipalMiddleware>();
 
 app.MapControllers();
 
