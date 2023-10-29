@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FaceAnalyzer.Api.Business.Contracts;
+using FaceAnalyzer.Api.Business.UseCases.Projects;
 using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Data.Entities;
 
@@ -13,10 +14,7 @@ public class ProjectBusinessModel : BusinessModelBase
 
     public async Task<ProjectDto> Create(ProjectDto projectDto)
     {
-        var project = Mapper.Map<Project>(projectDto);
-        DbContext.Projects.Add(project);
-        await DbContext.SaveChangesAsync();
-
-        return Mapper.Map<ProjectDto>(project);
+        var useCase = new CreateProjectUseCase(Mapper, DbContext);
+        return await useCase.Execute(projectDto);
     }
 }
