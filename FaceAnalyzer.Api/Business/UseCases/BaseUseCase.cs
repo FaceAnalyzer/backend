@@ -4,9 +4,8 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace FaceAnalyzer.Api.Business.UseCases;
 
-public abstract class BaseUseCase<TIn,TOut>
+public abstract class BaseUseCase
 {
-    public abstract Task<TOut> Execute(TIn input);
     
     protected BaseUseCase(IMapper mapper, AppDbContext dbContext)
     {
