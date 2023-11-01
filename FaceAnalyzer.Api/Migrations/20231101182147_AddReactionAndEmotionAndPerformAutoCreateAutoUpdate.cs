@@ -100,7 +100,7 @@ namespace FaceAnalyzer.Api.Migrations
                 .OldAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn);
 
             migrationBuilder.CreateTable(
-                name: "Reaction",
+                name: "Reactions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -116,9 +116,9 @@ namespace FaceAnalyzer.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reaction", x => x.Id);
+                    table.PrimaryKey("PK_Reactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reaction_Stimuli_StimuliId",
+                        name: "FK_Reactions_Stimuli_StimuliId",
                         column: x => x.StimuliId,
                         principalTable: "Stimuli",
                         principalColumn: "Id",
@@ -127,7 +127,7 @@ namespace FaceAnalyzer.Api.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Emotion",
+                name: "Emotions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -144,24 +144,24 @@ namespace FaceAnalyzer.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Emotion", x => x.Id);
+                    table.PrimaryKey("PK_Emotions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Emotion_Reaction_ReactionId",
+                        name: "FK_Emotions_Reactions_ReactionId",
                         column: x => x.ReactionId,
-                        principalTable: "Reaction",
+                        principalTable: "Reactions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Emotion_ReactionId",
-                table: "Emotion",
+                name: "IX_Emotions_ReactionId",
+                table: "Emotions",
                 column: "ReactionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reaction_StimuliId",
-                table: "Reaction",
+                name: "IX_Reactions_StimuliId",
+                table: "Reactions",
                 column: "StimuliId");
         }
 
@@ -169,10 +169,10 @@ namespace FaceAnalyzer.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Emotion");
+                name: "Emotions");
 
             migrationBuilder.DropTable(
-                name: "Reaction");
+                name: "Reactions");
 
             migrationBuilder.DropColumn(
                 name: "Description",

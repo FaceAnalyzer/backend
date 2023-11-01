@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FaceAnalyzer.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231101174530_AddReactionAndEmotionAndPerformAutoCreateAutoUpdate")]
+    [Migration("20231101182147_AddReactionAndEmotionAndPerformAutoCreateAutoUpdate")]
     partial class AddReactionAndEmotionAndPerformAutoCreateAutoUpdate
     {
         /// <inheritdoc />
@@ -60,7 +60,7 @@ namespace FaceAnalyzer.Api.Migrations
 
                     b.HasIndex("ReactionId");
 
-                    b.ToTable("Emotion");
+                    b.ToTable("Emotions");
                 });
 
             modelBuilder.Entity("FaceAnalyzer.Api.Data.Entities.Experiment", b =>
@@ -161,7 +161,7 @@ namespace FaceAnalyzer.Api.Migrations
 
                     b.HasIndex("StimuliId");
 
-                    b.ToTable("Reaction");
+                    b.ToTable("Reactions");
                 });
 
             modelBuilder.Entity("FaceAnalyzer.Api.Data.Entities.Stimuli", b =>

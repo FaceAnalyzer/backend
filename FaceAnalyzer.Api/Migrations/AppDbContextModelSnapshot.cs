@@ -57,7 +57,7 @@ namespace FaceAnalyzer.Api.Migrations
 
                     b.HasIndex("ReactionId");
 
-                    b.ToTable("Emotion");
+                    b.ToTable("Emotions");
                 });
 
             modelBuilder.Entity("FaceAnalyzer.Api.Data.Entities.Experiment", b =>
@@ -158,7 +158,7 @@ namespace FaceAnalyzer.Api.Migrations
 
                     b.HasIndex("StimuliId");
 
-                    b.ToTable("Reaction");
+                    b.ToTable("Reactions");
                 });
 
             modelBuilder.Entity("FaceAnalyzer.Api.Data.Entities.Stimuli", b =>
