@@ -12,26 +12,9 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-        {
-            var deletedAtProperty = entityType.FindProperty("DeletedAt");
-
-            if (deletedAtProperty != null)
-            {
-                // Create a lambda expression to filter out entities with DeletedAt set.
-                var parameter = Expression.Parameter(entityType.ClrType);
-                var deletedAtExpression = Expression.Lambda(
-                    Expression.Equal(
-                        Expression.Property(parameter, deletedAtProperty.PropertyInfo),
-                        Expression.Constant(null, deletedAtProperty.ClrType)
-                    ),
-                    parameter
-                );
-
-                // Set the filter for the entity type.
-                modelBuilder.Entity(entityType.ClrType).HasQueryFilter(deletedAtExpression);
-            }
-        }
+        modelBuilder.AddAutoUpdatedAt();
+        modelBuilder.AddAutoCreatedAt();
+        modelBuilder.AddDeletedAtQueryFilter();
     }
 
     public DbSet<User> Users { get; set; }
