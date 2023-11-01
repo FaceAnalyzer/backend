@@ -1,5 +1,7 @@
 ﻿using FaceAnalyzer.Api.Business.BusinessModels;
+using FaceAnalyzer.Api.Business.Commands.Projects;
 using FaceAnalyzer.Api.Business.Contracts;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
@@ -7,17 +9,17 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 [Route("projects")]
 public class ProjectController : ControllerBase
 {
-    private readonly ProjectBusinessModel _businessModel;
+    private readonly ISender _mediator;
 
-    public ProjectController(ProjectBusinessModel businessModel)
+    public ProjectController(ISender mediator)
     {
-        _businessModel = businessModel;
+        _mediator = mediator;
     }
 
     [HttpPost]
-    public async Task<ActionResult<ProjectDto>> Create([FromBody] ProjectDto dto)
+    public async Task<ActionResult<ProjectDto>> Create([FromBody] CreateProjectCommand dto)
     {
-        var project = await _businessModel.Create(dto);
+        var project = await _mediator.Send(dto);
         return Created($"/projects/{project.Id}", project);
     }
 }

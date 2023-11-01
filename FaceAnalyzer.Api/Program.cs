@@ -19,6 +19,7 @@ builder.Services.AddDbContexts(config.ConnectionStrings.AppDatabase, config.Conn
 builder.Services.AddAppAuthentication(config);
 builder.Services.AddMappers();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddMediatR();
 #endregion
 
 
