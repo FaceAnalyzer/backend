@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using FaceAnalyzer.Api.Data.Entities;
+﻿using FaceAnalyzer.Api.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace FaceAnalyzer.Api.Data;
@@ -21,4 +20,7 @@ public class AppDbContext : DbContext
     public DbSet<Experiment> Experiments { get; set; }
     public DbSet<Stimuli> Stimuli { get; set; }
     public DbSet<Project> Projects { get; set; }
+
+    public DbSet<Reaction> Reactions { get; set; }
+    public DbSet<Emotion> Emotions { get; set; }
 }
