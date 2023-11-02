@@ -20,6 +20,7 @@ builder.Services.AddAppAuthentication(config);
 builder.Services.AddMappers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddMediatR();
+
 #endregion
 
 
@@ -35,7 +36,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(opt =>
+{
+    opt.AllowAnyHeader();
+    opt.AllowAnyOrigin();
+    opt.AllowAnyMethod();
+});
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<SetSecurityPrincipalMiddleware>();
