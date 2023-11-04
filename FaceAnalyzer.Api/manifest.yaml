@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - image: mysql:8.0
+        name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "root"
+        ports:
+        - containerPort: 3306
+          name: mysql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: faceanalyzer-backend
+  labels:
+    app: faceanalyzer-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: faceanalyzer-backend
+  template:
+    metadata:
+      labels:
+        app: faceanalyzer-backend
+    spec:
+      containers:
+      - name: faceanalyzer-backend
+        image: plavy/faceanalyzer-backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: faceanalyzer-backend
+spec:
+  selector:
+    app: faceanalyzer-backend
+  ports:
+    - protocol: TCP
+      name: faceanalyzer-backend
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: faceanalyzer-backend
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - backend.faceanalyzer.plavy.me
+      secretName: backend.faceanalyzer.plavy.me-tls
+  rules:
+  - host: backend.faceanalyzer.plavy.me
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: faceanalyzer-backend
+            port:
+              number: 80
