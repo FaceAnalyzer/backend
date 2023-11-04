@@ -38,7 +38,7 @@ public class ExperimentController : ControllerBase
         var result = await _mediator.Send(dto);
         return Ok(result);
     }
-
+    
     [HttpDelete]
     public async Task<ActionResult<ExperimentDto>> Delete([FromBody] DeleteExperimentCommand dto)
     {
