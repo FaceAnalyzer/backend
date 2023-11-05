@@ -1,6 +1,9 @@
-﻿using FaceAnalyzer.Api.Business.Commands.Reactions;
+﻿using System.Globalization;
+using CsvHelper;
+using FaceAnalyzer.Api.Business.Commands.Reactions;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
+using FaceAnalyzer.Api.Data.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +29,31 @@ public class ReactionController : ControllerBase
     {
         var result = await _mediator.Send(new GetReactionsQuery(null));
         return Ok(result);
+    }
+
+    [HttpGet("{id}/emotions")]
+    public async Task<ActionResult<QueryResult<EmotionDto>>> GetReactionEmotions(int id)
+    {
+        var query = new GetReactionEmotionsQuery(id);
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+
+    [HttpGet("{id}/emotions/export")]
+    public async Task<IActionResult> GetReactionEmotionsCsv(int id)
+    {
+        var query = new GetReactionEmotionsQuery(id);
+        var result = await _mediator.Send(query);
+        
+        // Convert list to a csv file
+        var stream = new MemoryStream();
+        await using (var writeFile = new StreamWriter(stream, leaveOpen: true))
+        await using(var csv = new CsvWriter(writeFile, CultureInfo.InvariantCulture))
+        {
+            await csv.WriteRecordsAsync(result.Items);
+        }
+        stream.Position = 0;
+        return new FileStreamResult(stream, "text/csv"){ FileDownloadName = $"{nameof(Reaction)}#{id}.csv"};
     }
     
     [HttpPost]
