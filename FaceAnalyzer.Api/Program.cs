@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using FaceAnalyzer.Api.Business;
 using FaceAnalyzer.Api.Service;
 using FaceAnalyzer.Api.Service.Middlewares;
@@ -8,7 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region Services
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(opt =>
+{
+    opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 builder.Services.AddSwagger();
 var config = new AppConfiguration();
 
