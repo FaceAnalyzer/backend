@@ -18,12 +18,29 @@ public class StimuliController : ControllerBase
         _mediator = mediator;
     }
 
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<StimuliDto>> Get(int id)
+    {
+        var request = new GetStimuliQuery
+        {
+            Id = id
+        };
+        var result = await _mediator.Send(request);
+        var stimuli = result.Items.FirstOrDefault();
+        if (stimuli is null)
+        {
+            return NotFound($"No stimuli found with this id {id}");
+        }
+        
+        return Ok(stimuli);
+    }
+
     [HttpGet]
     public async Task<ActionResult<QueryResult<StimuliDto>>> Get()
     {
-        var request = new GetStimuliQuery(null);
+        var request = new GetStimuliQuery();
         var result = await _mediator.Send(request);
-    
+
         return Ok(result);
     }
 
@@ -37,6 +54,13 @@ public class StimuliController : ControllerBase
         );
         var result = await _mediator.Send(request);
 
-        return Created($"stimuli/{result.Id}",result);
+        return Created($"stimuli/{result.Id}", result);
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _mediator.Send(new DeleteStimuliCommand(id));
+        return NoContent();
     }
 }
