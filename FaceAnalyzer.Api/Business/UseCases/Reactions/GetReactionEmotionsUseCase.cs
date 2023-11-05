@@ -4,6 +4,7 @@ using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Data.Entities;
+using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,15 +17,18 @@ public class GetReactionEmotionsUseCase : BaseUseCase,
     {
     }
 
-    public async Task<QueryResult<EmotionDto>> Handle(GetReactionEmotionsQuery request, CancellationToken cancellationToken)
+    public async Task<QueryResult<EmotionDto>> Handle(GetReactionEmotionsQuery request,
+        CancellationToken cancellationToken)
     {
-        var reaction = await DbContext.Reactions.FindAsync(request.ReactionId, cancellationToken);
-        if (reaction is null)
+        var reactionExist =
+            await DbContext.Reactions.AnyAsync(reaction => reaction.Id == request.ReactionId, cancellationToken);
+        if (!reactionExist)
         {
-            throw new Exception();
+            throw new EntityNotFoundException(nameof(Reaction), request.ReactionId);
         }
+
         var emotions = await DbContext.Emotions
-            .Where(emotion => emotion.ReactionId == reaction.Id)
+            .Where(emotion => emotion.ReactionId == request.ReactionId)
             .ProjectTo<EmotionDto>(Mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
         return emotions.ToQueryResult();

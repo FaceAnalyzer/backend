@@ -3,6 +3,7 @@ using FaceAnalyzer.Api.Business.Commands.Experiments;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Data.Entities;
+using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
 
 namespace FaceAnalyzer.Api.Business.UseCases.Experiments;
@@ -19,7 +20,10 @@ public class DeleteExperimentUseCase: BaseUseCase, IRequestHandler<DeleteExperim
         var experiment = DbContext.Find<Experiment>(request.Id);
         if (experiment is null)
         {
-            throw new Exception();
+            throw new InvalidArgumentsExceptionBuilder()
+                .AddArgument(nameof(request.Id),
+                    $"no experiment with this id ({request.Id}) was found")
+                .Build();
         }
 
         experiment.DeletedAt = DateTime.UtcNow;

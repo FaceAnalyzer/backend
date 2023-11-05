@@ -3,6 +3,7 @@ using FaceAnalyzer.Api.Business.Commands.Emotions;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Data.Entities;
+using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
 
 namespace FaceAnalyzer.Api.Business.UseCases.Emotions;
@@ -19,8 +20,10 @@ public class CreateEmotionUseCase: BaseUseCase, IRequestHandler<CreateEmotionCom
         var reaction = DbContext.Find<Reaction>(request.ReactionId);
         if (reaction is null)
         {
-            // TODO: Change to EntityNotFoundException
-            throw new Exception();
+            throw new InvalidArgumentsExceptionBuilder()
+                .AddArgument(nameof(request.ReactionId),
+                    $"no reaction with this id ({request.ReactionId}) was found")
+                .Build();
         }
 
         var emotion = Mapper.Map<Emotion>(request);
