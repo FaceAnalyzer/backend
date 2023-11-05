@@ -19,15 +19,15 @@ public class StimuliController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IList<StimuliDto>>> Get()
+    public async Task<ActionResult<QueryResult<StimuliDto>>> Get()
     {
         var request = new GetStimuliQuery(null);
         var result = await _mediator.Send(request);
-
-        return Ok(result.Items);
+    
+        return Ok(result);
     }
 
-    [HttpGet]
+    [HttpPost]
     public async Task<ActionResult<IList<StimuliDto>>> Create([FromBody] CreateStimuliDto dto)
     {
         var request = new CreateStimuliCommand(
@@ -37,6 +37,6 @@ public class StimuliController : ControllerBase
         );
         var result = await _mediator.Send(request);
 
-        return Ok(result);
+        return Created($"stimuli/{result.Id}",result);
     }
 }
