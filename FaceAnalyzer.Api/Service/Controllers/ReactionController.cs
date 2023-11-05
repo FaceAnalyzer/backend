@@ -63,10 +63,11 @@ public class ReactionController : ControllerBase
         return Created($"/reactions/{result.Id}", result);
     }
     
-    [HttpDelete]
-    public async Task<ActionResult<ReactionDto>> Delete([FromBody] DeleteReactionCommand dto)
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<ReactionDto>> Delete(int id)
     {
-        var result = await _mediator.Send(dto);
+        var command = new DeleteReactionCommand(id);
+        await _mediator.Send(command);
         return NoContent();
     }
     

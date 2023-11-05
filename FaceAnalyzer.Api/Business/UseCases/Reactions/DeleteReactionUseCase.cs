@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FaceAnalyzer.Api.Business.UseCases.Reactions;
 
-public class DeleteReactionUseCase : BaseUseCase, IRequestHandler<DeleteReactionCommand, ReactionDto>
+public class DeleteReactionUseCase : BaseUseCase, IRequestHandler<DeleteReactionCommand>
 {
     public DeleteReactionUseCase(IMapper mapper, AppDbContext dbContext) : base(mapper, dbContext)
     {
     }
 
 
-    public async Task<ReactionDto> Handle(DeleteReactionCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteReactionCommand request, CancellationToken cancellationToken)
     {
         var reaction = await DbContext.FindAsync<Reaction>(request.Id);
         if (reaction is null)
@@ -31,7 +31,6 @@ public class DeleteReactionUseCase : BaseUseCase, IRequestHandler<DeleteReaction
         reaction.DeletedAt = DateTime.UtcNow;
         DbContext.Update(reaction);
         await DbContext.SaveChangesAsync(cancellationToken);
-        return Mapper.Map<ReactionDto>(reaction);
     }
     
 }
