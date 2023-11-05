@@ -1,5 +1,6 @@
 using FaceAnalyzer.Api.Business;
 using FaceAnalyzer.Api.Service;
+using FaceAnalyzer.Api.Service.Middlewares;
 using FaceAnalyzer.Api.Shared;
 using Microsoft.OpenApi.Models;
 
@@ -18,6 +19,8 @@ builder.Services.AddDbContexts(config.ConnectionStrings.AppDatabase, config.Conn
 builder.Services.AddAppAuthentication(config);
 builder.Services.AddMappers();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddMediatR();
+
 #endregion
 
 
@@ -30,9 +33,15 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
-
+app.UseCors(opt =>
+{
+    opt.AllowAnyHeader();
+    opt.AllowAnyOrigin();
+    opt.AllowAnyMethod();
+});
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<SetSecurityPrincipalMiddleware>();
 
 app.MapControllers();
 

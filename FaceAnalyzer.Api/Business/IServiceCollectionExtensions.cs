@@ -2,6 +2,7 @@
 using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Shared;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace FaceAnalyzer.Api.Business;
 
@@ -23,7 +24,7 @@ public static class IServiceCollectionExtensions
     {
         services.AddAutoMapper(typeof(BusinessModelBase).Assembly);
     }
-    
+
     public static void AddDbContexts(this IServiceCollection services, string connectionString, string dbVersion)
     {
         services.AddDbContext<AppDbContext>(opt =>
@@ -33,4 +34,10 @@ public static class IServiceCollectionExtensions
             opt.UseMySql(connectionString, serverVersion);
         });
     }
+
+    public static void AddMediatR(this IServiceCollection services)
+    {
+        services.AddMediatR(config => config.RegisterServicesFromAssemblyContaining<Program>());
+    }
+
 }

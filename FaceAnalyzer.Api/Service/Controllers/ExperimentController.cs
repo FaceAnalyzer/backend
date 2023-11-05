@@ -1,8 +1,9 @@
 using FaceAnalyzer.Api.Business.BusinessModels;
+using FaceAnalyzer.Api.Business.Commands.Experiments;
 using FaceAnalyzer.Api.Business.Contracts;
-using Microsoft.AspNetCore.Authorization;
+using FaceAnalyzer.Api.Business.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
 
@@ -10,41 +11,38 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 [Route("experiments")]
 public class ExperimentController : ControllerBase
 {
-    private readonly ExperimentBusinessModel _businessModel;
+    private readonly ISender _mediator;
 
-    public ExperimentController(ExperimentBusinessModel businessModel)
-    {
-        _businessModel = businessModel;
+    public ExperimentController(ISender mediator)
+    {;
+        _mediator = mediator;
     }
 
     [HttpGet]
     public async Task<ActionResult<List<ExperimentDto>>> Get()
     {
-        var result = await _businessModel.Get();
+        var result = await _mediator.Send(new GetExperimentsQuery(null));
         return Ok(result);
     }
 
     [HttpPost]
-    public async Task<ActionResult<ExperimentDto>> Create([FromBody] ExperimentDto dto)
+    public async Task<ActionResult<ExperimentDto>> Create([FromBody] CreateExperimentCommand dto)
     {
-        var result = await _businessModel.Create(dto);
-        if (result is null) return BadRequest();
+        var result = await _mediator.Send(dto);
         return Created($"/experiments/{result.Id}", result);
     }
 
     [HttpPut]
-    public async Task<ActionResult<ExperimentDto>> Edit([FromBody] ExperimentDto dto)
+    public async Task<ActionResult<ExperimentDto>> Edit([FromBody] EditExperimentCommand dto)
     {
-        var result = await _businessModel.Edit(dto);
-        if (result is null) return BadRequest();
-        return Ok();
+        var result = await _mediator.Send(dto);
+        return Ok(result);
     }
-
+    
     [HttpDelete]
-    public async Task<ActionResult<ExperimentDto>> Delete([FromBody] ExperimentDto dto)
+    public async Task<ActionResult<ExperimentDto>> Delete([FromBody] DeleteExperimentCommand dto)
     {
-        var result = await _businessModel.Delete(dto);
-        if (result is null) return BadRequest();
+        var result = await _mediator.Send(dto);
         return NoContent();
     }
 }

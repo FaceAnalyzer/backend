@@ -1,4 +1,5 @@
 using AutoMapper;
+using FaceAnalyzer.Api.Business.Commands.Experiments;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Data.Entities;
 
@@ -10,5 +11,8 @@ public class ExperimentMappingProfile: Profile
     {
         CreateMap<Experiment, ExperimentDto>()
             .ReverseMap();
+        CreateMap<Experiment, CreateExperimentCommand>().ReverseMap();
+        CreateMap<Experiment, EditExperimentCommand>().ReverseMap();
+        CreateMap<Experiment, DeleteExperimentCommand>().ReverseMap();
     }
 }
