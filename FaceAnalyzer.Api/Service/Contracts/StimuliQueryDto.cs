@@ -1,3 +1,6 @@
 ﻿namespace FaceAnalyzer.Api.Service.Contracts;
 
-public record StimuliQueryDto(int ExperimentId);
+public class StimuliQueryDto
+{
+    public int? ExperimentId { get; init; }
+};
