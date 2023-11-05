@@ -18,12 +18,27 @@ public class StimuliController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<QueryResult<StimuliDto>>> Get()
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<StimuliDto>> Get(int id)
     {
-        var request = new GetStimuliQuery(null);
+        var request = new GetStimuliQuery
+        {
+            Id = id
+        };
         var result = await _mediator.Send(request);
-    
+        var stimuli = result.Items.FirstOrDefault();
+        return Ok(stimuli);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<QueryResult<StimuliDto>>> Get([FromQuery] StimuliQueryDto queryDto)
+    {
+        var request = new GetStimuliQuery
+        {
+            ExperimentId = queryDto.ExperimentId
+        };
+        var result = await _mediator.Send(request);
+
         return Ok(result);
     }
 
@@ -37,6 +52,13 @@ public class StimuliController : ControllerBase
         );
         var result = await _mediator.Send(request);
 
-        return Created($"stimuli/{result.Id}",result);
+        return Created($"stimuli/{result.Id}", result);
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _mediator.Send(new DeleteStimuliCommand(id));
+        return NoContent();
     }
 }

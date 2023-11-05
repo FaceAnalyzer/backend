@@ -3,6 +3,8 @@ using AutoMapper.QueryableExtensions;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Data;
+using FaceAnalyzer.Api.Data.Entities;
+using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,19 +18,23 @@ public class GetStimuliUseCase : BaseUseCase, IRequestHandler<GetStimuliQuery, Q
         if (request.Id.HasValue)
         {
             var stimuli = await DbContext.Stimuli
-                .ProjectTo<StimuliDto>(Mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync(s => s.Id == request.Id.Value, cancellationToken);
+                .FirstOrDefaultAsync(s => s.Id == request.Id.Value,
+                    cancellationToken);
             if (stimuli is null)
             {
-                throw new Exception("Stimuli not found");
+                throw new EntityNotFoundException(nameof(Stimuli), request.Id.Value);
             }
 
-            result.Add(stimuli);
+            result.Add(Mapper.Map<StimuliDto>(stimuli));
         }
-
-        result = await DbContext.Stimuli
-            .ProjectTo<StimuliDto>(Mapper.ConfigurationProvider)
-            .ToListAsync(cancellationToken);
+        else
+        {
+            result = await DbContext.Stimuli
+                .ConditionalWhere(request.ExperimentId.HasValue,
+                    s => s.ExperimentId == request.ExperimentId.Value)
+                .ProjectTo<StimuliDto>(Mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
+        }
 
         return result.ToQueryResult();
     }

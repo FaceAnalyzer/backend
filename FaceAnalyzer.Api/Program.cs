@@ -24,6 +24,7 @@ builder.Services.AddAppAuthentication(config);
 builder.Services.AddMappers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddMediatR();
+builder.Services.AddScoped<ErrorHandlerMiddleware>();
 
 #endregion
 
@@ -49,6 +50,7 @@ app.UseMiddleware<SetSecurityPrincipalMiddleware>();
 
 app.MapControllers();
 
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.Run();
 
 #endregion
