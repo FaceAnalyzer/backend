@@ -27,18 +27,16 @@ public class StimuliController : ControllerBase
         };
         var result = await _mediator.Send(request);
         var stimuli = result.Items.FirstOrDefault();
-        if (stimuli is null)
-        {
-            return NotFound($"No stimuli found with this id {id}");
-        }
-        
         return Ok(stimuli);
     }
 
     [HttpGet]
-    public async Task<ActionResult<QueryResult<StimuliDto>>> Get()
+    public async Task<ActionResult<QueryResult<StimuliDto>>> Get([FromQuery] StimuliQueryDto queryDto)
     {
-        var request = new GetStimuliQuery();
+        var request = new GetStimuliQuery
+        {
+            ExperimentId = queryDto.ExperimentId
+        };
         var result = await _mediator.Send(request);
 
         return Ok(result);

@@ -18,7 +18,6 @@ public class GetStimuliUseCase : BaseUseCase, IRequestHandler<GetStimuliQuery, Q
         if (request.Id.HasValue)
         {
             var stimuli = await DbContext.Stimuli
-                // .ProjectTo<StimuliDto>(Mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(s => s.Id == request.Id.Value,
                     cancellationToken);
             if (stimuli is null)
@@ -31,6 +30,8 @@ public class GetStimuliUseCase : BaseUseCase, IRequestHandler<GetStimuliQuery, Q
         else
         {
             result = await DbContext.Stimuli
+                .ConditionalWhere(request.ExperimentId.HasValue,
+                    s => s.ExperimentId == request.ExperimentId.Value)
                 .ProjectTo<StimuliDto>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
         }
