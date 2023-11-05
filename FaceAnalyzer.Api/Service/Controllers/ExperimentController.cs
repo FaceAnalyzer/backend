@@ -2,6 +2,7 @@ using FaceAnalyzer.Api.Business.BusinessModels;
 using FaceAnalyzer.Api.Business.Commands.Experiments;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
+using FaceAnalyzer.Api.Service.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,8 @@ public class ExperimentController : ControllerBase
     private readonly ISender _mediator;
 
     public ExperimentController(ISender mediator)
-    {;
+    {
+        ;
         _mediator = mediator;
     }
 
@@ -32,17 +34,24 @@ public class ExperimentController : ControllerBase
         return Created($"/experiments/{result.Id}", result);
     }
 
-    [HttpPut]
-    public async Task<ActionResult<ExperimentDto>> Edit([FromBody] EditExperimentCommand dto)
+    [HttpPut("{id}")]
+    public async Task<ActionResult<ExperimentDto>> Edit(int id, [FromBody] EditExperimentDto dto)
     {
-        var result = await _mediator.Send(dto);
+        var command = new EditExperimentCommand(
+            id,
+            dto.Name,
+            dto.Description,
+            dto.ProjectId
+        );
+        var result = await _mediator.Send(command);
         return Ok(result);
     }
-    
-    [HttpDelete]
-    public async Task<ActionResult<ExperimentDto>> Delete([FromBody] DeleteExperimentCommand dto)
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<ExperimentDto>> Delete(int id)
     {
-        var result = await _mediator.Send(dto);
+        var command = new DeleteExperimentCommand(id);
+        await _mediator.Send(command);
         return NoContent();
     }
 }

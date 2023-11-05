@@ -3,4 +3,4 @@ using MediatR;
 
 namespace FaceAnalyzer.Api.Business.Commands.Reactions;
 
-public record DeleteReactionCommand(int Id): IRequest<ReactionDto>;
+public record DeleteReactionCommand(int Id): IRequest;

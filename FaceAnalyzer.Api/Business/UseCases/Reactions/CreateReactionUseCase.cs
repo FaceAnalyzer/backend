@@ -3,7 +3,9 @@ using FaceAnalyzer.Api.Business.Commands.Reactions;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Data.Entities;
+using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace FaceAnalyzer.Api.Business.UseCases.Reactions;
@@ -16,11 +18,13 @@ public class CreateReactionUseCase : BaseUseCase, IRequestHandler<CreateReaction
 
     public async Task<ReactionDto> Handle(CreateReactionCommand request, CancellationToken cancellationToken)
     {
-        var stimuli = DbContext.Find<Stimuli>(request.StimuliId);
-        if (stimuli is null)
+        var stimuliExist = await DbContext.Stimuli.AnyAsync(stimuli => stimuli.Id == request.StimuliId);
+        if (!stimuliExist)
         {
-            // TODO: Change to EntityNotFoundException
-            throw new Exception();
+            throw new InvalidArgumentsExceptionBuilder()
+                .AddArgument(nameof(request.StimuliId),
+                    $"no stimuli with this id ({request.StimuliId}) was found")
+                .Build();
         }
 
         var reaction = new Reaction

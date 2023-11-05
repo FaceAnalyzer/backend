@@ -3,6 +3,7 @@ using FaceAnalyzer.Api.Business.Commands.Experiments;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Data.Entities;
+using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
 
 namespace FaceAnalyzer.Api.Business.UseCases.Experiments;
@@ -18,8 +19,10 @@ public class EditExperimentUseCase: BaseUseCase, IRequestHandler<EditExperimentC
         var experiment = DbContext.Find<Experiment>(request.Id);
         if (experiment is null)
         {
-            // TODO: Change to Entity Not Found
-            throw new Exception();
+            throw new InvalidArgumentsExceptionBuilder()
+                .AddArgument(nameof(request.Id),
+                    $"no experiment with this id ({request.Id}) was found")
+                .Build();
         }
 
         if (request.ProjectId is not null)
@@ -27,7 +30,10 @@ public class EditExperimentUseCase: BaseUseCase, IRequestHandler<EditExperimentC
             var project = DbContext.Find<Project>(request.ProjectId);
             if (project is null)
             {
-                throw new Exception();
+                throw new InvalidArgumentsExceptionBuilder()
+                    .AddArgument(nameof(request.ProjectId),
+                        $"no project with this id ({request.ProjectId}) was found")
+                    .Build();
             }
             experiment.ProjectId = project.Id;
         }
