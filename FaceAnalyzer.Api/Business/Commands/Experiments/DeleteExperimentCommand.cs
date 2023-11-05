@@ -3,4 +3,4 @@ using MediatR;
 
 namespace FaceAnalyzer.Api.Business.Commands.Experiments;
 
-public record DeleteExperimentCommand(int Id): IRequest<ExperimentDto>;
+public record DeleteExperimentCommand(int Id): IRequest;

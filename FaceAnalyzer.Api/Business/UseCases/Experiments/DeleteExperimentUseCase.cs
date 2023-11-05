@@ -8,14 +8,14 @@ using MediatR;
 
 namespace FaceAnalyzer.Api.Business.UseCases.Experiments;
 
-public class DeleteExperimentUseCase: BaseUseCase, IRequestHandler<DeleteExperimentCommand, ExperimentDto>
+public class DeleteExperimentUseCase: BaseUseCase, IRequestHandler<DeleteExperimentCommand>
 {
     public DeleteExperimentUseCase(IMapper mapper, AppDbContext dbContext) : base(mapper, dbContext)
     {
     }
 
 
-    public async Task<ExperimentDto> Handle(DeleteExperimentCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteExperimentCommand request, CancellationToken cancellationToken)
     {
         var experiment = DbContext.Find<Experiment>(request.Id);
         if (experiment is null)
@@ -29,6 +29,5 @@ public class DeleteExperimentUseCase: BaseUseCase, IRequestHandler<DeleteExperim
         experiment.DeletedAt = DateTime.UtcNow;
         DbContext.Update(experiment);
         await DbContext.SaveChangesAsync(cancellationToken);
-        return Mapper.Map<ExperimentDto>(experiment);
     }
 }
