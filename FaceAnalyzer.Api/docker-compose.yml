@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  backend:
+    depends_on:
+      - mysql
+    build: .
+    ports:
+      - "8080:80"
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
