@@ -4,6 +4,7 @@ using FaceAnalyzer.Api.Business.Commands.Reactions;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Data.Entities;
+using FaceAnalyzer.Api.Shared.Enum;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,9 +33,9 @@ public class ReactionController : ControllerBase
     }
 
     [HttpGet("{id}/emotions")]
-    public async Task<ActionResult<QueryResult<EmotionDto>>> GetReactionEmotions(int id)
+    public async Task<ActionResult<QueryResult<EmotionDto>>> GetReactionEmotions(int id, [FromQuery] EmotionType? type)
     {
-        var query = new GetReactionEmotionsQuery(id);
+        var query = new GetReactionEmotionsQuery(id, type);
         var result = await _mediator.Send(query);
         return Ok(result);
     }
@@ -42,7 +43,7 @@ public class ReactionController : ControllerBase
     [HttpGet("{id}/emotions/export")]
     public async Task<IActionResult> GetReactionEmotionsCsv(int id)
     {
-        var query = new GetReactionEmotionsQuery(id);
+        var query = new GetReactionEmotionsQuery(id, null);
         var result = await _mediator.Send(query);
         
         // Convert list to a csv file
