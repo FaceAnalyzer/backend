@@ -19,7 +19,7 @@ public class StimuliController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<StimuliDto>> Get(int id)
+    public async Task<ActionResult<StimuliDto>> GetById(int id)
     {
         var request = new GetStimuliQuery
         {
@@ -43,16 +43,21 @@ public class StimuliController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<ActionResult<IList<StimuliDto>>> Create([FromBody] CreateStimuliDto dto)
     {
         var request = new CreateStimuliCommand(
-            dto.Link,
-            dto.Description,
-            dto.ExperimentId
+            Link: dto.Link,
+            Description: dto.Description,
+            Name: dto.Name,
+            ExperimentId: dto.ExperimentId
         );
         var result = await _mediator.Send(request);
 
-        return Created($"stimuli/{result.Id}", result);
+        return CreatedAtAction(nameof(GetById), new
+        {
+            id= result.Id
+        }, result);
     }
 
     [HttpDelete("{id:int}")]

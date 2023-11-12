@@ -2,4 +2,10 @@
 
 namespace FaceAnalyzer.Api.Business.Contracts;
 
-public record StimuliDto(int Id, string Link, int ExperimentId, string Description);
+public record StimuliDto(
+    int Id,
+    string Link,
+    string Name,
+    int ExperimentId,
+    string Description);
+

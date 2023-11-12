@@ -34,6 +34,7 @@ public class CreateStimuliUseCase : BaseUseCase, IRequestHandler<CreateStimuliCo
             Description = request.Description,
             Link = request.Link,
             ExperimentId = request.ExperimentId,
+            Name = request.Name
         };
         DbContext.Stimuli.Add(stimuli);
         await DbContext.SaveChangesAsync(cancellationToken);

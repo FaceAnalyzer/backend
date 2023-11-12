@@ -7,5 +7,6 @@ public record CreateStimuliCommand
     (
         string Link,
         string Description,
+        string Name,
         int ExperimentId)
     : IRequest<StimuliDto>;
