@@ -3,6 +3,7 @@ using FaceAnalyzer.Api.Business.Commands.Experiments;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Service.Contracts;
+using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,18 @@ public class ExperimentController : ControllerBase
         _mediator = mediator;
     }
 
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<ExperimentDto>> Get(int id)
+    {
+        var result = await _mediator.Send(new GetExperimentsQuery(id));
+        if (result.Items.Count == 0)
+        {
+            throw new EntityNotFoundException("Experiment", id);
+        }
+
+        return Ok(result.Items.FirstOrDefault());
+    }
+
     [HttpGet]
     public async Task<ActionResult<List<ExperimentDto>>> Get()
     {
@@ -31,7 +44,10 @@ public class ExperimentController : ControllerBase
     public async Task<ActionResult<ExperimentDto>> Create([FromBody] CreateExperimentCommand dto)
     {
         var result = await _mediator.Send(dto);
-        return Created($"/experiments/{result.Id}", result);
+        return CreatedAtAction(nameof(Get), new
+        {
+            id = result.Id
+        }, result);
     }
 
     [HttpPut("{id}")]

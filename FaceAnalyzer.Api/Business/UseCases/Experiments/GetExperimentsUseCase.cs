@@ -3,6 +3,8 @@ using AutoMapper.QueryableExtensions;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Data;
+using FaceAnalyzer.Api.Data.Entities;
+using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +16,7 @@ public class GetExperimentsUseCase : BaseUseCase, IRequestHandler<GetExperiments
         CancellationToken cancellationToken)
     {
         var results = await DbContext.Experiments
+            .ConditionalWhere(request.Id.HasValue, e=> e.Id == request.Id)
             .ProjectTo<ExperimentDto>(Mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
         return results.ToQueryResult();
