@@ -29,6 +29,7 @@ public class GetReactionEmotionsUseCase : BaseUseCase,
 
         var emotions = await DbContext.Emotions
             .Where(emotion => emotion.ReactionId == request.ReactionId)
+            .ConditionalWhere(request.EmotionType.HasValue, emotion => emotion.EmotionType == request.EmotionType)
             .ProjectTo<EmotionDto>(Mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
         return emotions.ToQueryResult();
