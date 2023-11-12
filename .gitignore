@@ -8,3 +8,6 @@ uploaded-files
 # Sqlite files
 **/*.db 
 FaceAnalyzer.ConsolePlayground/
+
+# dotnet ef files
+efbundle
