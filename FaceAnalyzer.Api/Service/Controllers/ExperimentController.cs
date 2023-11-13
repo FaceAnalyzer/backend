@@ -17,7 +17,6 @@ public class ExperimentController : ControllerBase
 
     public ExperimentController(ISender mediator)
     {
-        ;
         _mediator = mediator;
     }
 
