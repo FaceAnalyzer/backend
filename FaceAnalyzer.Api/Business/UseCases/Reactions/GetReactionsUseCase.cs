@@ -16,6 +16,7 @@ public class GetReactionsUseCase : BaseUseCase, IRequestHandler<GetReactionsQuer
         CancellationToken cancellationToken)
     {
         var results = await DbContext.Reactions
+            .ConditionalWhere(request.Id.HasValue, r=> r.Id == request.Id)
             .ProjectTo<ReactionDto>(Mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
         return results.ToQueryResult();
