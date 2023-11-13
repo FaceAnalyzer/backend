@@ -24,7 +24,6 @@ public class ReactionController : ControllerBase
 
     public ReactionController(ISender mediator)
     {
-        ;
         _mediator = mediator;
     }
 
@@ -38,14 +37,13 @@ public class ReactionController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult<ReactionDto>> Get(int id)
     {
-        var queryResult = await _mediator.Send(new GetReactionsQuery(id));
-        var result = queryResult.Items.FirstOrDefault();
-        if (result is null)
+        var result = await _mediator.Send(new GetReactionsQuery(id));
+        if (result.Items.Count == 0)
         {
             throw new EntityNotFoundException("Reaction", id);
         }
 
-        return Ok(result);
+        return Ok(result.Items.FirstOrDefault());
     }
 
     [HttpGet("{id}/emotions")]
