@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FaceAnalyzer.Api.Business.Commands.Projects;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Data.Entities;
 
@@ -10,5 +11,6 @@ public class ProjectMappingProfile : Profile
     {
         CreateMap<Project, ProjectDto>()
             .ReverseMap();
+        CreateMap<Project, CreateProjectCommand>().ReverseMap();
     }
 }
