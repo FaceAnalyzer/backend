@@ -19,7 +19,10 @@ public class DeleteReactionUseCase : BaseUseCase, IRequestHandler<DeleteReaction
 
     public async Task Handle(DeleteReactionCommand request, CancellationToken cancellationToken)
     {
-        var reaction = await DbContext.FindAsync<Reaction>(request.Id);
+        var reaction = await DbContext.Reactions
+            .Include(r => r.Emotions)
+            .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
+
         if (reaction is null)
         {
             throw new InvalidArgumentsExceptionBuilder()
@@ -28,9 +31,11 @@ public class DeleteReactionUseCase : BaseUseCase, IRequestHandler<DeleteReaction
                 .Build();
         }
 
-        reaction.DeletedAt = DateTime.UtcNow;
-        DbContext.Update(reaction);
+        foreach (var emotion in reaction.Emotions)
+        {
+            DbContext.Delete(emotion);
+        }
+        DbContext.Delete(reaction);
         await DbContext.SaveChangesAsync(cancellationToken);
     }
-    
 }
