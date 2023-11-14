@@ -7,6 +7,7 @@ public class Project : EntityBase
     #region Navigations
 
     public ICollection<Experiment> Experiments { get; set; }
+    public ICollection<User> Users { get; set; }
 
     #endregion
 }
