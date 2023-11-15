@@ -29,8 +29,8 @@ public class TestController : ControllerBase
     }
 
 
-    [HttpGet("test")]
-    [Authorize(Roles = nameof(UserRole.Researcher))]
+    [HttpGet("ping")]
+    [Authorize(Roles = nameof(UserRole.Admin))]
     public IActionResult Test()
     {
         var user = _securityContext.Principal;
