@@ -8,5 +8,4 @@ public class Reaction : EntityBase, IDeletable
     public Stimuli Stimuli { get; set; }
     public ICollection<Emotion> Emotions { get; set; }
     public DateTime? DeletedAt { get; set; }
-    public string? DeletedBy { get; set; }
 }

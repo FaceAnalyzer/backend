@@ -15,5 +15,4 @@ public class Experiment : EntityBase, IDeletable
     #endregion
     
     public DateTime? DeletedAt { get; set; }
-    public string? DeletedBy { get; set; }
 }

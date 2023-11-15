@@ -22,7 +22,7 @@ public class DeleteStimuliUseCase : BaseUseCase, IRequestHandler<DeleteStimuliCo
                 .Build();
         }
         
-        stimuli.DeletedAt = DateTime.Now;
+        DbContext.Delete(stimuli);
 
         await DbContext.SaveChangesAsync(cancellationToken);
     }

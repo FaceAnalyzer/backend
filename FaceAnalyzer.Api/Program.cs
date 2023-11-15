@@ -3,7 +3,6 @@ using FaceAnalyzer.Api.Business;
 using FaceAnalyzer.Api.Service;
 using FaceAnalyzer.Api.Service.Middlewares;
 using FaceAnalyzer.Api.Shared;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +12,7 @@ builder.Services.AddControllers().AddJsonOptions(opt =>
 {
     opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
-builder.Services.AddSwagger();
+builder.Services.ConfigureSwagger();
 var config = new AppConfiguration();
 
 builder.Configuration.Bind(config);

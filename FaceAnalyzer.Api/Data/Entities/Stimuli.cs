@@ -7,7 +7,6 @@ public class Stimuli: EntityBase, IDeletable
     public required string Description { get; set; }
     public string Name { get; set; }
     public DateTime? DeletedAt { get; set; }
-    public string? DeletedBy { get; set; }
 
     public Experiment? Experiment { get; set; }
     public ICollection<Reaction> Reactions { get; set; }
