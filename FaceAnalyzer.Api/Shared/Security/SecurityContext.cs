@@ -1,5 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+using BCrypt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
@@ -7,6 +7,7 @@ namespace FaceAnalyzer.Api.Shared.Security;
 
 public class SecurityContext
 {
+    private const int SALT_ROUNDS = 10;
     private readonly JwtConfig _jwtConfig;
     public SecurityPrincipal Principal { get; private set; }
 
@@ -14,6 +15,8 @@ public class SecurityContext
     {
         _jwtConfig = configuration.JwtConfig;
     }
+
+    #region JWT
 
     public string CreateJwt(SecurityPrincipal principal)
     {
@@ -37,4 +40,20 @@ public class SecurityContext
     {
         Principal = principal;
     }
+
+    #endregion
+
+    #region Password Hasing
+
+    public string Hash(string plainPassword)
+    {
+        return BCrypt.Net.BCrypt.HashPassword(plainPassword);
+    }
+
+    public bool Compare(string plainPassword, string hashedPassword)
+    {
+        return BCrypt.Net.BCrypt.Verify(plainPassword, hashedPassword);
+    }
+
+    #endregion
 }
