@@ -63,6 +63,8 @@ public class ErrorHandlerMiddleware : IMiddleware
                 title: "Unhandled exception",
                 detail: ex.Message
             );
+            Console.WriteLine(ex);
+
 
             await SetHttpContextResponse(context, problem);
         }

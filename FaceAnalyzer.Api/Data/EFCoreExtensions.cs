@@ -1,4 +1,7 @@
 ﻿using System.Linq.Expressions;
+using FaceAnalyzer.Api.Data.Entities;
+using FaceAnalyzer.Api.Shared.Enum;
+using FaceAnalyzer.Api.Shared.Security;
 using Microsoft.EntityFrameworkCore;
 
 namespace FaceAnalyzer.Api.Data;
@@ -36,7 +39,7 @@ public static class EFCoreExtensions
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
             var createdAt = entityType
-                        .FindProperty(createdAtPropertyName);
+                .FindProperty(createdAtPropertyName);
             if (createdAt != null)
             {
                 modelBuilder.Entity(entityType.ClrType)

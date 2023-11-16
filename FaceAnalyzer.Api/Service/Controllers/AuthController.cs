@@ -30,10 +30,4 @@ public class AuthController : ControllerBase
         );
         return Ok(response);
     }
-
-    [HttpPost]
-    public string GeneratePassword()
-    {
-        return BCrypt.Net.BCrypt.HashPassword("123");
-    }
 }
