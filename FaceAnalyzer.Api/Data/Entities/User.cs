@@ -1,4 +1,5 @@
 ﻿using FaceAnalyzer.Api.Shared.Enum;
+
 namespace FaceAnalyzer.Api.Data.Entities;
 
 public class User : EntityBase, IDeletable
@@ -11,6 +12,12 @@ public class User : EntityBase, IDeletable
     public string? ContactNumber { get; set; }
     public UserRole Role { get; set; }
 
-    public ICollection<Project> Projects { get; set; }
+    public ICollection<Project> Projects { get; set; } = new List<Project>();
     public DateTime? DeletedAt { get; set; }
+
+    public void Delete()
+    {
+        Projects.Clear();
+        DeletedAt = DateTime.Now;
+    }
 }

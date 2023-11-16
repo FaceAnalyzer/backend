@@ -34,7 +34,7 @@ public class AppDbContext : DbContext
 
     public void Delete<TEntity>(TEntity entity) where TEntity : IDeletable
     {
-        entity.DeletedAt = DateTime.Now;
+        entity.Delete();
     }
 
     public DbSet<User> Users { get; set; }

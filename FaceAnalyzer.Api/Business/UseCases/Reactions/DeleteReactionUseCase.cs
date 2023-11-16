@@ -21,6 +21,7 @@ public class DeleteReactionUseCase : BaseUseCase, IRequestHandler<DeleteReaction
     {
         var reaction = await DbContext.Reactions
             .Include(r => r.Emotions)
+            .AsSplitQuery()
             .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
 
         if (reaction is null)
@@ -30,11 +31,7 @@ public class DeleteReactionUseCase : BaseUseCase, IRequestHandler<DeleteReaction
                     $"no reaction with this id ({request.Id}) was found")
                 .Build();
         }
-
-        foreach (var emotion in reaction.Emotions)
-        {
-            DbContext.Delete(emotion);
-        }
+        
         DbContext.Delete(reaction);
         await DbContext.SaveChangesAsync(cancellationToken);
     }
