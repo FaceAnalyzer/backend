@@ -27,4 +27,13 @@ public class ProjectController : ControllerBase
         var project = await _mediator.Send(command);
         return Created($"/projects/{project.Id}", project);
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult> GrantPermission(int id, GrantProjectPermissionDto request)
+    {
+        var command = new GrantProjectPermissionCommand(id, request.ResearchersIds);
+        var project = await _mediator.Send(command);
+        return NoContent();
+    }
+
 }
