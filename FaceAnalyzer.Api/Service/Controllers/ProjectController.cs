@@ -29,7 +29,7 @@ public class ProjectController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult> GrantPermission(int id, GrantProjectPermissionDto request)
+    public async Task<ActionResult> GrantPermission(int id, [FromBody]GrantProjectPermissionDto request)
     {
         var command = new GrantProjectPermissionCommand(id, request.ResearchersIds);
         var project = await _mediator.Send(command);

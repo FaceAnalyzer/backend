@@ -34,7 +34,10 @@ public class GrantProjectPermissionUseCase : BaseUseCase, IRequestHandler<GrantP
         }
         
         var researchers = DbContext.Users.Where(user => request.ResearcherIds.Contains(user.Id));
-        project.Users.ToList().AddRange(researchers);
+        foreach (var researcher in researchers)
+        {
+            project.Users.Add(researcher);
+        }
         
         await DbContext.SaveChangesAsync(cancellationToken);
         return Mapper.Map<ProjectDto>(project);
