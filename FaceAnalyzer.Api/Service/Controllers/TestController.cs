@@ -9,7 +9,7 @@ public class TestController : ControllerBase
 {
     [AllowAnonymous]
     [HttpGet("/ping")]
-    public IActionResult DeleteProject()
+    public IActionResult Ping()
     {
         return Ok("Hello From Face Analyzer backend");
     }
