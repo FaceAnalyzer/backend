@@ -14,6 +14,6 @@ migrate-deployment:
 	kubectl exec -n faceanalyzer $${POD_NAME} -- ./efbundle --connection 'server=mysql;user=root;password=root;database=face_analyzer'
 
 migrate-local:
-	dotnet ef migrations bundle --force -r linux-x64
+	dotnet ef migrations bundle --force -r linux-x64 --self-contained
 	docker cp ./efbundle faceanalyzerapi-backend-1:/App
-	docker exec -it faceanalyzerapi-backend-1 ./efbundle
+	docker exec -it faceanalyzerapi-backend-1 ./efbundle --connection 'server=mysql;user=root;password=root;database=face_analyzer'
