@@ -1,4 +1,4 @@
-dotnet ef migrations bundle --force -r linux-x64build-docker:
+build-docker:
 	docker build -t plavy/faceanalyzer-backend:$(VERSION) -f Dockerfile .
 
 deploy: build-docker
