@@ -28,6 +28,14 @@ public class ProjectController : ControllerBase
         return Created($"/projects/{project.Id}", project);
     }
 
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<ProjectDto>> Delete(int id)
+    {
+        var command = new DeleteProjectCommand(id);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
     [HttpPut("{id}")]
     public async Task<ActionResult> GrantPermission(int id, [FromBody]GrantProjectPermissionDto request)
     {

@@ -53,7 +53,8 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Project>()
             .HasQueryFilter(
                 p =>
-                    !p.DeletedAt.HasValue &&
+                    !p.DeletedAt.HasValue
+                    &&
                     (_securityContext.Principal.Role == UserRole.Admin ||
                      p.Users.Any(u => u.Id == _securityContext.Principal.Id))
             );
