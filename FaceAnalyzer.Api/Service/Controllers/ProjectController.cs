@@ -22,4 +22,12 @@ public class ProjectController : ControllerBase
         var project = await _mediator.Send(dto);
         return Created($"/projects/{project.Id}", project);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<ProjectDto>> Delete(int id)
+    {
+        var command = new DeleteProjectCommand(id);
+        await _mediator.Send(command);
+        return NoContent();
+    }
 }

@@ -43,7 +43,7 @@ public class SecurityContext
 
     #endregion
 
-    #region Password Hasing
+    #region Password Hashing
 
     public string Hash(string plainPassword)
     {
