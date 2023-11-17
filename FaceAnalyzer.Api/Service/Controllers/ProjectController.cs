@@ -28,6 +28,15 @@ public class ProjectController : ControllerBase
         return Created($"/projects/{project.Id}", project);
     }
 
+    [HttpPut("{id}")]
+    public async Task<ActionResult<ProjectDto>> Edit(int id, [FromBody] EditProjectDto request)
+    {
+        var command = new EditProjectCommand(id, request.Name);
+        var project = await _mediator.Send(command);
+        return Ok(project);
+    }
+    
+
     [HttpDelete("{id}")]
     public async Task<ActionResult<ProjectDto>> Delete(int id)
     {
@@ -36,10 +45,18 @@ public class ProjectController : ControllerBase
         return NoContent();
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id}/researcher/add")]
     public async Task<ActionResult> GrantPermission(int id, [FromBody]GrantProjectPermissionDto request)
     {
         var command = new GrantProjectPermissionCommand(id, request.ResearchersIds);
+        var project = await _mediator.Send(command);
+        return NoContent();
+    }
+    
+    [HttpPut("{id}/researcher/remove")]
+    public async Task<ActionResult> RevokePermission(int id, [FromBody]GrantProjectPermissionDto request)
+    {
+        var command = new RevokeProjectPermissionCommand(id, request.ResearchersIds);
         var project = await _mediator.Send(command);
         return NoContent();
     }
