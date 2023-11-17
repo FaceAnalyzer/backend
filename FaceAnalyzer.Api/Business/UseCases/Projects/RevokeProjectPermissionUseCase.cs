@@ -9,13 +9,13 @@ using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace FaceAnalyzer.Api.Business.UseCases.Projects;
 
-public class RevokeProjectPermissionUseCase : BaseUseCase, IRequestHandler<GrantProjectPermissionCommand, ProjectDto>
+public class RevokeProjectPermissionUseCase : BaseUseCase, IRequestHandler<RevokeProjectPermissionCommand, ProjectDto>
 {
     public RevokeProjectPermissionUseCase(IMapper mapper, AppDbContext dbContext) : base(mapper, dbContext)
     {
     }
 
-    public async Task<ProjectDto> Handle(GrantProjectPermissionCommand request, CancellationToken cancellationToken)
+    public async Task<ProjectDto> Handle(RevokeProjectPermissionCommand request, CancellationToken cancellationToken)
     {
         return new ProjectDto(0, "placeholder");
     }
