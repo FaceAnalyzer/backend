@@ -5,6 +5,7 @@ using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Service.Contracts;
 using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FaceAnalyzer.Api.Service.Controllers;

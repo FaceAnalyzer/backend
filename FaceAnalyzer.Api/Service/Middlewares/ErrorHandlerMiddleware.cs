@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Security.Authentication;
 using System.Text.Json;
 using FaceAnalyzer.Api.Shared.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,17 @@ public class ErrorHandlerMiddleware : IMiddleware
 
             await SetHttpContextResponse(context, problem);
         }
+        catch (InvalidCredentialException ex)
+        {
+            var problem = _problemDetailsFactory.CreateProblemDetails(
+                httpContext: context,
+                statusCode: (int)HttpStatusCode.BadRequest,
+                title: nameof(InvalidCredentialException),
+                detail: ex.Message
+            );
+
+            await SetHttpContextResponse(context, problem);
+        }
         catch (Exception ex)
         {
             var problem = _problemDetailsFactory.CreateProblemDetails(
@@ -51,6 +63,8 @@ public class ErrorHandlerMiddleware : IMiddleware
                 title: "Unhandled exception",
                 detail: ex.Message
             );
+            Console.WriteLine(ex);
+
 
             await SetHttpContextResponse(context, problem);
         }

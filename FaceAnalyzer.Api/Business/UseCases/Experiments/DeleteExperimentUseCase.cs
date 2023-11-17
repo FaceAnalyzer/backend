@@ -20,6 +20,9 @@ public class DeleteExperimentUseCase : BaseUseCase, IRequestHandler<DeleteExperi
     {
         var experiment = await DbContext.Experiments
             .Include(r => r.Stimuli)
+            .ThenInclude(s => s.Reactions)
+            .ThenInclude(r => r.Emotions)
+            .AsSplitQuery()
             .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
 
         if (experiment is null)
@@ -30,11 +33,6 @@ public class DeleteExperimentUseCase : BaseUseCase, IRequestHandler<DeleteExperi
                 .Build();
         }
 
-        foreach (var stimuli in experiment.Stimuli)
-        {
-            DbContext.Delete(stimuli);
-        }
-    
         DbContext.Delete(experiment);
         await DbContext.SaveChangesAsync(cancellationToken);
     }
