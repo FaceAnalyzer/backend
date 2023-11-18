@@ -25,6 +25,16 @@ public class EditUserUseCase : BaseUseCase, IRequestHandler<EditUserCommand, Use
                     $"no experiment with this id ({request.Id}) was found")
                 .Build();
         }
+        var userExisting1 = DbContext.Users.FirstOrDefault(u => u.Username == request.Username);
+        if (userExisting1 is not null && userExisting1.Id != request.Id)
+        {
+            throw new InvalidArgumentsException("the username already exist, choose another one");
+        }
+        var userExisting2 = DbContext.Users.FirstOrDefault(u => u.Email == request.Email);
+        if (userExisting2 is not null && userExisting2.Id != request.Id)
+        {
+            throw new InvalidArgumentsException("the email already exist, choose another one");
+        }
 
         
 
@@ -37,6 +47,7 @@ public class EditUserUseCase : BaseUseCase, IRequestHandler<EditUserCommand, Use
         user.UpdatedAt = DateTime.UtcNow;
         DbContext.Update(user);
         await DbContext.SaveChangesAsync(cancellationToken);
+        user.Password = null;
         return Mapper.Map<UserDto>(user);
     }
     

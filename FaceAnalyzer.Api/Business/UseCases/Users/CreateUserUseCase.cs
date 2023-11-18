@@ -19,19 +19,14 @@ public class CreateUserUseCase: BaseUseCase, IRequestHandler<CreateUserCommand, 
         var userExisting1 = DbContext.Users.FirstOrDefault(u => u.Username == request.Username);
         if (userExisting1 is not null)
         {
-            throw new InvalidArgumentsExceptionBuilder()
-                .AddArgument(nameof(userExisting1.Id),
-                    $"the username already exist was found")
-                .Build();
+            throw new InvalidArgumentsException("the username already exist, choose another one");
         }
         var userExisting2 = DbContext.Users.FirstOrDefault(u => u.Email == request.Email);
         if (userExisting2 is not null)
         {
-            throw new InvalidArgumentsExceptionBuilder()
-                .AddArgument(nameof(userExisting2.Id),
-                    $"the email already exist ")
-                .Build();
+            throw new InvalidArgumentsException("the email already exist, choose another one");
         }
+        
         var user = Mapper.Map<User>(request);
         DbContext.Add(user);
         await DbContext.SaveChangesAsync(cancellationToken);

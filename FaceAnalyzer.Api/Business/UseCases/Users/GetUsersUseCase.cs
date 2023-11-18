@@ -17,8 +17,9 @@ public class GetUsersUseCase : BaseUseCase, IRequestHandler<GetUsersQuery, Query
     {
         var results = await DbContext.Users
             .ConditionalWhere(request.Id.HasValue, u=> u.Id == request.Id)
-            .ProjectTo<UserDto>(Mapper.ConfigurationProvider)
+            .Select(u => new UserDto(u.Id,u.Name,u.Surname,u.Email,u.Username,null,u.ContactNumber,u.Role))
             .ToListAsync(cancellationToken);
+        
         return results.ToQueryResult();
     }
 
