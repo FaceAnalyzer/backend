@@ -1,3 +1,10 @@
-﻿namespace FaceAnalyzer.Api.Service.Contracts;
+﻿using FaceAnalyzer.Api.Shared.Enum;
 
-public record EditUserDto();
+namespace FaceAnalyzer.Api.Service.Contracts;
+
+public record EditUserDto(string Name, 
+    string Surname,
+    string Email,
+    string Username,
+    string ContactNumber,
+    UserRole Role);

@@ -1,3 +1,5 @@
-﻿namespace FaceAnalyzer.Api.Business.Commands.Users;
+﻿using MediatR;
 
-public record DeleteUserCommand();
+namespace FaceAnalyzer.Api.Business.Commands.Users;
+
+public record DeleteUserCommand(int Id): IRequest;
