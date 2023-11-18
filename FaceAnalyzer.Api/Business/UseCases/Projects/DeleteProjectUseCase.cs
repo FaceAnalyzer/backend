@@ -18,6 +18,7 @@ public class DeleteProjectUseCase: BaseUseCase, IRequestHandler<DeleteProjectCom
     public async Task Handle(DeleteProjectCommand request, CancellationToken cancellationToken)
     {
         var project = await DbContext.Projects
+            .Include(p => p.Users)
             .Include(p => p.Experiments)
             .ThenInclude(r => r.Stimuli)
             .ThenInclude(s => s.Reactions)
