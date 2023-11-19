@@ -5,6 +5,7 @@ using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Data.Entities;
 using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace FaceAnalyzer.Api.Business.UseCases.Users;
@@ -17,26 +18,44 @@ public class EditUserUseCase : BaseUseCase, IRequestHandler<EditUserCommand, Use
 
     public async Task<UserDto> Handle(EditUserCommand request, CancellationToken cancellationToken)
     {
-        var user = DbContext.Find<User>(request.Id);
+        var exceptionBuilder = new InvalidArgumentsExceptionBuilder();
+        var user = await DbContext.Users
+            .FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
+
         if (user is null)
         {
-            throw new InvalidArgumentsExceptionBuilder()
+            exceptionBuilder
                 .AddArgument(nameof(request.Id),
-                    $"no experiment with this id ({request.Id}) was found")
-                .Build();
-        }
-        var userExisting1 = DbContext.Users.FirstOrDefault(u => u.Username == request.Username);
-        if (userExisting1 is not null && userExisting1.Id != request.Id)
-        {
-            throw new InvalidArgumentsException("the username already exist, choose another one");
-        }
-        var userExisting2 = DbContext.Users.FirstOrDefault(u => u.Email == request.Email);
-        if (userExisting2 is not null && userExisting2.Id != request.Id)
-        {
-            throw new InvalidArgumentsException("the email already exist, choose another one");
+                    $"no user with this id ({request.Id}) was found");
+            throw exceptionBuilder.Build();
         }
 
-        
+        if (user.Username != request.Username)
+        {
+            var userExists = await DbContext.Users.AnyAsync(u => u.Username == request.Username, cancellationToken);
+            if (userExists)
+            {
+                exceptionBuilder
+                    .AddArgument(nameof(User.Username), "the username already exist, choose another one");
+            }
+        }
+
+        if (user.Email != request.Email)
+        {
+            var userExists = await DbContext.Users.AnyAsync(u => u.Email == request.Email, cancellationToken);
+            if (userExists)
+            {
+                exceptionBuilder
+                    .AddArgument(nameof(User.Email), "the email already exist, choose another one");
+            }
+        }
+
+
+        if (exceptionBuilder.HasArguments)
+        {
+            throw exceptionBuilder.Build();
+        }
+
 
         user.Name = request.Name;
         user.Surname = request.Surname;
@@ -44,11 +63,10 @@ public class EditUserUseCase : BaseUseCase, IRequestHandler<EditUserCommand, Use
         user.Username = request.Username;
         user.ContactNumber = request.ContactNumber;
         user.Role = request.Role;
-        user.UpdatedAt = DateTime.UtcNow;
-        DbContext.Update(user);
+        
         await DbContext.SaveChangesAsync(cancellationToken);
-        user.Password = null;
         return Mapper.Map<UserDto>(user);
     }
+
     
 }

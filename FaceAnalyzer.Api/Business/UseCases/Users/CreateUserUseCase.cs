@@ -4,33 +4,49 @@ using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Data.Entities;
 using FaceAnalyzer.Api.Shared.Exceptions;
+using FaceAnalyzer.Api.Shared.Security;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace FaceAnalyzer.Api.Business.UseCases.Users;
 
-public class CreateUserUseCase: BaseUseCase, IRequestHandler<CreateUserCommand, UserDto>
+public class CreateUserUseCase : BaseUseCase, IRequestHandler<CreateUserCommand, UserDto>
 {
-    public CreateUserUseCase(IMapper mapper, AppDbContext dbContext) : base(mapper, dbContext)
+    private SecurityContext _securityContext;
+
+    public CreateUserUseCase(IMapper mapper, AppDbContext dbContext, SecurityContext securityContext) : base(mapper,
+        dbContext)
     {
+        _securityContext = securityContext;
     }
 
     public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        var userExisting1 = DbContext.Users.FirstOrDefault(u => u.Username == request.Username);
-        if (userExisting1 is not null)
+        var exceptionBuilder = new InvalidArgumentsExceptionBuilder();
+        var userExists = await DbContext.Users.AnyAsync(u => u.Username == request.Username, cancellationToken);
+        if (userExists)
         {
-            throw new InvalidArgumentsException("the username already exist, choose another one");
+            exceptionBuilder
+                .AddArgument(nameof(User.Username), "the username already exist, choose another one");
         }
-        var userExisting2 = DbContext.Users.FirstOrDefault(u => u.Email == request.Email);
-        if (userExisting2 is not null)
+
+        userExists = await DbContext.Users.AnyAsync(u => u.Email == request.Email, cancellationToken);
+        if (userExists)
         {
-            throw new InvalidArgumentsException("the email already exist, choose another one");
+            exceptionBuilder
+                .AddArgument(nameof(User.Email), "the email already exist, choose another one");
         }
-        
+
+        if (exceptionBuilder.HasArguments)
+        {
+            throw exceptionBuilder.Build();
+        }
+
         var user = Mapper.Map<User>(request);
+        user.Password = _securityContext.Hash(request.Password);
         DbContext.Add(user);
         await DbContext.SaveChangesAsync(cancellationToken);
-        
+
         return Mapper.Map<UserDto>(user);
     }
 }
