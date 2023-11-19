@@ -16,6 +16,7 @@ public class DeleteUserUseCase: BaseUseCase, IRequestHandler<DeleteUserCommand>
     public async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
         var user = await DbContext.Users
+            .Include(u=> u.Projects)
             .AsSplitQuery()
             .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
 

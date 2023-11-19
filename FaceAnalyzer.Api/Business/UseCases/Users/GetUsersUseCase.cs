@@ -16,15 +16,18 @@ public class GetUsersUseCase : BaseUseCase, IRequestHandler<GetUsersQuery, Query
         CancellationToken cancellationToken)
     {
         var results = await DbContext.Users
-            .ConditionalWhere(request.Id.HasValue, u=> u.Id == request.Id)
-            .Select(u => new UserDto(u.Id,u.Name,u.Surname,u.Email,u.Username,null,u.ContactNumber,u.Role))
+            .ConditionalWhere(request.Id.HasValue, u => u.Id == request.Id)
+            .ConditionalWhere(request.Role.HasValue, u => u.Role == request.Role)
+            .ConditionalWhere(request.ProjectId.HasValue,
+                u => u.Projects.Any(p => p.Id == request.ProjectId)
+            )
+            .ProjectTo<UserDto>(Mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
-        
+
         return results.ToQueryResult();
     }
 
     public GetUsersUseCase(IMapper mapper, AppDbContext dbContext) : base(mapper, dbContext)
     {
     }
-    
 }

@@ -10,5 +10,5 @@ public record CreateUserCommand(
     string Email,
     string Username,
     string Password,
-    string ContactNumber,
+    string? ContactNumber,
     UserRole Role): IRequest<UserDto>;
