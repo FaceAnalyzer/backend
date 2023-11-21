@@ -2,6 +2,7 @@ using AutoMapper;
 using FaceAnalyzer.Api.Business.Commands.Projects;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Data;
+using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
 
 namespace FaceAnalyzer.Api.Business.UseCases.Projects;
@@ -14,6 +15,14 @@ public class EditProjectUseCase: BaseUseCase, IRequestHandler<EditProjectCommand
 
     public async Task<ProjectDto> Handle(EditProjectCommand request, CancellationToken cancellationToken)
     {
-        return new ProjectDto(0, "placeholder");
+        var project = await DbContext.Projects.FindAsync(request.Id, cancellationToken);
+        if (project is null)
+        {
+            throw new InvalidArgumentsException($"Project with Id: {request.Id} does not exist");
+        }
+
+        project.Name = request.Name;
+        await DbContext.SaveChangesAsync(cancellationToken);
+        return Mapper.Map<ProjectDto>(project);
     }
 }
