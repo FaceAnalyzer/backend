@@ -30,7 +30,7 @@ public class GrantProjectPermissionUseCase : BaseUseCase, IRequestHandler<GrantP
 
         foreach (var researcherId in request.ResearcherIds.Where(id => project.Users.Any(user => user.Id == id)))
         {
-            throw new ProjectPermissionException(researcherId, project.Name);
+            throw new ProjectGrantPermissionException(researcherId, project.Name);
         }
         
         var researchers = DbContext.Users.Where(user => request.ResearcherIds.Contains(user.Id));

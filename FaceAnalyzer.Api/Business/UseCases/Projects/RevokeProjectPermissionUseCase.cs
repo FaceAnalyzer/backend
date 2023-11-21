@@ -17,6 +17,25 @@ public class RevokeProjectPermissionUseCase : BaseUseCase, IRequestHandler<Revok
 
     public async Task<ProjectDto> Handle(RevokeProjectPermissionCommand request, CancellationToken cancellationToken)
     {
-        return new ProjectDto(0, "placeholder");
+        var project = await DbContext.Projects
+            .Include(project => project.Users)
+            .FirstOrDefaultAsync(project => project.Id == request.ProjectId, cancellationToken);
+        if (project is null)
+        {
+            throw new InvalidArgumentsExceptionBuilder()
+                .AddArgument(nameof(request.ProjectId),
+                    $"No project with this id {request.ProjectId} was found")
+                .Build();
+        }
+
+        foreach (var researcherId in request.ResearcherIds)
+        {
+            var researcher = project.Users.FirstOrDefault(user => user.Id == researcherId);
+            if(researcher is null) throw new ProjectRevokePermissionException(researcherId, project.Name);
+            project.Users.Remove(researcher);
+        }
+        
+        await DbContext.SaveChangesAsync(cancellationToken);
+        return Mapper.Map<ProjectDto>(project);
     }
 }

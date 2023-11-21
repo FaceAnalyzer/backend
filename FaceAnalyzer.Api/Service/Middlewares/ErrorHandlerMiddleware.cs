@@ -22,45 +22,29 @@ public class ErrorHandlerMiddleware : IMiddleware
         {
             await next(context);
         }
-        catch (EntityNotFoundException ex)
-        {
-            var problem = _problemDetailsFactory.CreateProblemDetails(
-                httpContext: context,
-                statusCode: (int)HttpStatusCode.NotFound,
-                title: nameof(EntityNotFoundException),
-                detail: ex.Message
-            );
-
-            await SetHttpContextResponse(context, problem);
-        }
-        catch (InvalidArgumentsException ex)
-        {
-            var problem = _problemDetailsFactory.CreateProblemDetails(
-                httpContext: context,
-                statusCode: (int)HttpStatusCode.BadRequest,
-                title: nameof(InvalidArgumentsException),
-                detail: ex.Message
-            );
-
-            await SetHttpContextResponse(context, problem);
-        }
-        catch (InvalidCredentialException ex)
-        {
-            var problem = _problemDetailsFactory.CreateProblemDetails(
-                httpContext: context,
-                statusCode: (int)HttpStatusCode.BadRequest,
-                title: nameof(InvalidCredentialException),
-                detail: ex.Message
-            );
-
-            await SetHttpContextResponse(context, problem);
-        }
         catch (Exception ex)
         {
+            var statusCode = (int)HttpStatusCode.InternalServerError;
+            var title = "Unhandled Exception";
+            switch (ex)
+            {
+                case ProjectGrantPermissionException 
+                    or ProjectRevokePermissionException 
+                    or InvalidCredentialException 
+                    or InvalidArgumentsException:
+                    statusCode = (int)HttpStatusCode.BadRequest;
+                    title = ex.GetType().Name;
+                    break;
+                case EntityNotFoundException:
+                    statusCode = (int)HttpStatusCode.NotFound;
+                    title = ex.GetType().Name;
+                    break;
+            }
+
             var problem = _problemDetailsFactory.CreateProblemDetails(
                 httpContext: context,
-                statusCode: (int)HttpStatusCode.InternalServerError,
-                title: "Unhandled exception",
+                statusCode: statusCode,
+                title: title,
                 detail: ex.Message
             );
             Console.WriteLine(ex);
