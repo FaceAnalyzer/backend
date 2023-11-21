@@ -1,6 +1,3 @@
 namespace FaceAnalyzer.Api.Service.Contracts;
 
-public class DummyDto
-{
-    
-}
+public record CreateProjectDto(string Name);
