@@ -2,6 +2,7 @@ using FaceAnalyzer.Api.Business.BusinessModels;
 using FaceAnalyzer.Api.Business.Commands.Experiments;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
+using FaceAnalyzer.Api.Data.Entities;
 using FaceAnalyzer.Api.Service.Contracts;
 using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
@@ -27,7 +28,7 @@ public class ExperimentController : ControllerBase
         var result = await _mediator.Send(new GetExperimentsQuery(id));
         if (result.Items.Count == 0)
         {
-            throw new EntityNotFoundException("Experiment", id);
+            throw new EntityNotFoundException(nameof(Experiment), id);
         }
 
         return Ok(result.Items.FirstOrDefault());

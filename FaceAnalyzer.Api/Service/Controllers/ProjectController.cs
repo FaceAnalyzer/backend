@@ -1,6 +1,7 @@
 ﻿using FaceAnalyzer.Api.Business.BusinessModels;
 using FaceAnalyzer.Api.Business.Commands.Projects;
 using FaceAnalyzer.Api.Business.Contracts;
+using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Service.Contracts;
 using FaceAnalyzer.Api.Shared.Enum;
 using MediatR;
@@ -18,6 +19,22 @@ public class ProjectController : ControllerBase
     public ProjectController(ISender mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<QueryResult<ProjectDto>>> Get([FromQuery] ProjectQueryDto dto)
+    {
+        var query = new GetProjectsQuery(Id: null, Name: dto.ProjectName);
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+    
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<QueryResult<ProjectDto>>> Get(int id)
+    {
+        var query = new GetProjectsQuery(Id: id, Name: null);
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 
     [HttpPost]
