@@ -12,6 +12,5 @@ public class ProjectMappingProfile : Profile
         CreateMap<Project, ProjectDto>()
             .ReverseMap();
         CreateMap<Project, CreateProjectCommand>().ReverseMap();
-        CreateMap<Project, DeleteProjectCommand>().ReverseMap();
     }
 }
