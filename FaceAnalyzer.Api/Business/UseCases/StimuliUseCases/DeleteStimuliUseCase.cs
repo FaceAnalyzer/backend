@@ -12,6 +12,9 @@ public class DeleteStimuliUseCase : BaseUseCase, IRequestHandler<DeleteStimuliCo
     public async Task Handle(DeleteStimuliCommand request, CancellationToken cancellationToken)
     {
         var stimuli = await DbContext.Stimuli
+            .Include(s => s.Reactions)
+            .ThenInclude(r => r.Emotions)
+            .AsSplitQuery()
             .FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
 
         if (stimuli is null)
@@ -21,8 +24,8 @@ public class DeleteStimuliUseCase : BaseUseCase, IRequestHandler<DeleteStimuliCo
                     $"no stimuli with this id ({request.Id}) was found")
                 .Build();
         }
-        
-        stimuli.DeletedAt = DateTime.Now;
+
+        DbContext.Delete(stimuli);
 
         await DbContext.SaveChangesAsync(cancellationToken);
     }

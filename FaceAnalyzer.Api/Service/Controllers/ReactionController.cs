@@ -5,7 +5,7 @@ using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Data.Entities;
 using FaceAnalyzer.Api.Service.Contracts;
-using FaceAnalyzer.Api.Service.Examples;
+using FaceAnalyzer.Api.Service.Swagger.Examples;
 using FaceAnalyzer.Api.Shared.Enum;
 using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;

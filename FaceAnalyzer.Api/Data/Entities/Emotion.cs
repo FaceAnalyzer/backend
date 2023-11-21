@@ -8,8 +8,11 @@ public class Emotion : EntityBase, IDeletable
     public long TimeOffset { get; set; }
     public EmotionType EmotionType { get; set; }
     public int ReactionId { get; set; }
-    public DateTime? DeletedAt { get; set; }
-    public string? DeletedBy { get; set; }
-
     public Reaction Reaction { get; set; }
+    public DateTime? DeletedAt { get; set; }
+
+    public void Delete()
+    {
+        DeletedAt = DateTime.Now;
+    }
 }

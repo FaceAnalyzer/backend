@@ -1,39 +1,16 @@
-using FaceAnalyzer.Api.Shared.Enum;
-using FaceAnalyzer.Api.Shared.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("")]
 public class TestController : ControllerBase
 {
-    private readonly SecurityContext _securityContext;
-
-    public TestController(SecurityContext context)
-    {
-        _securityContext = context;
-    }
-
     [AllowAnonymous]
-    [HttpGet("/login")]
-    public string Login()
+    [HttpGet("/ping")]
+    public IActionResult Ping()
     {
-        var principal = new SecurityPrincipal
-        {
-            Id = 1,
-            Role = UserRole.Admin
-        };
-        return _securityContext.CreateJwt(principal);
-    }
-
-
-    [HttpGet("test")]
-    [Authorize(Roles = nameof(UserRole.Researcher))]
-    public IActionResult Test()
-    {
-        var user = _securityContext.Principal;
-        return Ok(user);
+        return Ok("Hello From Face Analyzer backend");
     }
 }

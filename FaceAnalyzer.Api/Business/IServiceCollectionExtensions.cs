@@ -1,8 +1,6 @@
 ﻿using FaceAnalyzer.Api.Business.BusinessModels;
 using FaceAnalyzer.Api.Data;
-using FaceAnalyzer.Api.Shared;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace FaceAnalyzer.Api.Business;
 
@@ -39,5 +37,4 @@ public static class IServiceCollectionExtensions
     {
         services.AddMediatR(config => config.RegisterServicesFromAssemblyContaining<Program>());
     }
-
 }

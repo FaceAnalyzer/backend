@@ -1,12 +1,19 @@
 ﻿using FaceAnalyzer.Api.Business.BusinessModels;
 using FaceAnalyzer.Api.Business.Commands.Projects;
 using FaceAnalyzer.Api.Business.Contracts;
+using FaceAnalyzer.Api.Business.Queries;
+using FaceAnalyzer.Api.Service.Contracts;
+using FaceAnalyzer.Api.Service.Swagger.Examples;
+using FaceAnalyzer.Api.Shared.Enum;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
 
 [Route("projects")]
+[Authorize(Roles = nameof(UserRole.Admin))]
 public class ProjectController : ControllerBase
 {
     private readonly ISender _mediator;
@@ -16,10 +23,63 @@ public class ProjectController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost]
-    public async Task<ActionResult<ProjectDto>> Create([FromBody] CreateProjectCommand dto)
+    [HttpGet]
+    public async Task<ActionResult<QueryResult<ProjectDto>>> Get([FromQuery] ProjectQueryDto dto)
     {
-        var project = await _mediator.Send(dto);
+        var query = new GetProjectsQuery(Id: null, Name: dto.ProjectName);
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+    
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<QueryResult<ProjectDto>>> Get(int id)
+    {
+        var query = new GetProjectsQuery(Id: id, Name: null);
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<ProjectDto>> Create([FromBody] CreateProjectDto dto)
+    {
+        var command = new CreateProjectCommand(Name: dto.Name);
+        var project = await _mediator.Send(command);
         return Created($"/projects/{project.Id}", project);
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<ProjectDto>> Edit(int id, [FromBody] EditProjectDto request)
+    {
+        var command = new EditProjectCommand(id, request.Name);
+        var project = await _mediator.Send(command);
+        return Ok(project);
+    }
+    
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<ProjectDto>> Delete(int id)
+    {
+        var command = new DeleteProjectCommand(id);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPut("{id}/researcher/add")]
+    [SwaggerRequestExample(typeof(GrantRevokeProjectPermissionDto), typeof(GrantRevokeProjectPermissionDtoExample))]
+    public async Task<ActionResult> GrantPermission(int id, [FromBody]GrantRevokeProjectPermissionDto request)
+    {
+        var command = new GrantProjectPermissionCommand(id, request.ResearchersIds);
+        var project = await _mediator.Send(command);
+        return NoContent();
+    }
+    
+    [HttpPut("{id}/researcher/remove")]
+    [SwaggerRequestExample(typeof(GrantRevokeProjectPermissionDto), typeof(GrantRevokeProjectPermissionDtoExample))]
+    public async Task<ActionResult> RevokePermission(int id, [FromBody]GrantRevokeProjectPermissionDto request)
+    {
+        var command = new RevokeProjectPermissionCommand(id, request.ResearchersIds);
+        var project = await _mediator.Send(command);
+        return NoContent();
+    }
+
 }

@@ -10,10 +10,20 @@ public class Experiment : EntityBase, IDeletable
 
     #region Navigations
 
-    public Project? Project { get; set; }
-    public ICollection<Stimuli> Stimuli { get; set; }
+    public Project Project { get; set; }
+    public ICollection<Stimuli> Stimuli { get; set; } = new List<Stimuli>();
+
     #endregion
-    
+
     public DateTime? DeletedAt { get; set; }
-    public string? DeletedBy { get; set; }
+
+    public void Delete()
+    {
+        foreach (var stimulus in Stimuli)
+        {
+            stimulus.Delete();
+        }
+
+        DeletedAt = DateTime.Now;
+    }
 }

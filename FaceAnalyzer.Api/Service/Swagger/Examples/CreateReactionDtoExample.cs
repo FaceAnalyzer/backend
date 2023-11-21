@@ -3,7 +3,7 @@ using FaceAnalyzer.Api.Service.Contracts;
 using FaceAnalyzer.Api.Shared.Enum;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace FaceAnalyzer.Api.Service.Examples;
+namespace FaceAnalyzer.Api.Service.Swagger.Examples;
 
 public class CreateReactionDtoExample : IExamplesProvider<CreateReactionDto>
 {

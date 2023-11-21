@@ -9,8 +9,7 @@ public class ExperimentMappingProfile: Profile
 {
     public ExperimentMappingProfile()
     {
-        CreateMap<Experiment, ExperimentDto>()
-            .ReverseMap();
+        CreateMap<Experiment, ExperimentDto>().ReverseMap();
         CreateMap<Experiment, CreateExperimentCommand>().ReverseMap();
         CreateMap<Experiment, EditExperimentCommand>().ReverseMap();
         CreateMap<Experiment, DeleteExperimentCommand>().ReverseMap();

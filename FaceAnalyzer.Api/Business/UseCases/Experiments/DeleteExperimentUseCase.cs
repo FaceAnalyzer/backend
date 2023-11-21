@@ -5,10 +5,11 @@ using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Data.Entities;
 using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace FaceAnalyzer.Api.Business.UseCases.Experiments;
 
-public class DeleteExperimentUseCase: BaseUseCase, IRequestHandler<DeleteExperimentCommand>
+public class DeleteExperimentUseCase : BaseUseCase, IRequestHandler<DeleteExperimentCommand>
 {
     public DeleteExperimentUseCase(IMapper mapper, AppDbContext dbContext) : base(mapper, dbContext)
     {
@@ -17,7 +18,13 @@ public class DeleteExperimentUseCase: BaseUseCase, IRequestHandler<DeleteExperim
 
     public async Task Handle(DeleteExperimentCommand request, CancellationToken cancellationToken)
     {
-        var experiment = DbContext.Find<Experiment>(request.Id);
+        var experiment = await DbContext.Experiments
+            .Include(r => r.Stimuli)
+            .ThenInclude(s => s.Reactions)
+            .ThenInclude(r => r.Emotions)
+            .AsSplitQuery()
+            .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
+
         if (experiment is null)
         {
             throw new InvalidArgumentsExceptionBuilder()
@@ -26,8 +33,7 @@ public class DeleteExperimentUseCase: BaseUseCase, IRequestHandler<DeleteExperim
                 .Build();
         }
 
-        experiment.DeletedAt = DateTime.UtcNow;
-        DbContext.Update(experiment);
+        DbContext.Delete(experiment);
         await DbContext.SaveChangesAsync(cancellationToken);
     }
 }
