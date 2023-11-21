@@ -3,10 +3,12 @@ using FaceAnalyzer.Api.Business.Commands.Projects;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Service.Contracts;
+using FaceAnalyzer.Api.Service.Swagger.Examples;
 using FaceAnalyzer.Api.Shared.Enum;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
 
@@ -63,7 +65,8 @@ public class ProjectController : ControllerBase
     }
 
     [HttpPut("{id}/researcher/add")]
-    public async Task<ActionResult> GrantPermission(int id, [FromBody]GrantProjectPermissionDto request)
+    [SwaggerRequestExample(typeof(GrantRevokeProjectPermissionDto), typeof(GrantRevokeProjectPermissionDtoExample))]
+    public async Task<ActionResult> GrantPermission(int id, [FromBody]GrantRevokeProjectPermissionDto request)
     {
         var command = new GrantProjectPermissionCommand(id, request.ResearchersIds);
         var project = await _mediator.Send(command);
@@ -71,7 +74,8 @@ public class ProjectController : ControllerBase
     }
     
     [HttpPut("{id}/researcher/remove")]
-    public async Task<ActionResult> RevokePermission(int id, [FromBody]GrantProjectPermissionDto request)
+    [SwaggerRequestExample(typeof(GrantRevokeProjectPermissionDto), typeof(GrantRevokeProjectPermissionDtoExample))]
+    public async Task<ActionResult> RevokePermission(int id, [FromBody]GrantRevokeProjectPermissionDto request)
     {
         var command = new RevokeProjectPermissionCommand(id, request.ResearchersIds);
         var project = await _mediator.Send(command);
