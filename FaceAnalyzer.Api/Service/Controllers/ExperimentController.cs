@@ -25,7 +25,7 @@ public class ExperimentController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult<ExperimentDto>> Get(int id)
     {
-        var result = await _mediator.Send(new GetExperimentsQuery(id));
+        var result = await _mediator.Send(new GetExperimentsQuery(id, null));
         if (result.Items.Count == 0)
         {
             throw new EntityNotFoundException(nameof(Experiment), id);
@@ -35,9 +35,9 @@ public class ExperimentController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<ExperimentDto>>> Get()
+    public async Task<ActionResult<List<ExperimentDto>>> Get(int? projectId)
     {
-        var result = await _mediator.Send(new GetExperimentsQuery(null));
+        var result = await _mediator.Send(new GetExperimentsQuery(null, projectId));
         return Ok(result);
     }
 
