@@ -17,6 +17,7 @@ public class GetExperimentsUseCase : BaseUseCase, IRequestHandler<GetExperiments
     {
         var results = await DbContext.Experiments
             .ConditionalWhere(request.Id.HasValue, e=> e.Id == request.Id)
+            .ConditionalWhere(request.ProjectId.HasValue, e=>e.ProjectId == request.ProjectId)
             .ProjectTo<ExperimentDto>(Mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
         return results.ToQueryResult();
