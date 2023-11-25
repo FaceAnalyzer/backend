@@ -2,9 +2,11 @@
 using FaceAnalyzer.Api.Business.Commands.Projects;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
+using FaceAnalyzer.Api.Data.Entities;
 using FaceAnalyzer.Api.Service.Contracts;
 using FaceAnalyzer.Api.Service.Swagger.Examples;
 using FaceAnalyzer.Api.Shared.Enum;
+using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +38,11 @@ public class ProjectController : ControllerBase
     {
         var query = new GetProjectsQuery(Id: id, Name: null);
         var result = await _mediator.Send(query);
-        return Ok(result);
+        if (result.Items.Count == 0)
+        {
+            throw new EntityNotFoundException(nameof(Project), id);
+        }
+        return Ok(result.Items.FirstOrDefault());
     }
 
     [HttpPost]

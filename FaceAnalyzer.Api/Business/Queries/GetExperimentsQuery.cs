@@ -3,4 +3,4 @@ using MediatR;
 
 namespace FaceAnalyzer.Api.Business.Queries;
 
-public record GetExperimentsQuery(int? Id): IRequest<QueryResult<ExperimentDto>>;
+public record GetExperimentsQuery(int? Id, int? ProjectId): IRequest<QueryResult<ExperimentDto>>;
