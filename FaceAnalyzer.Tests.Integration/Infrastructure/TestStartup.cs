@@ -5,8 +5,12 @@ using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Service;
 using FaceAnalyzer.Api.Service.Middlewares;
 using FaceAnalyzer.Api.Shared;
+using FaceAnalyzer.Api.Shared.Enum;
+using FaceAnalyzer.Api.Shared.Security;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +20,14 @@ namespace FaceAnalyzer.Tests.Integration.Infrastructure;
 
 public class TestStartup
 {
+    private readonly bool _authenticationEnabled;
+
+    public TestStartup(bool authenticationEnabled)
+    {
+        _authenticationEnabled = authenticationEnabled;
+    }
+
+
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers()
@@ -24,30 +36,28 @@ public class TestStartup
         services.AddSingleton(AppConfiguration);
         services.AddBusinessModels();
         services.AddDbContext<AppDbContext>(opt => { opt.UseInMemoryDatabase("FaceAnalyzerIntegrationTests"); });
-        services.AddAppAuthentication(AppConfiguration);
         services.AddMappers();
-        services.AddHttpContextAccessor();
         services.AddMediatR();
+        services.AddHttpContextAccessor();
         services.AddScoped<ErrorHandlerMiddleware>();
+
+        services.AddAppAuthentication(AppConfiguration);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        app.UseHttpsRedirection();
-        app.UseCors(opt =>
-        {
-            opt.AllowAnyHeader();
-            opt.AllowAnyOrigin();
-            opt.AllowAnyMethod();
-        });
+        app.UseMiddleware<ErrorHandlerMiddleware>();
+        app.UseRouting();
+
         app.UseAuthentication();
-        app.UseAuthorization();
         app.UseMiddleware<SetSecurityPrincipalMiddleware>();
 
-        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
-        app.UseMiddleware<ErrorHandlerMiddleware>();
+        app.UseAuthorization();
+
+        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
+
 
     private AppConfiguration AppConfiguration
     {
