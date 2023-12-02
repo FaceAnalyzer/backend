@@ -1,0 +1,43 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build backend
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: FaceAnalyzer.Api
+    steps:
+    - uses: actions/checkout@v3
+    - name: Login to Docker registry
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+        password: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag plavy/faceanalyzer-backend:${{ github.sha }}
+    - name: Push the Docker image
+      run: docker push plavy/faceanalyzer-backend:${{ github.sha }}
+  deploy:
+    name: Deploy backend
+    needs: build
+    runs-on: ubuntu-22.04
+    environment:
+      name: main
+      url: https://backend.faceanalyzer.plavy.me/swagger/
+    env:
+      KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Apply the Kubernetes manifest
+      uses: actions-hub/kubectl@master
+      with:
+        args: apply -n faceanalyzer -f FaceAnalyzer.Api/manifest.yaml
+    - name: Set the image tag
+      uses: actions-hub/kubectl@master
+      with:
+        args: set image -n faceanalyzer deployment/faceanalyzer-backend faceanalyzer-backend=plavy/faceanalyzer-backend:${{ github.sha }}
