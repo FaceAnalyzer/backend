@@ -1,10 +1,8 @@
 # FaceAnalyzer - Backend Project
 
-This repository contains the FaceAnalyzer backend project, an ASP.NET Core Web API.
-
+This repository contains the FaceAnalyzer backend solution. The project is written in .NetCore version 7.0
+> The Api code is inside FaceAnalyzer.Api project which is an ASP.NET Core Web API application
 ## Folder Structure
-This list is not complete ! 
-Some folders does not exist yet. 
 - **/Data**: Contains database entities, migrations, and database context.
     - **/Entities**: Database entity classes.
     - **/Migrations**: Database migration scripts.
@@ -12,15 +10,17 @@ Some folders does not exist yet.
 - **/Service**: Includes the service layer, controllers, middlewares, and filters.
     - **/Controllers**: API controllers.
     - **/Middlewares**: Custom middleware components.
-    - ...
+    - **/Profiles**: Mapping profiles for service layer
+    - **/Swagger**: Swagger Documents customization
 - **/Business**: Houses business models, DTOs, and mappers.
-    - **/Models**: Business models.
+    - **/UseCases**: Business use cases
+    - **/Commands**: Business use case commands
+    - **/Queries**: Business use case queries
     - **/Contracts**: Describes the communication between the business and other layers. (dtos for example)
-    - **/Mappers**: Mapping logic.
+    - **/Profiles**: Mapping profile logic for business layer.
 - **/Shared**: Stores enums, constants, and shared resources.
     - **/Enum**: Enumeration types.
-    - **/Constants**: Shared constants.
-    - **/Utils**: Shared utility functions.
+    - **/Security**: Authentication and Authorization
     - **/Exceptions**: Shared exceptions thrown by the application. 
   
 
@@ -28,7 +28,7 @@ Some folders does not exist yet.
 
 To run the FaceAnalyzer project, follow these steps:
 
-1. Install .Net7 from [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+1. Install .Net7 from [here](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
 2. Clone the repository:
  ```bash
   git clone https://github.com/FaceAnalyzer/backend.git

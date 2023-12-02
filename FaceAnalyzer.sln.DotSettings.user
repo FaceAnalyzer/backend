@@ -2,12 +2,8 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\7.0.10\ref\net7.0\System.ComponentModel.Annotations.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\awada\AppData\Local\JetBrains\Rider2023.2\resharper-host\temp\Rider\vAny\CoverageData\_FaceAnalyzer.-1572165404\Snapshot\snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a9a81c18_002D94a6_002D4ecd_002D8af7_002D3a4fa0b95278/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Revoke permission of project from given researcher successfully" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Or&gt;&#xD;
-    &lt;Project Location="C:\Users\awada\source\FaceAnalyzer\backend\FaceAnalyzer.Api.Tests" Presentation="&amp;lt;FaceAnalyzer.Api.Tests&amp;gt;" /&gt;&#xD;
-    &lt;Project Location="C:\Users\awada\source\FaceAnalyzer\backend\FaceAnalyzer.Tests.Integration" Presentation="&amp;lt;FaceAnalyzer.Tests.Integration&amp;gt;" /&gt;&#xD;
-  &lt;/Or&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=96b18809_002Def06_002D4e67_002D8393_002D4c84d569e65d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Should_Store_Project_Into_DB" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\awada\code\FaceAnalyzer\backend\FaceAnalyzer.Api.Tests" Presentation="&amp;lt;FaceAnalyzer.Api.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	
