@@ -33,6 +33,9 @@ var app = builder.Build();
 
 #region Pipeline
 
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -49,7 +52,7 @@ app.UseMiddleware<SetSecurityPrincipalMiddleware>();
 
 app.MapControllers();
 
-app.UseMiddleware<ErrorHandlerMiddleware>();
+
 app.Run();
 
 #endregion
