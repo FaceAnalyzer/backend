@@ -17,7 +17,8 @@ public class CreateNoteUseCase : BaseUseCase, IRequestHandler<CreateNoteCommand,
     
     public async Task<NoteDto> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
     {
-        var experiment = DbContext.Find<Project>(request.ExperimentId);
+        
+        var experiment = DbContext.Find<Experiment>(request.ExperimentId);
         if (experiment is null)
         {
             throw new InvalidArgumentsExceptionBuilder()
@@ -25,8 +26,10 @@ public class CreateNoteUseCase : BaseUseCase, IRequestHandler<CreateNoteCommand,
                     $"no experiment with this id ({request.ExperimentId}) was found")
                 .Build();
         }
+        
 
         var note = Mapper.Map<Note>(request);
+        
         DbContext.Add(note);
         await DbContext.SaveChangesAsync(cancellationToken);
         return Mapper.Map<NoteDto>(note);

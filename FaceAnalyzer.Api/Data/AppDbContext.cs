@@ -46,7 +46,7 @@ public class AppDbContext : DbContext
     public DbSet<Reaction> Reactions { get; set; }
     public DbSet<Emotion> Emotions { get; set; }
     
-    public DbSet<Note> Notes { get; set; }
+    public DbSet<Note> Note { get; set; }
 
 
     #region QueryFilters

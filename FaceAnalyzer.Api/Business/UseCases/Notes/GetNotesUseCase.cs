@@ -15,7 +15,7 @@ public class GetNotesUseCase : BaseUseCase, IRequestHandler<GetNotesQuery, Query
     public async Task<QueryResult<NoteDto>> Handle(GetNotesQuery request,
         CancellationToken cancellationToken)
     {
-        var results = await DbContext.Notes
+        var results = await DbContext.Note
             .ConditionalWhere(request.Id.HasValue, n=> n.Id == request.Id)
             .ConditionalWhere(request.ExperimentId.HasValue, n=>n.ExperimentId == request.ExperimentId)
             .ProjectTo<NoteDto>(Mapper.ConfigurationProvider)
