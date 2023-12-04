@@ -1,3 +1,3 @@
 ﻿namespace FaceAnalyzer.Api.Business.Contracts;
 
-public record NoteDto(int Id, string Description, int ExperimentId);
+public record NoteDto(int Id, string Description, int ExperimentId, int CreatorId);

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FaceAnalyzer.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231202174902_AddNotes")]
-    partial class AddNotes
+    [Migration("20231204143521_AddNotesFinal")]
+    partial class AddNotesFinal
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,6 +108,9 @@ namespace FaceAnalyzer.Api.Migrations
                         .HasColumnType("TIMESTAMP")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime(6)");
 
@@ -124,6 +127,8 @@ namespace FaceAnalyzer.Api.Migrations
                         .HasDefaultValueSql("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
 
                     b.HasIndex("ExperimentId");
 
@@ -324,11 +329,19 @@ namespace FaceAnalyzer.Api.Migrations
 
             modelBuilder.Entity("FaceAnalyzer.Api.Data.Entities.Note", b =>
                 {
+                    b.HasOne("FaceAnalyzer.Api.Data.Entities.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FaceAnalyzer.Api.Data.Entities.Experiment", "Experiment")
                         .WithMany()
                         .HasForeignKey("ExperimentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Creator");
 
                     b.Navigation("Experiment");
                 });

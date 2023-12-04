@@ -17,7 +17,15 @@ public class CreateNoteUseCase : BaseUseCase, IRequestHandler<CreateNoteCommand,
     
     public async Task<NoteDto> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
     {
-        
+        var user = DbContext.Find<User>(request.CreatorId);
+        if (user is null)
+        {
+            throw new InvalidArgumentsExceptionBuilder()
+                .AddArgument(nameof(request.CreatorId),
+                    $"no user with this id ({request.CreatorId}) was found")
+                .Build();
+        }
+            
         var experiment = DbContext.Find<Experiment>(request.ExperimentId);
         if (experiment is null)
         {

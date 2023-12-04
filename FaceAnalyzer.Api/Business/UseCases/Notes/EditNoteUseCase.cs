@@ -25,6 +25,20 @@ public class EditNoteUseCase : BaseUseCase, IRequestHandler<EditNoteCommand, Not
                 .Build();
         }
 
+        if (request.CreatorId is not null)
+        {
+            var creator = DbContext.Find<User>(request.CreatorId);
+            if (creator is null)
+            {
+                throw new InvalidArgumentsExceptionBuilder()
+                    .AddArgument(nameof(request.CreatorId),
+                        $"no user with this id ({request.CreatorId}) was found")
+                    .Build();
+            }
+
+            note.CreatorId = creator.Id;
+        }
+
         if (request.ExperimentId is not null)
         {
             var experiment = DbContext.Find<Experiment>(request.ExperimentId);

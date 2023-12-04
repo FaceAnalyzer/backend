@@ -58,7 +58,8 @@ public class NoteController : ControllerBase
         var command = new EditNoteCommand(
             id,
             dto.Description,
-            dto.ExperimentId
+            dto.ExperimentId,
+            dto.CreatorId
         );
         var result = await _mediator.Send(command);
         return Ok(result);
