@@ -6,6 +6,7 @@ obj/
 FaceAnalyzer.Api/appsettings.Development.json
 uploaded-files
 *.DotSettings
+*.user
 # Sqlite files
 **/*.db 
 FaceAnalyzer.ConsolePlayground/
