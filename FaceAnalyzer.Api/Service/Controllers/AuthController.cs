@@ -6,11 +6,13 @@ using FaceAnalyzer.Api.Shared.Security;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
 [Route("auth")]
+[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class AuthController : ControllerBase
 {
     private readonly ISender _mediator;
@@ -24,6 +26,10 @@ public class AuthController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("login")]
+    [SwaggerOperation("Log in registered users.",
+        "Log in users using, 'username' and 'password' and upon successful authentication returns the access token (to be used for authorization).",
+        OperationId = $"{nameof(AuthController)}_login")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(LoginResponse))]
     public async Task<ActionResult<AuthResult>> Login(LoginRequest dto)
     {
         var command = new LoginCommand(dto.Username, dto.Password);
@@ -37,6 +43,10 @@ public class AuthController : ControllerBase
 
     [HttpPatch("reset-user-password")]
     [Authorize(Roles = nameof(UserRole.Admin))]
+    [SwaggerOperation("Reset users' password.",
+        "This endpoint allows the Admin to reset any user's password.",
+        OperationId = $"{nameof(AuthController)}_reset_admin")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResetPasswordResult))]
     public async Task<ActionResult<ResetPasswordResult>> ResetPassword(ResetUserPasswordDto dto)
     {
         var request = new ResetPasswordCommand(dto.UserId, dto.NewPassword);
@@ -45,6 +55,10 @@ public class AuthController : ControllerBase
     }
 
     [HttpPatch("reset-my-password")]
+    [SwaggerOperation("Reset user's own password.",
+        "This endpoint allows the user to reset their own password.",
+        OperationId = $"{nameof(AuthController)}_reset_admin")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResetPasswordResult))]
     public async Task<ActionResult<ResetPasswordResult>> ResetPassword(ResetMyPasswordDto dto)
     {
         var userId = _securityContext.Principal.Id;
