@@ -15,7 +15,6 @@ using Swashbuckle.AspNetCore.Filters;
 namespace FaceAnalyzer.Api.Service.Controllers;
 
 [Route("projects")]
-[Authorize(Roles = nameof(UserRole.Admin))]
 public class ProjectController : ControllerBase
 {
     private readonly ISender _mediator;
@@ -26,14 +25,16 @@ public class ProjectController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = $"{nameof(UserRole.Admin)},{nameof(UserRole.Researcher)}")]
     public async Task<ActionResult<QueryResult<ProjectDto>>> Get([FromQuery] ProjectQueryDto dto)
     {
         var query = new GetProjectsQuery(Id: null, Name: dto.ProjectName);
         var result = await _mediator.Send(query);
         return Ok(result);
     }
-    
+
     [HttpGet("{id:int}")]
+    [Authorize(Roles = $"{nameof(UserRole.Admin)}, {nameof(UserRole.Researcher)}")]
     public async Task<ActionResult<QueryResult<ProjectDto>>> Get(int id)
     {
         var query = new GetProjectsQuery(Id: id, Name: null);
@@ -42,10 +43,12 @@ public class ProjectController : ControllerBase
         {
             throw new EntityNotFoundException(nameof(Project), id);
         }
+
         return Ok(result.Items.FirstOrDefault());
     }
 
     [HttpPost]
+    [Authorize(Roles = nameof(UserRole.Admin))]
     public async Task<ActionResult<ProjectDto>> Create([FromBody] CreateProjectDto dto)
     {
         var command = new CreateProjectCommand(Name: dto.Name);
@@ -54,15 +57,17 @@ public class ProjectController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = nameof(UserRole.Admin))]
     public async Task<ActionResult<ProjectDto>> Edit(int id, [FromBody] EditProjectDto request)
     {
         var command = new EditProjectCommand(id, request.Name);
         var project = await _mediator.Send(command);
         return Ok(project);
     }
-    
+
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = nameof(UserRole.Admin))]
     public async Task<ActionResult<ProjectDto>> Delete(int id)
     {
         var command = new DeleteProjectCommand(id);
@@ -71,21 +76,22 @@ public class ProjectController : ControllerBase
     }
 
     [HttpPut("{id}/researcher/add")]
+    [Authorize(Roles = nameof(UserRole.Admin))]
     [SwaggerRequestExample(typeof(GrantRevokeProjectPermissionDto), typeof(GrantRevokeProjectPermissionDtoExample))]
-    public async Task<ActionResult> GrantPermission(int id, [FromBody]GrantRevokeProjectPermissionDto request)
+    public async Task<ActionResult> GrantPermission(int id, [FromBody] GrantRevokeProjectPermissionDto request)
     {
         var command = new GrantProjectPermissionCommand(id, request.ResearchersIds);
         var project = await _mediator.Send(command);
         return NoContent();
     }
-    
+
     [HttpPut("{id}/researcher/remove")]
+    [Authorize(Roles = nameof(UserRole.Admin))]
     [SwaggerRequestExample(typeof(GrantRevokeProjectPermissionDto), typeof(GrantRevokeProjectPermissionDtoExample))]
-    public async Task<ActionResult> RevokePermission(int id, [FromBody]GrantRevokeProjectPermissionDto request)
+    public async Task<ActionResult> RevokePermission(int id, [FromBody] GrantRevokeProjectPermissionDto request)
     {
         var command = new RevokeProjectPermissionCommand(id, request.ResearchersIds);
         var project = await _mediator.Send(command);
         return NoContent();
     }
-
 }

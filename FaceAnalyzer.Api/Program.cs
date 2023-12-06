@@ -44,8 +44,8 @@ app.UseCors(opt =>
     opt.AllowAnyMethod();
 });
 app.UseAuthentication();
-app.UseAuthorization();
 app.UseMiddleware<SetSecurityPrincipalMiddleware>();
+app.UseAuthorization();
 
 app.MapControllers();
 
