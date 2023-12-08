@@ -9,7 +9,7 @@ namespace FaceAnalyzer.Api.Tests.UseCases.Experiments;
 
 public class CreateExperimentUseCaseTest : UseCaseTestBase<CreateExperimentUseCase>
 {
-    [Fact(DisplayName = "Successfully Store new project")]
+    [Fact(DisplayName = "Successfully Store new experiment")]
     public async Task Should_Store_Experiment_Into_DB()
     {
         
@@ -40,6 +40,7 @@ public class CreateExperimentUseCaseTest : UseCaseTestBase<CreateExperimentUseCa
         
 
     }
+    
     [Fact(DisplayName = "Should throw Invalid Argument exception when project does not exists")]
     public async Task? Should_Fail_Storing_Experiment()
     {
