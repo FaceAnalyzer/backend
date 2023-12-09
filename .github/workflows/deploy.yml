@@ -33,9 +33,15 @@ jobs:
       name: ${{ github.ref_name }}
       url: https://backend.faceanalyzer.plavy.me/swagger/
     env:
-      KUBECONFIG: ${{ secrets.KUBE_CONFIG_AZURE }}
+      KUBECONFIG: "~/kubeconfig"
     steps:
     - uses: actions/checkout@v3
+    - name: Add kubeconfig
+        uses: mobiledevops/secret-to-file-action@v1
+        with:
+          base64-encoded-secret: ${{ secrets.KUBE_CONFIG_AZURE }}
+          filename: "kubeconfig"
+          working-directory: "~"
     - uses: azure/use-kubelogin@v1
       with:
         kubelogin-version: 'v0.0.24'
