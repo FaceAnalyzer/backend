@@ -33,6 +33,9 @@ jobs:
       KUBE_CONFIG: ${{ secrets.KUBE_CONFIG_AZURE }}
     steps:
     - uses: actions/checkout@v3
+    - uses: azure/use-kubelogin@v1
+      with:
+        kubelogin-version: 'v0.0.24'
     - name: Apply the Kubernetes manifest
       uses: actions-hub/kubectl@master
       with:
