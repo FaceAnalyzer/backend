@@ -2,33 +2,15 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\7.0.10\ref\net7.0\System.ComponentModel.Annotations.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=56204f51_002D3d05_002D4fac_002Dbde5_002Df88fb312bf0a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Successfully Delete a Note" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::B8E2E525-6050-4A63-B4C9-644A1E231228::net7.0::FaceAnalyzer.Api.Tests.UseCases.Notes.DeleteNoteUseCaseTests.Should_Delete_Note_Into_DB&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5ff23e5f_002D9e8b_002D48fe_002Dbeb9_002Dd8912eff67ff/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Successfully Store new Note" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9649cbb8_002D5df9_002D4aa6_002D80a4_002D1cc3cf67d702/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Successfully Edited a Note #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Or&gt;&#xD;
-    &lt;TestAncestor&gt;&#xD;
-      &lt;TestId&gt;xUnit::B8E2E525-6050-4A63-B4C9-644A1E231228::net7.0::FaceAnalyzer.Api.Tests.UseCases.Notes.CreateNoteUseCaseTests.Should_Store_Note_Into_DB&lt;/TestId&gt;&#xD;
-      &lt;TestId&gt;xUnit::B8E2E525-6050-4A63-B4C9-644A1E231228::net7.0::FaceAnalyzer.Api.Tests.UseCases.Notes.DeleteNoteUseCaseTests&lt;/TestId&gt;&#xD;
-      &lt;TestId&gt;xUnit::B8E2E525-6050-4A63-B4C9-644A1E231228::net7.0::FaceAnalyzer.Api.Tests.UseCases.Experiments.CreateExperimentUseCaseTest&lt;/TestId&gt;&#xD;
-      &lt;TestId&gt;xUnit::B8E2E525-6050-4A63-B4C9-644A1E231228::net7.0::FaceAnalyzer.Api.Tests.UseCases.Notes.EditNoteUseCaseTests.Should_Edit_Note_Into_DB&lt;/TestId&gt;&#xD;
-      &lt;TestId&gt;xUnit::B8E2E525-6050-4A63-B4C9-644A1E231228::net7.0::FaceAnalyzer.Api.Tests.UseCases.Notes.CreateNoteUseCaseTests&lt;/TestId&gt;&#xD;
-      &lt;TestId&gt;xUnit::1C3EF74B-3469-45CE-92A5-558DE267634E::net7.0::FaceAnalyzer.Tests.Integration.Projects.RevokeProjectPermissionsTest&lt;/TestId&gt;&#xD;
-      &lt;TestId&gt;xUnit::1C3EF74B-3469-45CE-92A5-558DE267634E::net7.0::FaceAnalyzer.Tests.Integration.Users.CreateUserIntegrationTest&lt;/TestId&gt;&#xD;
-    &lt;/TestAncestor&gt;&#xD;
-    &lt;Project Location="C:\Users\Mario\Documents\GitHub\backend\FaceAnalyzer.Api.Tests" Presentation="&amp;lt;FaceAnalyzer.Api.Tests&amp;gt;" /&gt;&#xD;
     &lt;Project Location="C:\Users\awada\source\FaceAnalyzer\backend\FaceAnalyzer.Api.Tests" Presentation="&amp;lt;FaceAnalyzer.Api.Tests&amp;gt;" /&gt;&#xD;
+    &lt;Project Location="C:\Users\awada\source\FaceAnalyzer\backend\FaceAnalyzer.Tests.Integration" Presentation="&amp;lt;FaceAnalyzer.Tests.Integration&amp;gt;" /&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9649cbb8_002D5df9_002D4aa6_002D80a4_002D1cc3cf67d702/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Successfully Edited a Note #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\Users\awada\source\FaceAnalyzer\backend\FaceAnalyzer.Api.Tests" Presentation="&amp;lt;FaceAnalyzer.Api.Tests&amp;gt;" /&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=96b18809_002Def06_002D4e67_002D8393_002D4c84d569e65d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Should_Store_Project_Into_DB" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\awada\code\FaceAnalyzer\backend\FaceAnalyzer.Api.Tests" Presentation="&amp;lt;FaceAnalyzer.Api.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	
-	
-	
 	
 	
 	</wpf:ResourceDictionary>

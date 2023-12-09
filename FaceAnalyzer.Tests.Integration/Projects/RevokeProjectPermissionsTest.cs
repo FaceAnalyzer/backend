@@ -70,6 +70,7 @@ public class RevokeProjectPermissionsTest
         // Arrange: add project and users to db
         _fixture
             .AddDefaultPrincipal(1, UserRole.Admin)
+            .EnableAuthentication()
             .Build();
         var project = await AddProject();
         var users = await AddUsers();
@@ -107,6 +108,7 @@ public class RevokeProjectPermissionsTest
     {
         // Arrange: add project and users to db
         _fixture
+            .EnableAuthentication()
             .AddDefaultPrincipal(1, UserRole.Admin)
             .Build();
 
@@ -142,6 +144,7 @@ public class RevokeProjectPermissionsTest
     {
         // Arrange: add project and users to db
         _fixture
+            .EnableAuthentication()
             .AddDefaultPrincipal(1, UserRole.Admin)
             .Build();
 
