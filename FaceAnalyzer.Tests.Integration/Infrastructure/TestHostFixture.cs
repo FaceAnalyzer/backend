@@ -82,7 +82,7 @@ public class TestHostFixture : IAsyncDisposable
         }
 
         var client = _host.GetTestClient();
-        if (!AuthenticationEnabled)
+        if (AuthenticationEnabled)
         {
             var securityContext = _host.Services.GetRequiredService<SecurityContext>();
             var token = securityContext.CreateJwt(_securityPrincipal);
