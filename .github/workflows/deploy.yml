@@ -27,7 +27,7 @@ jobs:
     needs: build
     runs-on: ubuntu-22.04
     environment:
-      name: main
+      name: ${{ github.ref_name }}
       url: https://backend.faceanalyzer.plavy.me/swagger/
     env:
       KUBE_CONFIG: ${{ secrets.KUBE_CONFIG_AZURE }}
