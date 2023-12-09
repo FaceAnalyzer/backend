@@ -42,6 +42,7 @@ jobs:
         base64-encoded-secret: ${{ secrets.KUBE_CONFIG_AZURE }}
         filename: "kubeconfig"
         working-directory: "~"
+    - run: ls -la ~
     - uses: azure/use-kubelogin@v1
       with:
         kubelogin-version: 'v0.0.24'
