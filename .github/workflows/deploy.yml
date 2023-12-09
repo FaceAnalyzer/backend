@@ -36,6 +36,8 @@ jobs:
     - uses: azure/use-kubelogin@v1
       with:
         kubelogin-version: 'v0.0.24'
+    - run: kubelogin --help
+    - run: kubectl --help
     - name: Apply the Kubernetes manifest
       uses: actions-hub/kubectl@master
       with:
