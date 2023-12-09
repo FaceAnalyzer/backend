@@ -60,5 +60,6 @@ jobs:
     - name: Apply migration bundle
       run: > 
         export POD_NAME=$(kubectl get pods -n faceanalyzer -l app=faceanalyzer-backend --no-headers -o custom-columns=":metadata.name");
+        kubectl cp -n faceanalyzer appsettings.Development.json ${POD_NAME}:.;
         kubectl cp -n faceanalyzer ./efbundle ${POD_NAME}:.;
         kubectl exec -n faceanalyzer ${POD_NAME} -- ./efbundle;
