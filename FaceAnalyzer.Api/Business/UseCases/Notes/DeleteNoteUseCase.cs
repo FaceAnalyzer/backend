@@ -16,7 +16,6 @@ public class DeleteNoteUseCase: BaseUseCase, IRequestHandler<DeleteNoteCommand>
     public async Task Handle(DeleteNoteCommand request, CancellationToken cancellationToken)
     {
         var note = await DbContext.Note
-            .AsSplitQuery()
             .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
 
         if (note is null)
