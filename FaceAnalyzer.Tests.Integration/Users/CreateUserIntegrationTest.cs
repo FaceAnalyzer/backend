@@ -30,6 +30,7 @@ public class CreateUserIntegrationTest
     public async Task CreateResearcherUser()
     {
         _fixture
+            .EnableAuthentication()
             .AddDefaultPrincipal(1, UserRole.Admin)
             .Build();
 
@@ -71,6 +72,7 @@ public class CreateUserIntegrationTest
     public async Task CreateAdminUser()
     {
         _fixture
+            .EnableAuthentication()
             .AddDefaultPrincipal(1, UserRole.Admin)
             .Build();
 
@@ -114,6 +116,7 @@ public class CreateUserIntegrationTest
     public async Task ResearcherDeniedToCreateAdminUser()
     {
         _fixture
+            .EnableAuthentication()
             .AddDefaultPrincipal(1, UserRole.Researcher)
             .Build();
 
@@ -149,6 +152,7 @@ public class CreateUserIntegrationTest
     public async Task ResearcherDeniedToCreateResearcherUser()
     {
         _fixture
+            .EnableAuthentication()
             .AddDefaultPrincipal(1, UserRole.Researcher)
             .Build();
 
@@ -184,6 +188,7 @@ public class CreateUserIntegrationTest
     public async Task SameEmailNotPossible()
     {
         _fixture
+            .EnableAuthentication()
             .AddDefaultPrincipal(1, UserRole.Admin)
             .Build();
 
@@ -240,6 +245,7 @@ public class CreateUserIntegrationTest
     public async Task SameUsernameNotPossible()
     {
         _fixture
+            .EnableAuthentication()
             .AddDefaultPrincipal(1, UserRole.Admin)
             .Build();
 
