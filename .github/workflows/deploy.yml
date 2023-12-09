@@ -33,7 +33,7 @@ jobs:
       name: ${{ github.ref_name }}
       url: https://backend.faceanalyzer.plavy.me/swagger/
     env:
-      KUBECONFIG: "../kubeconfig"
+      KUBECONFIG: "./kubeconfig"
       AAD_SERVICE_PRINCIPAL_CLIENT_ID: ${{ secrets.AAD_SERVICE_PRINCIPAL_CLIENT_ID }}
       AAD_SERVICE_PRINCIPAL_CLIENT_SECRET: ${{ secrets.AAD_SERVICE_PRINCIPAL_CLIENT_SECRET }}
     steps:
@@ -43,7 +43,7 @@ jobs:
       with:
         base64-encoded-secret: ${{ secrets.KUBE_CONFIG_AZURE }}
         filename: "kubeconfig"
-        working-directory: "."
+        working-directory: "FaceAnalyzer.Api"
     - uses: azure/use-kubelogin@v1
       with:
         kubelogin-version: 'v0.0.24'
