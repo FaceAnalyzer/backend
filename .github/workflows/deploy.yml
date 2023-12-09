@@ -59,6 +59,6 @@ jobs:
       run: dotnet ef migrations bundle --force -r linux-x64 --self-contained
     - name: Apply migration bundle
       run: > 
-        POD_NAME=$(kubectl get pods -n faceanalyzer -l app=faceanalyzer-backend --no-headers -o custom-columns=":metadata.name")
-        kubectl cp -n faceanalyzer ./efbundle ${POD_NAME}:.
-        kubectl exec -n faceanalyzer ${POD_NAME} -- ./efbundle --connection 'server=mysql;user=root;password=root;database=face_analyzer'
+        export POD_NAME=$(kubectl get pods -n faceanalyzer -l app=faceanalyzer-backend --no-headers -o custom-columns=":metadata.name")
+        kubectl cp -n faceanalyzer ./efbundle ${POD_NAME}:.;
+        kubectl exec -n faceanalyzer ${POD_NAME} -- ./efbundle
