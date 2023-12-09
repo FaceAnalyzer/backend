@@ -51,6 +51,8 @@ jobs:
       run: kubectl apply -n faceanalyzer -f manifest.yaml
     - name: Set the image tag
       run: kubectl set image -n faceanalyzer deployment/faceanalyzer-backend faceanalyzer-backend=plavy/faceanalyzer-backend:${{ github.sha }}
+    - name: Install dotnet ef
+      run: dotnet tool install dotnet-ef --global
     - name: Create migration bundle
       run: dotnet ef migrations bundle --force -r linux-x64
     - name: Apply migration bundle
