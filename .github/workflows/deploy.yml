@@ -54,7 +54,7 @@ jobs:
     - name: Install dotnet ef
       run: dotnet tool install dotnet-ef --global
     - name: Create migration bundle
-      run: dotnet ef migrations bundle --force -r linux-x64
+      run: dotnet ef migrations bundle --force -r linux-x64 --self-contained
     - name: Apply migration bundle
       run: > 
         POD_NAME=$(kubectl get pods -n faceanalyzer -l app=faceanalyzer-backend --no-headers -o custom-columns=":metadata.name")
