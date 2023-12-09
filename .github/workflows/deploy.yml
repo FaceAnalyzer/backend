@@ -33,7 +33,7 @@ jobs:
       name: ${{ github.ref_name }}
       url: https://backend.faceanalyzer.plavy.me/swagger/
     env:
-      KUBE_CONFIG: ${{ secrets.KUBE_CONFIG_AZURE }}
+      KUBECONFIG: ${{ secrets.KUBE_CONFIG_AZURE }}
     steps:
     - uses: actions/checkout@v3
     - uses: azure/use-kubelogin@v1
