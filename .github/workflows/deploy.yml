@@ -26,6 +26,9 @@ jobs:
     name: Deploy backend
     needs: build
     runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: FaceAnalyzer.Api
     environment:
       name: ${{ github.ref_name }}
       url: https://backend.faceanalyzer.plavy.me/swagger/
@@ -33,19 +36,12 @@ jobs:
       KUBE_CONFIG: ${{ secrets.KUBE_CONFIG_AZURE }}
     steps:
     - uses: actions/checkout@v3
-    - run: kubelogin --help
     - uses: azure/use-kubelogin@v1
       with:
         kubelogin-version: 'v0.0.24'
-    - run: kubelogin --help
-    - run: kubectl --help
     - name: Apply the Kubernetes manifest
-      uses: actions-hub/kubectl@master
-      with:
-        args: apply -n faceanalyzer -f FaceAnalyzer.Api/manifest.yaml
+      run: kubectl apply -n faceanalyzer -f manifest.yaml
     - name: Set the image tag
-      uses: actions-hub/kubectl@master
-      with:
-        args: set image -n faceanalyzer deployment/faceanalyzer-backend faceanalyzer-backend=plavy/faceanalyzer-backend:${{ github.sha }}
+      run: kubectl set image -n faceanalyzer deployment/faceanalyzer-backend faceanalyzer-backend=plavy/faceanalyzer-backend:${{ github.sha }}
     - name: Migrate database
       run: dotnet help
