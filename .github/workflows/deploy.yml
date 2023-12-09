@@ -37,11 +37,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Add kubeconfig
-        uses: mobiledevops/secret-to-file-action@v1
-        with:
-          base64-encoded-secret: ${{ secrets.KUBE_CONFIG_AZURE }}
-          filename: "kubeconfig"
-          working-directory: "~"
+      uses: mobiledevops/secret-to-file-action@v1
+      with:
+        base64-encoded-secret: ${{ secrets.KUBE_CONFIG_AZURE }}
+        filename: "kubeconfig"
+        working-directory: "~"
     - uses: azure/use-kubelogin@v1
       with:
         kubelogin-version: 'v0.0.24'
