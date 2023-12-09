@@ -33,6 +33,7 @@ jobs:
       KUBE_CONFIG: ${{ secrets.KUBE_CONFIG_AZURE }}
     steps:
     - uses: actions/checkout@v3
+    - run: kubelogin --help
     - uses: azure/use-kubelogin@v1
       with:
         kubelogin-version: 'v0.0.24'
