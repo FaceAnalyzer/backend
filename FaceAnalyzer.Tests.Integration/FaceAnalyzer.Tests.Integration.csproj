@@ -29,4 +29,6 @@
       <ProjectReference Include="..\FaceAnalyzer.Api\FaceAnalyzer.Api.csproj" />
     </ItemGroup>
 
+
+
 </Project>
