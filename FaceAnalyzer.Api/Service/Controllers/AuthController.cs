@@ -27,7 +27,7 @@ public class AuthController : ControllerBase
     [AllowAnonymous]
     [HttpPost("login")]
     [SwaggerOperation("Log in registered users.",
-        "Log in users using, 'username' and 'password' and upon successful authentication returns the access token (to be used for authorization).",
+        "Log in users using, [username] and [password] and upon successful authentication returns the access token (to be used for authorization).",
         OperationId = $"{nameof(AuthController)}_login")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(LoginResponse))]
     public async Task<ActionResult<AuthResult>> Login(LoginRequest dto)
@@ -43,7 +43,7 @@ public class AuthController : ControllerBase
 
     [HttpPatch("reset-user-password")]
     [Authorize(Roles = nameof(UserRole.Admin))]
-    [SwaggerOperation("Reset users' password.",
+    [SwaggerOperation("Reset a user password.",
         "This endpoint allows the Admin to reset any user's password.",
         OperationId = $"{nameof(AuthController)}_reset_admin")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResetPasswordResult))]

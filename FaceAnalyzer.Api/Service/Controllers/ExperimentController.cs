@@ -23,9 +23,10 @@ public class ExperimentController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    [SwaggerOperation("Retrieve a single Experiment",
+    [SwaggerOperation("Retrieve a single experiment",
         "Retrieve a single experiment given its Id.",
-        OperationId = $"{nameof(Experiment)}_get")]
+        OperationId = $"{nameof(ExperimentController)}_get")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ExperimentDto))]
     public async Task<ActionResult<ExperimentDto>> Get(int id)
     {
         var result = await _mediator.Send(new GetExperimentsQuery(id, null));
@@ -38,9 +39,10 @@ public class ExperimentController : ControllerBase
     }
 
     [HttpGet]
-    [SwaggerOperation("Retrieve a list of Experiments",
-        "Retrieve a list of experiments filtered by their [projectId] (if [projectId] is empty all experiments are returned.)",
+    [SwaggerOperation("Retrieve a list of experiments",
+        "Retrieve a list of experiments filtered by their [projectId] (if [projectId] is empty all experiments are returned).",
         OperationId = $"{nameof(Experiment)}_get_list")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(List<ExperimentDto>))]
     public async Task<ActionResult<List<ExperimentDto>>> Get(int? projectId)
     {
         var result = await _mediator.Send(new GetExperimentsQuery(null, projectId));
@@ -48,9 +50,10 @@ public class ExperimentController : ControllerBase
     }
 
     [HttpPost]
-    [SwaggerOperation("Create an Experiment",
-        "Create an experiment given its [Name]. The created experiment is associated with a project (with the provided [projectId]).",
+    [SwaggerOperation("Create an experiment",
+        "Create an experiment given its [Name]. The created experiment is associated with a project [projectId].",
         OperationId = $"{nameof(Experiment)}_create")]
+    [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(ExperimentDto))]
     public async Task<ActionResult<ExperimentDto>> Create([FromBody] CreateExperimentCommand dto)
     {
         var result = await _mediator.Send(dto);
@@ -61,9 +64,10 @@ public class ExperimentController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [SwaggerOperation("Modify an Experiment",
+    [SwaggerOperation("Modify an experiment",
         "Modify an Experiment (the only modifiable value is the [Name]).",
         OperationId = $"{nameof(Experiment)}_edit")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ExperimentDto))]
     public async Task<ActionResult<ExperimentDto>> Edit(int id, [FromBody] EditExperimentDto dto)
     {
         var command = new EditExperimentCommand(
@@ -77,9 +81,10 @@ public class ExperimentController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [SwaggerOperation("Delete an Experiment",
+    [SwaggerOperation("Delete an experiment",
         "Delete an experiment given its Id.",
         OperationId = $"{nameof(Experiment)}_delete")]
+    [SwaggerResponse(StatusCodes.Status204NoContent)]
     public async Task<ActionResult<ExperimentDto>> Delete(int id)
     {
         var command = new DeleteExperimentCommand(id);

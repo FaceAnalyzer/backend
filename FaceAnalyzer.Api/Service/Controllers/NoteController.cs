@@ -26,9 +26,10 @@ public class NoteController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    [SwaggerOperation("Retrieve a single Note",
+    [SwaggerOperation("Retrieve a single note",
         "Retrieve a single Note given its Id.",
-        OperationId = $"{nameof(Note)}_get")]
+        OperationId = $"{nameof(NoteController)}_get")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(NoteDto))]
     public async Task<ActionResult<NoteDto>> Get(int id)
     {
         var result = await _mediator.Send(new GetNotesQuery(id, null));
@@ -41,9 +42,10 @@ public class NoteController : ControllerBase
     }
 
     [HttpGet]
-    [SwaggerOperation("Retrieve a list of Notes",
-        "Retrieve a list of Notes given filtered by their [experimentId] (if [experimentId is empty all notes are returned).",
-        OperationId = $"{nameof(Note)}_get_list")]
+    [SwaggerOperation("Retrieve a list of notes",
+        "Retrieve a list of notes given filtered by their [experimentId] (if [experimentId is empty all notes are returned).",
+        OperationId = $"{nameof(NoteController)}_get_list")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(List<NoteDto>))]
     public async Task<ActionResult<List<NoteDto>>> Get(int? experimentId)
     {
         var result = await _mediator.Send(new GetNotesQuery(null, experimentId));
@@ -51,9 +53,10 @@ public class NoteController : ControllerBase
     }
 
     [HttpPost]
-    [SwaggerOperation("Create a Note",
-        "Create a single Note given the content of the note [description], the [experimentId] to associate it with, and the [creatorId].",
-        OperationId = $"{nameof(Note)}_create")]
+    [SwaggerOperation("Create a note",
+        "Create a single note given the content of the note [description], the [experimentId] to associate it with, and the [creatorId].",
+        OperationId = $"{nameof(NoteController)}_create")]
+    [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(NoteDto))]
     public async Task<ActionResult<NoteDto>> Create([FromBody] CreateNoteCommand dto)
     {
         var result = await _mediator.Send(dto);
@@ -66,7 +69,8 @@ public class NoteController : ControllerBase
     [HttpPut("{id}")]
     [SwaggerOperation("Modify a Note",
         "Modify a Note content given its Id. Only the content of the note is modifiable [description] ",
-        OperationId = $"{nameof(Note)}_modify")]
+        OperationId = $"{nameof(NoteController)}_modify")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(NoteDto))]
     public async Task<ActionResult<NoteDto>> Edit(int id, [FromBody] EditNoteDto dto)
     {
         var command = new EditNoteCommand(
@@ -82,7 +86,8 @@ public class NoteController : ControllerBase
     [HttpDelete("{id}")]
     [SwaggerOperation("Delete a Note",
         "Delete a Note given its Id.",
-        OperationId = $"{nameof(Note)}_delete")]
+        OperationId = $"{nameof(NoteController)}_delete")]
+    [SwaggerResponse(StatusCodes.Status204NoContent)]
     public async Task<ActionResult<NoteDto>> Delete(int id)
     {
         var command = new DeleteNoteCommand(id);

@@ -20,9 +20,10 @@ public class EmotionController: ControllerBase
     }
 
     [HttpPost]
-    [SwaggerOperation("Create an Emotion entry.",
-        "Create an emotion entry, given an emotion type, and a value. The created emotion is associated with a Reaction.",
+    [SwaggerOperation("Create an emotion entry.",
+        "Create an emotion entry, given an [value], a [timeOffset], an [emotionType], and associate it to a reaction [reactionId].",
         OperationId = $"{nameof(EmotionController)}_create")]
+    [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(EmotionDto))]
     public async Task<ActionResult<EmotionDto>> CreateEmotion([FromBody] CreateEmotionCommand request)
     {
         var emotionDto = await _mediator.Send(request);

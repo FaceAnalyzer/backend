@@ -25,6 +25,7 @@ public class StimuliController : ControllerBase
     [SwaggerOperation("Retrieve a single stimuli.",
         "Retrieve a single stimuli given its Id.",
         OperationId = $"{nameof(Stimuli)}_get")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(StimuliDto))]
     public async Task<ActionResult<StimuliDto>> GetById(int id)
     {
         var request = new GetStimuliQuery
@@ -40,6 +41,7 @@ public class StimuliController : ControllerBase
     [SwaggerOperation("Retrieve a list of stimuli.",
         "Retrieve a list of all stimuli that can be filtered by experiment [experimentId].",
         OperationId = $"{nameof(Stimuli)}_get_list")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(QueryResult<StimuliDto>))]
     public async Task<ActionResult<QueryResult<StimuliDto>>> Get([FromQuery] StimuliQueryDto queryDto)
     {
         var request = new GetStimuliQuery
@@ -56,6 +58,7 @@ public class StimuliController : ControllerBase
     [SwaggerOperation("Create a stimuli.",
         "Create a stimuli with a link to a video [link], a [description], a [name] and an [experimentId] to associate it with.",
         OperationId = $"{nameof(Stimuli)}create")]
+    [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(List<StimuliDto>))]
     public async Task<ActionResult<IList<StimuliDto>>> Create([FromBody] CreateStimuliDto dto)
     {
         var request = new CreateStimuliCommand(
@@ -76,6 +79,7 @@ public class StimuliController : ControllerBase
     [SwaggerOperation("Delete a stimuli.",
         "Delete a single stimuli given its Id.",
         OperationId = $"{nameof(Stimuli)}_delete")]
+    [SwaggerResponse(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Delete(int id)
     {
         await _mediator.Send(new DeleteStimuliCommand(id));
