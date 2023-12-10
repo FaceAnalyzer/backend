@@ -8,8 +8,8 @@
     &lt;Project Location="C:\Users\awada\source\FaceAnalyzer\backend\FaceAnalyzer.Tests.Integration" Presentation="&amp;lt;FaceAnalyzer.Tests.Integration&amp;gt;" /&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=96b18809_002Def06_002D4e67_002D8393_002D4c84d569e65d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Should_Store_Project_Into_DB" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\Users\awada\code\FaceAnalyzer\backend\FaceAnalyzer.Api.Tests" Presentation="&amp;lt;FaceAnalyzer.Api.Tests&amp;gt;" /&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=96b18809_002Def06_002D4e67_002D8393_002D4c84d569e65d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Should_Store_Project_Into_DB" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="C:\Users\awada\code\FaceAnalyzer\backend\FaceAnalyzer.Api.Tests" Presentation="&amp;lt;FaceAnalyzer.Api.Tests&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 	
 	
