@@ -1,14 +1,17 @@
 ﻿using FaceAnalyzer.Api.Business.Commands.Stimuli;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
+using FaceAnalyzer.Api.Data.Entities;
 using FaceAnalyzer.Api.Service.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
 [Route("stimuli")]
+[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class StimuliController : ControllerBase
 {
     private readonly ISender _mediator;
@@ -19,6 +22,9 @@ public class StimuliController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [SwaggerOperation("Retrieve a single stimuli.",
+        "Retrieve a single stimuli given its Id.",
+        OperationId = $"{nameof(Stimuli)}_get")]
     public async Task<ActionResult<StimuliDto>> GetById(int id)
     {
         var request = new GetStimuliQuery
@@ -31,6 +37,9 @@ public class StimuliController : ControllerBase
     }
 
     [HttpGet]
+    [SwaggerOperation("Retrieve a list of stimuli.",
+        "Retrieve a list of all stimuli that can be filtered by experiment [experimentId].",
+        OperationId = $"{nameof(Stimuli)}_get_list")]
     public async Task<ActionResult<QueryResult<StimuliDto>>> Get([FromQuery] StimuliQueryDto queryDto)
     {
         var request = new GetStimuliQuery
@@ -44,6 +53,9 @@ public class StimuliController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
+    [SwaggerOperation("Create a stimuli.",
+        "Create a stimuli with a link to a video [link], a [description], a [name] and an [experimentId] to associate it with.",
+        OperationId = $"{nameof(Stimuli)}create")]
     public async Task<ActionResult<IList<StimuliDto>>> Create([FromBody] CreateStimuliDto dto)
     {
         var request = new CreateStimuliCommand(
@@ -61,6 +73,9 @@ public class StimuliController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [SwaggerOperation("Delete a stimuli.",
+        "Delete a single stimuli given its Id.",
+        OperationId = $"{nameof(Stimuli)}_delete")]
     public async Task<IActionResult> Delete(int id)
     {
         await _mediator.Send(new DeleteStimuliCommand(id));
