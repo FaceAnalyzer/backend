@@ -2,7 +2,7 @@ name: Build and Deploy
 
 on:
   push:
-    branches: [ "main", "cicd" ]
+    branches: [ "develop", "cicd" ]
 
 jobs:
   build:
@@ -31,7 +31,7 @@ jobs:
         working-directory: FaceAnalyzer.Api
     environment:
       name: ${{ github.ref_name }}
-      url: https://backend.faceanalyzer.plavy.me/swagger/
+      url: https://backend.staging.faceanalyzer.plavy.me/swagger/
     env:
       KUBECONFIG: "./kubeconfig"
       AAD_SERVICE_PRINCIPAL_CLIENT_ID: ${{ secrets.AAD_SERVICE_PRINCIPAL_CLIENT_ID }}
@@ -48,7 +48,7 @@ jobs:
       with:
         kubelogin-version: 'v0.0.24'
     - name: Apply the Kubernetes manifest
-      run: kubectl apply -n faceanalyzer -f manifest.yaml
+      run: kubectl apply -n faceanalyzer -f manifest-staging.yaml
     - name: Set the image tag
       run: kubectl set image -n faceanalyzer deployment/faceanalyzer-backend faceanalyzer-backend=plavy/faceanalyzer-backend:${{ github.sha }}
     - name: Install dotnet ef
