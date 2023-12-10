@@ -10,6 +10,7 @@ using FaceAnalyzer.Api.Shared.Enum;
 using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 using SwaggerExample = Swashbuckle.AspNetCore.Filters.SwaggerExample;
 
@@ -18,6 +19,7 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
 [Route("reactions")]
+[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class ReactionController : ControllerBase
 {
     private readonly ISender _mediator;
@@ -28,6 +30,9 @@ public class ReactionController : ControllerBase
     }
 
     [HttpGet]
+    [SwaggerOperation("Retrieve a list of reactions.",
+        "Retrieve a list of all reactions.",
+        OperationId = $"{nameof(Reaction)}_get_list")]
     public async Task<ActionResult<List<ReactionDto>>> Get()
     {
         var result = await _mediator.Send(new GetReactionsQuery(null));
@@ -35,6 +40,9 @@ public class ReactionController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
+    [SwaggerOperation("Retrieve a single reaction.",
+        "Retrieve a single reaction given its Id.",
+        OperationId = $"{nameof(Reaction)}_get")]
     public async Task<ActionResult<ReactionDto>> Get(int id)
     {
         var result = await _mediator.Send(new GetReactionsQuery(id));
@@ -47,6 +55,9 @@ public class ReactionController : ControllerBase
     }
 
     [HttpGet("{id}/emotions")]
+    [SwaggerOperation("Retrieve a reaction emotions.",
+        "Retrieve a reaction (using its Id) emotions.",
+        OperationId = $"{nameof(Reaction)}_get_emotions")]
     public async Task<ActionResult<QueryResult<EmotionDto>>> GetReactionEmotions(int id, [FromQuery] EmotionType? type)
     {
         var query = new GetReactionEmotionsQuery(id, type);
@@ -55,6 +66,9 @@ public class ReactionController : ControllerBase
     }
 
     [HttpGet("{id}/emotions/export")]
+    [SwaggerOperation("Export reaction emotions.",
+        "Export a reaction (given its Id) emotions as a CSV file.",
+        OperationId = $"{nameof(Reaction)}_export")]
     public async Task<IActionResult> GetReactionEmotionsCsv(int id)
     {
         var query = new GetReactionEmotionsQuery(id, null);
@@ -74,6 +88,9 @@ public class ReactionController : ControllerBase
 
     [HttpPost]
     [SwaggerRequestExample(typeof(CreateReactionDto), typeof(CreateReactionDtoExample))]
+    [SwaggerOperation("Create a reaction.",
+        "Create a reaction associated to a stimuli [stimuliId] with a participant [participantName] and readings [emotionReadings].",
+        OperationId = $"{nameof(Reaction)}_create")]
     public async Task<ActionResult<ReactionDto>> Create([FromBody] CreateReactionDto dto)
     {
         var command = new CreateReactionCommand(
@@ -89,6 +106,9 @@ public class ReactionController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [SwaggerOperation("Delete a reaction.",
+        "Delete a reaction given its Id.",
+        OperationId = $"{nameof(Reaction)}_delete")]
     public async Task<ActionResult<ReactionDto>> Delete(int id)
     {
         var command = new DeleteReactionCommand(id);
