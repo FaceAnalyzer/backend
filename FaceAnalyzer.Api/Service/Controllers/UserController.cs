@@ -10,11 +10,13 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
 [Route("users")]
+[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class UserController : ControllerBase
 {
     private readonly ISender _mediator;
@@ -28,6 +30,9 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [Authorize(Roles = nameof(UserRole.Admin))]
+    [SwaggerOperation("Retrieve a list of users.",
+        "Retrieve a list of users. The list can be filtered by projects [projectId] or roles [userRole].",
+        OperationId = $"{nameof(Data.Entities.User)}_get_list")]
     public async Task<ActionResult<QueryResult<UserDto>>> Get([FromQuery] UserQueryDto dto)
     {
         var query = _mapper.Map<GetUsersQuery>(dto);
@@ -37,6 +42,9 @@ public class UserController : ControllerBase
 
     [HttpGet("{id:int}")]
     [Authorize(Roles = nameof(UserRole.Admin))]
+    [SwaggerOperation("Retrieve a single user.",
+        "Retrieve a single user given its Id.",
+        OperationId = $"{nameof(Data.Entities.User)}_get")]
     public async Task<ActionResult<UserDto>> Get(int id)
     {
         var result = await _mediator.Send(new GetUsersQuery
@@ -53,6 +61,9 @@ public class UserController : ControllerBase
 
     [HttpPut("{id}")]
     [Authorize(Roles = nameof(UserRole.Admin))]
+    [SwaggerOperation("Modify a user.",
+        "Modify a single user given its Id. [name], [surname], [email], [username], [contactNumber], and [role] all can be modified",
+        OperationId = $"{nameof(Data.Entities.User)}_edit")]
     public async Task<ActionResult<UserDto>> Edit(int id, [FromBody] EditUserDto dto)
     {
         var command = _mapper.Map<EditUserCommand>(dto);
@@ -64,6 +75,9 @@ public class UserController : ControllerBase
     [HttpPost]
     [Authorize(Roles = nameof(UserRole.Admin))]
     [ProducesResponseType((int)HttpStatusCode.Created)]
+    [SwaggerOperation("Create a user.",
+        "Create a specifying its [name], [surname], [email], [username], [password],  [contatNumber], and [role].",
+        OperationId = $"{nameof(Data.Entities.User)}_create")]
     public async Task<ActionResult<UserDto>> Create([FromBody] CreateUserDto dto)
     {
         var command = _mapper.Map<CreateUserCommand>(dto);
@@ -77,6 +91,9 @@ public class UserController : ControllerBase
     [HttpDelete("{id}")]
     [Authorize(Roles = nameof(UserRole.Admin))]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    [SwaggerOperation("Delete a user.",
+        "Delete a single user given its Id.",
+        OperationId = $"{nameof(Data.Entities.User)}_delete")]
     public async Task<NoContentResult> Delete(int id)
     {
         var command = new DeleteUserCommand(id);
