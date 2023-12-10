@@ -1,5 +1,7 @@
 ﻿using FaceAnalyzer.Api.Business.Commands.Projects;
+using FaceAnalyzer.Api.Business.Profiles;
 using FaceAnalyzer.Api.Business.UseCases.Projects;
+using FaceAnalyzer.Api.Data;
 using FaceAnalyzer.Api.Data.Entities;
 using FaceAnalyzer.Api.Shared.Exceptions;
 using FluentAssertions;
@@ -7,43 +9,50 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FaceAnalyzer.Api.Tests.UseCases.Projects;
 
-public class GrantProjectPermissionUseCaseTests : UseCaseTestBase<GrantProjectPermissionUseCase>
+public class GrantProjectPermissionUseCaseTests
 {
     List<string> _userNameList = new List<string>
     {
         "John", "Smith"
     };
+
     List<string> _projectsNameList = new List<string>
     {
         "Alpha", "Beta"
     };
-    
-    void Arrange(List<string> userNames, List<string> projectNames)
+
+    async Task Arrange(AppDbContext dbContext, List<string> userNames, List<string> projectNames)
     {
-        DbContext.AddRange(
+        dbContext.AddRange(
             projectNames.Select(n => new Project
             {
                 Name = n
             })
         );
-        DbContext.AddRange(
+        dbContext.AddRange(
             userNames.Select(n => new User
             {
                 Name = n
             })
         );
-        DbContext.SaveChanges();
+        await dbContext.SaveChangesAsync();
     }
 
     [Fact(DisplayName = "Should add users to project if the project exists")]
     public async Task AssignUsersToProject()
     {
-        Arrange( _userNameList, _projectsNameList);
+        // Arrange
+        var services =
+            new IsolatedUseCaseTestServices<GrantProjectPermissionUseCase>("CreateProjectUseCaseTests",
+                new ProjectMappingProfile());
+        var useCase = services.UseCase;
+        var dbContext = services.DbContext;
+        await Arrange(dbContext, _userNameList, _projectsNameList);
 
-        var user = DbContext.Users
+        var user = dbContext.Users
             .AsNoTracking()
             .First();
-        var project = DbContext.Projects
+        var project = dbContext.Projects
             .AsNoTracking()
             .First();
 
@@ -51,34 +60,38 @@ public class GrantProjectPermissionUseCaseTests : UseCaseTestBase<GrantProjectPe
         {
             user.Id
         });
-        var result = await UseCase.Handle(request, CancellationToken.None);
+        var result = await useCase.Handle(request, CancellationToken.None);
 
-        var updatedProject = DbContext.Projects
+        var updatedProject = dbContext.Projects
             .Include(p => p.Users)
             .FirstOrDefault();
 
 
         updatedProject.Users.Should().NotBeEmpty();
         updatedProject.Users.Should().Contain(u => u.Id == user.Id);
-        CleanDatabase();
     }
 
     [Fact(DisplayName = "Should throw invalid argument error when try adding users to project that does not exists")]
     public async Task ThrowErrorIfProjectDoesNotExists()
     {
-        Arrange( _userNameList, _projectsNameList);
+        var services =
+            new IsolatedUseCaseTestServices<GrantProjectPermissionUseCase>("CreateProjectUseCaseTests",
+                new ProjectMappingProfile());
+        var useCase = services.UseCase;
+        var dbContext = services.DbContext;
+        await Arrange(dbContext, _userNameList, _projectsNameList);
 
-        var user = DbContext.Users
+        var user = dbContext.Users
             .AsNoTracking()
             .First();
 
-        var projectsCount = DbContext.Projects.Count();
+        var projectsCount = dbContext.Projects.Count();
 
         var request = new GrantProjectPermissionCommand(projectsCount + 12, new List<int>
         {
             user.Id
         });
-        var act = async () => await UseCase.Handle(request, CancellationToken.None);
+        var act = async () => await useCase.Handle(request, CancellationToken.None);
         var error = await act.Should().ThrowAsync<InvalidArgumentsException>();
 
         var invalidArgumentException = new InvalidArgumentsExceptionBuilder()
@@ -87,36 +100,34 @@ public class GrantProjectPermissionUseCaseTests : UseCaseTestBase<GrantProjectPe
             .Build();
 
         error.And.Message.Should().Be(invalidArgumentException.Message);
-        CleanDatabase();
     }
 
     [Fact(DisplayName = "Should throw bad request when try adding already assigned users to project")]
     public async Task ThrowErrorWhenUsersAlreadyAdded()
     {
-        Arrange(_userNameList, _projectsNameList);
-
-        var project = DbContext.Projects
+        var services =
+            new IsolatedUseCaseTestServices<GrantProjectPermissionUseCase>("CreateProjectUseCaseTests",
+                new ProjectMappingProfile());
+        var useCase = services.UseCase;
+        var dbContext = services.DbContext;
+        await Arrange(dbContext, _userNameList, _projectsNameList);
+        var project = dbContext.Projects
             .First();
-        var researcher = DbContext.Users.First();
+        var researcher = dbContext.Users.First();
 
         project.Users.Add(researcher);
-        DbContext.SaveChanges();
+        await dbContext.SaveChangesAsync();
 
 
         var request = new GrantProjectPermissionCommand(project.Id, new List<int>
         {
             researcher.Id
         });
-        var act = async () => await UseCase.Handle(request, CancellationToken.None);
+        var act = async () => await useCase.Handle(request, CancellationToken.None);
         var error = await act.Should().ThrowAsync<ProjectGrantPermissionException>();
 
         var exception = new ProjectGrantPermissionException(researcher.Id, project.Name);
 
         error.And.Message.Should().Be(exception.Message);
-        CleanDatabase();
-    }
-
-    public GrantProjectPermissionUseCaseTests(ServiceProviderFixture serviceProviderFixture) : base(serviceProviderFixture)
-    {
     }
 }

@@ -64,5 +64,13 @@ public class NoteController : ControllerBase
         var result = await _mediator.Send(command);
         return Ok(result);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<NoteDto>> Delete(int id)
+    {
+        var command = new DeleteNoteCommand(id);
+        await _mediator.Send(command);
+        return NoContent();
+    }
     
 }
