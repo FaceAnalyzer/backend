@@ -23,7 +23,7 @@ jobs:
     - name: Push the Docker image
       run: docker push plavy/faceanalyzer-backend:${{ github.sha }}
   deploy:
-    name: Deploy backend
+    name: Deploy backend to production
     needs: build
     runs-on: ubuntu-22.04
     defaults:
