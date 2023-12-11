@@ -30,6 +30,7 @@ public class AppDbContext : DbContext
         AddStimuliQueryFilters(modelBuilder);
         AddReactionsQueryFilters(modelBuilder);
         AddEmotionsQueryFilters(modelBuilder);
+        AddNotesQueryFilters(modelBuilder);
     }
 
     public void Delete<TEntity>(TEntity entity) where TEntity : IDeletable
@@ -44,6 +45,8 @@ public class AppDbContext : DbContext
 
     public DbSet<Reaction> Reactions { get; set; }
     public DbSet<Emotion> Emotions { get; set; }
+    
+    public DbSet<Note> Note { get; set; }
 
 
     #region QueryFilters
@@ -105,14 +108,16 @@ public class AppDbContext : DbContext
             );
     }
 
-    // private void AddNotesQueryFilters(ModelBuilder modelBuilder)
-    // {
-    //     modelBuilder.Entity<Experiment>()
-    //         .HasQueryFilter(
-    //             e =>
-    //                 !e.DeletedAt.HasValue &&
-    //         );
-    // }
+    private void AddNotesQueryFilters(ModelBuilder modelBuilder)
+     {
+         modelBuilder.Entity<Note>()
+             .HasQueryFilter(
+                 e =>
+                     !e.DeletedAt.HasValue &&
+                     (_securityContext.Principal.Role == UserRole.Admin ||
+                      e.Experiment.Project.Users.Any(u => u.Id == _securityContext.Principal.Id))
+                     );
+     }
 
     private void AddUsersQueryFilters(ModelBuilder modelBuilder)
     {

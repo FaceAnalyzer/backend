@@ -5,6 +5,10 @@ obj/
 .idea
 FaceAnalyzer.Api/appsettings.Development.json
 uploaded-files
+*.DotSettings
+*.user
+FaceAnalyzer.sln.DotSettings.user
+
 # Sqlite files
 **/*.db 
 FaceAnalyzer.ConsolePlayground/

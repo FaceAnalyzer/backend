@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceAnalyzer.ApiPlayground"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceAnalyzer.Api.Tests", "FaceAnalyzer.Api.Tests\FaceAnalyzer.Api.Tests.csproj", "{B8E2E525-6050-4A63-B4C9-644A1E231228}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceAnalyzer.Tests.Integration", "FaceAnalyzer.Tests.Integration\FaceAnalyzer.Tests.Integration.csproj", "{1C3EF74B-3469-45CE-92A5-558DE267634E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{B8E2E525-6050-4A63-B4C9-644A1E231228}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8E2E525-6050-4A63-B4C9-644A1E231228}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8E2E525-6050-4A63-B4C9-644A1E231228}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C3EF74B-3469-45CE-92A5-558DE267634E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C3EF74B-3469-45CE-92A5-558DE267634E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C3EF74B-3469-45CE-92A5-558DE267634E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C3EF74B-3469-45CE-92A5-558DE267634E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
