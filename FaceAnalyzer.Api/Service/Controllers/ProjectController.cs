@@ -17,7 +17,6 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 
 [Route("projects")]
 [Authorize(Roles = nameof(UserRole.Admin))]
-[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class ProjectController : ControllerBase
 {
     private readonly ISender _mediator;

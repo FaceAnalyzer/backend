@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using FaceAnalyzer.Api.Shared.Enum;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FaceAnalyzer.Api.Service.Contracts;
 
+[SwaggerSchema(Title = nameof(CreateUserDto))]
 public record CreateUserDto(
     string Name,
     string Surname,

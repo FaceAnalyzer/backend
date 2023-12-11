@@ -11,7 +11,6 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
 [Route("stimuli")]
-[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class StimuliController : ControllerBase
 {
     private readonly ISender _mediator;

@@ -8,7 +8,6 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
 [Route("emotions")]
-[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class EmotionController: ControllerBase
 {
 

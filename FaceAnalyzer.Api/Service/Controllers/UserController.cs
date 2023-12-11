@@ -16,7 +16,7 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
 [Route("users")]
-[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
+// [SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class UserController : ControllerBase
 {
     private readonly ISender _mediator;

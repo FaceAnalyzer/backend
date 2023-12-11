@@ -1,5 +1,8 @@
-﻿namespace FaceAnalyzer.Api.Data.Entities;
+﻿using Swashbuckle.AspNetCore.Annotations;
 
+namespace FaceAnalyzer.Api.Data.Entities;
+
+[SwaggerSchema(Title = "Reaction")]
 public class Reaction : EntityBase, IDeletable
 {
     public required int StimuliId { get; set; }

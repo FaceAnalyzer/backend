@@ -15,7 +15,6 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
 [Route("notes")]
-[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class NoteController : ControllerBase
 {
     private readonly ISender _mediator;

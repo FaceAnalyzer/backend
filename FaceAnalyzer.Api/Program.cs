@@ -36,7 +36,7 @@ var app = builder.Build();
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
-app.UseSwagger();
+app.UseSwagger(opt => opt.SerializeAsV2 = true);
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();

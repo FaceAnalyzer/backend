@@ -19,7 +19,6 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
 [Route("reactions")]
-[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class ReactionController : ControllerBase
 {
     private readonly ISender _mediator;
@@ -72,7 +71,7 @@ public class ReactionController : ControllerBase
     [SwaggerOperation("Export reaction emotions.",
         "Export a reaction (given its Id) emotions as a CSV file.",
         OperationId = $"{nameof(Reaction)}_export")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [SwaggerResponse(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetReactionEmotionsCsv(int id)
     {
         var query = new GetReactionEmotionsQuery(id, null);

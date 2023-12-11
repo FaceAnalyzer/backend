@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FaceAnalyzer.Api.Data.Entities;
 
+[SwaggerSchema(Title = "Experiment")]
 public class Experiment : EntityBase, IDeletable
 {
     public required string Name { get; set; }
