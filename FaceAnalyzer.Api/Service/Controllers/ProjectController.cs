@@ -16,7 +16,6 @@ using Swashbuckle.AspNetCore.Filters;
 namespace FaceAnalyzer.Api.Service.Controllers;
 
 [Route("projects")]
-[Authorize(Roles = nameof(UserRole.Admin))]
 public class ProjectController : ControllerBase
 {
     private readonly ISender _mediator;
@@ -27,6 +26,7 @@ public class ProjectController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = $"{nameof(UserRole.Admin)},{nameof(UserRole.Researcher)}")]
     [SwaggerOperation("Retrieve a list of projects",
         "Retrieve the full list projects (if the [projectName] is provided only Projects matching that name are returned).",
         OperationId = $"{nameof(ProjectController)}_get_list")]
@@ -37,8 +37,10 @@ public class ProjectController : ControllerBase
         var result = await _mediator.Send(query);
         return Ok(result);
     }
-    
+
     [HttpGet("{id:int}")]
+    [Authorize(Roles = $"{nameof(UserRole.Admin)}, {nameof(UserRole.Researcher)}")]
+    public async Task<ActionResult<QueryResult<ProjectDto>>> Get(int id)
     [SwaggerOperation("Retrieve a single project.",
         "Retrieve a single project given its Id.",
         OperationId = $"{nameof(Project)}_get")]
@@ -51,6 +53,7 @@ public class ProjectController : ControllerBase
         {
             throw new EntityNotFoundException(nameof(Project), id);
         }
+
         return Ok(result.Items.FirstOrDefault());
     }
 
@@ -59,6 +62,7 @@ public class ProjectController : ControllerBase
         "Create a single project given its [Name].",
         OperationId = $"{nameof(Project)}_get")]
     [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(ProjectDto))]
+    [Authorize(Roles = nameof(UserRole.Admin))]
     public async Task<ActionResult<ProjectDto>> Create([FromBody] CreateProjectDto dto)
     {
         var command = new CreateProjectCommand(Name: dto.Name);
@@ -67,6 +71,7 @@ public class ProjectController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = nameof(UserRole.Admin))]
     [SwaggerOperation("Modify a Project.",
         "Modify a single project given its Id. Only the name of the project is modifiable.",
         OperationId = $"{nameof(Project)}_edit")]
@@ -77,9 +82,10 @@ public class ProjectController : ControllerBase
         var project = await _mediator.Send(command);
         return Ok(project);
     }
-    
+
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = nameof(UserRole.Admin))]
     [SwaggerOperation("Delete a Project.",
         "Delete a project given its Id.",
         OperationId = $"{nameof(Project)}_delete")]
@@ -92,7 +98,9 @@ public class ProjectController : ControllerBase
     }
 
     [HttpPut("{id}/researcher/add")]
+    [Authorize(Roles = nameof(UserRole.Admin))]
     [SwaggerRequestExample(typeof(GrantRevokeProjectPermissionDto), typeof(GrantRevokeProjectPermissionDtoExample))]
+    public async Task<ActionResult> GrantPermission(int id, [FromBody] GrantRevokeProjectPermissionDto request)
     [SwaggerOperation("Add a researchers to a Project.",
         "Grant researchers (single or multiple) permission to access a project specified by its Id.",
         OperationId = $"{nameof(Project)}_grant")]
@@ -103,9 +111,11 @@ public class ProjectController : ControllerBase
         var project = await _mediator.Send(command);
         return NoContent();
     }
-    
+
     [HttpPut("{id}/researcher/remove")]
+    [Authorize(Roles = nameof(UserRole.Admin))]
     [SwaggerRequestExample(typeof(GrantRevokeProjectPermissionDto), typeof(GrantRevokeProjectPermissionDtoExample))]
+    public async Task<ActionResult> RevokePermission(int id, [FromBody] GrantRevokeProjectPermissionDto request)
     [SwaggerOperation("Remove a researchers to a Project.",
         "Revoke researchers (single or multiple) permission to access a project specified by its Id.",
         OperationId = $"{nameof(Project)}_revoke")]
@@ -116,5 +126,4 @@ public class ProjectController : ControllerBase
         var project = await _mediator.Send(command);
         return NoContent();
     }
-
 }
