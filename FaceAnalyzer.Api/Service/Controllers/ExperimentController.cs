@@ -3,10 +3,12 @@ using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Data.Entities;
 using FaceAnalyzer.Api.Service.Contracts;
+using FaceAnalyzer.Api.Service.Swagger.Examples;
 using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
 
@@ -53,9 +55,11 @@ public class ExperimentController : ControllerBase
         "Create an experiment given its [Name]. The created experiment is associated with a project [projectId].",
         OperationId = $"{nameof(Experiment)}_create")]
     [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(ExperimentDto))]
-    public async Task<ActionResult<ExperimentDto>> Create([FromBody] CreateExperimentCommand dto)
+    [SwaggerRequestExample(typeof(CreateExperimentDto), typeof(CreateExperimentDtoExample))]
+    public async Task<ActionResult<ExperimentDto>> Create([FromBody] CreateExperimentDto dto)
     {
-        var result = await _mediator.Send(dto);
+        var command = new CreateExperimentCommand(dto.Name, dto.Description, dto.ProjectId);
+        var result = await _mediator.Send(command);
         return CreatedAtAction(nameof(Get), new
         {
             id = result.Id
