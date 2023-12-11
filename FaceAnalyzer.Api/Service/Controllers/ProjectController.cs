@@ -40,7 +40,6 @@ public class ProjectController : ControllerBase
 
     [HttpGet("{id:int}")]
     [Authorize(Roles = $"{nameof(UserRole.Admin)}, {nameof(UserRole.Researcher)}")]
-    public async Task<ActionResult<QueryResult<ProjectDto>>> Get(int id)
     [SwaggerOperation("Retrieve a single project.",
         "Retrieve a single project given its Id.",
         OperationId = $"{nameof(Project)}_get")]
@@ -100,7 +99,6 @@ public class ProjectController : ControllerBase
     [HttpPut("{id}/researcher/add")]
     [Authorize(Roles = nameof(UserRole.Admin))]
     [SwaggerRequestExample(typeof(GrantRevokeProjectPermissionDto), typeof(GrantRevokeProjectPermissionDtoExample))]
-    public async Task<ActionResult> GrantPermission(int id, [FromBody] GrantRevokeProjectPermissionDto request)
     [SwaggerOperation("Add a researchers to a Project.",
         "Grant researchers (single or multiple) permission to access a project specified by its Id.",
         OperationId = $"{nameof(Project)}_grant")]
@@ -115,7 +113,6 @@ public class ProjectController : ControllerBase
     [HttpPut("{id}/researcher/remove")]
     [Authorize(Roles = nameof(UserRole.Admin))]
     [SwaggerRequestExample(typeof(GrantRevokeProjectPermissionDto), typeof(GrantRevokeProjectPermissionDtoExample))]
-    public async Task<ActionResult> RevokePermission(int id, [FromBody] GrantRevokeProjectPermissionDto request)
     [SwaggerOperation("Remove a researchers to a Project.",
         "Revoke researchers (single or multiple) permission to access a project specified by its Id.",
         OperationId = $"{nameof(Project)}_revoke")]
