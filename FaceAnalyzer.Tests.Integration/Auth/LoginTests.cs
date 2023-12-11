@@ -36,7 +36,7 @@ public class LoginTests : IClassFixture<TestHostFixture>
         var fixture = new TestHostFixture();
         fixture.Build();
 
-        var username = "SUT User";
+        var username = "SUT User" + Guid.NewGuid();
         var password = "SUT Password";
         await CreateUser(fixture, username, password);
 
@@ -79,9 +79,11 @@ public class LoginTests : IClassFixture<TestHostFixture>
     {
         // Arrange
         var fixture = new TestHostFixture();
-        fixture.Build();
+        fixture
+            .AddDefaultPrincipal(1, UserRole.Admin)
+            .Build();
 
-        var username = "SUT User";
+        var username = "SUT User" + Guid.NewGuid();
         var password = "SUT Password";
         await CreateUser(fixture, username, password);
 
