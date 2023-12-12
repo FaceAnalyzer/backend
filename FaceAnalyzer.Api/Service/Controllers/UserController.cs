@@ -4,6 +4,7 @@ using FaceAnalyzer.Api.Business.Commands.Users;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Service.Contracts;
+using FaceAnalyzer.Api.Service.Swagger.Examples;
 using FaceAnalyzer.Api.Shared.Enum;
 using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
 
@@ -67,6 +69,7 @@ public class UserController : ControllerBase
         "Modify a single user given its Id. [name], [surname], [email], [username], [contactNumber], and [role] all can be modified",
         OperationId = $"{nameof(Data.Entities.User)}_edit")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(UserDto))]
+    [SwaggerRequestExample(typeof(EditUserDto), typeof(EditUserDtoExample))]
     public async Task<ActionResult<UserDto>> Edit(int id, [FromBody] EditUserDto dto)
     {
         var command = _mapper.Map<EditUserCommand>(dto);
@@ -82,6 +85,7 @@ public class UserController : ControllerBase
         "Create a specifying its [name], [surname], [email], [username], [password],  [contatNumber], and [role].",
         OperationId = $"{nameof(Data.Entities.User)}_create")]
     [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(UserDto))]
+    [SwaggerRequestExample(typeof(CreateUserDto), typeof(CreateUserDtoExample))]
     public async Task<ActionResult<UserDto>> Create([FromBody] CreateUserDto dto)
     {
         var command = _mapper.Map<CreateUserCommand>(dto);
