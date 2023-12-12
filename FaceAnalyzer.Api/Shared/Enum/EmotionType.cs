@@ -1,5 +1,8 @@
-﻿namespace FaceAnalyzer.Api.Shared.Enum;
+﻿using Swashbuckle.AspNetCore.Annotations;
 
+namespace FaceAnalyzer.Api.Shared.Enum;
+
+[SwaggerSchema(Title = nameof(EmotionType))]
 public enum EmotionType
 {
     Anger = 10,
