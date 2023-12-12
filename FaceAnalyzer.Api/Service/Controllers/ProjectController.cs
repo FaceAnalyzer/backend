@@ -59,7 +59,7 @@ public class ProjectController : ControllerBase
     [HttpPost]
     [SwaggerOperation("Create a project.",
         "Create a single project given its [Name].",
-        OperationId = $"{nameof(Project)}_get")]
+        OperationId = $"{nameof(Project)}_create")]
     [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(ProjectDto))]
     [Authorize(Roles = nameof(UserRole.Admin))]
     [SwaggerRequestExample(typeof(CreateProjectDto), typeof(CreateProjectDtoExample))]
