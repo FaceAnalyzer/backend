@@ -1,12 +1,14 @@
 ﻿using FaceAnalyzer.Api.Business.Commands.Auth;
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Service.Contracts;
+using FaceAnalyzer.Api.Service.Swagger.Examples;
 using FaceAnalyzer.Api.Shared.Enum;
 using FaceAnalyzer.Api.Shared.Security;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
 
@@ -29,6 +31,7 @@ public class AuthController : ControllerBase
         "Log in users using, [username] and [password] and upon successful authentication returns the access token (to be used for authorization).",
         OperationId = $"{nameof(AuthController)}_login")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(LoginResponse))]
+    [SwaggerRequestExample(typeof(LoginRequest), typeof(LoginRequestExample))]
     public async Task<ActionResult<AuthResult>> Login(LoginRequest dto)
     {
         var command = new LoginCommand(dto.Username, dto.Password);
@@ -46,6 +49,7 @@ public class AuthController : ControllerBase
         "This endpoint allows the Admin to reset any user's password.",
         OperationId = $"{nameof(AuthController)}_reset_admin")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResetPasswordResult))]
+    [SwaggerRequestExample(typeof(ResetUserPasswordDto), typeof(ResetUserPasswordDtoExample))]
     public async Task<ActionResult<ResetPasswordResult>> ResetPassword(ResetUserPasswordDto dto)
     {
         var request = new ResetPasswordCommand(dto.UserId, dto.NewPassword);
@@ -58,6 +62,7 @@ public class AuthController : ControllerBase
         "This endpoint allows the user to reset their own password.",
         OperationId = $"{nameof(AuthController)}_reset_admin")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ResetPasswordResult))]
+    [SwaggerRequestExample(typeof(ResetMyPasswordDto), typeof(ResetMyPasswordDtoExample))]
     public async Task<ActionResult<ResetPasswordResult>> ResetPassword(ResetMyPasswordDto dto)
     {
         var userId = _securityContext.Principal.Id;
