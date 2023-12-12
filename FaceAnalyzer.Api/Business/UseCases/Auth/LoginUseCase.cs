@@ -47,7 +47,7 @@ public class LoginUseCase : BaseUseCase, IRequestHandler<LoginCommand, AuthResul
         };
 
         var result = new AuthResult(
-            Id: user.Id,
+            User: Mapper.Map<UserDto>(user),
             AccessToken: _securityContext.CreateJwt(principal)
         );
 
