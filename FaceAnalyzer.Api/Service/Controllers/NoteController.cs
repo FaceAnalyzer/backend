@@ -4,11 +4,13 @@ using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Data.Entities;
 using FaceAnalyzer.Api.Service.Contracts;
+using FaceAnalyzer.Api.Service.Swagger.Examples;
 using FaceAnalyzer.Api.Shared.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.AspNetCore.Filters;
 
 
 namespace FaceAnalyzer.Api.Service.Controllers;
@@ -56,6 +58,7 @@ public class NoteController : ControllerBase
         "Create a single note given the content of the note [description], the [experimentId] to associate it with, and the [creatorId].",
         OperationId = $"{nameof(NoteController)}_create")]
     [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(NoteDto))]
+    [SwaggerRequestExample(typeof(CreateNoteDto), typeof(CreateNoteDtoExample))]
     public async Task<ActionResult<NoteDto>> Create([FromBody] CreateNoteCommand dto)
     {
         var result = await _mediator.Send(dto);
@@ -70,6 +73,7 @@ public class NoteController : ControllerBase
         "Modify a Note content given its Id. Only the content of the note is modifiable [description] ",
         OperationId = $"{nameof(NoteController)}_modify")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(NoteDto))]
+    [SwaggerRequestExample(typeof(EditNoteDto), typeof(EditNoteDtoExample))]
     public async Task<ActionResult<NoteDto>> Edit(int id, [FromBody] EditNoteDto dto)
     {
         var command = new EditNoteCommand(
