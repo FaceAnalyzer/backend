@@ -3,9 +3,11 @@ using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Business.Queries;
 using FaceAnalyzer.Api.Data.Entities;
 using FaceAnalyzer.Api.Service.Contracts;
+using FaceAnalyzer.Api.Service.Swagger.Examples;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace FaceAnalyzer.Api.Service.Controllers;
 
@@ -58,6 +60,7 @@ public class StimuliController : ControllerBase
         "Create a stimuli with a link to a video [link], a [description], a [name] and an [experimentId] to associate it with.",
         OperationId = $"{nameof(Stimuli)}create")]
     [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(List<StimuliDto>))]
+    [SwaggerRequestExample(typeof(CreateStimuliDto), typeof(CreateStimuliDtoExample))]
     public async Task<ActionResult<IList<StimuliDto>>> Create([FromBody] CreateStimuliDto dto)
     {
         var request = new CreateStimuliCommand(
