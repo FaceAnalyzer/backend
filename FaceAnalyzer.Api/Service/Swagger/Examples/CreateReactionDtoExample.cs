@@ -24,7 +24,7 @@ public class CreateReactionDtoExample : IExamplesProvider<CreateReactionDto>
 
         return new CreateReactionDto(
             2,
-            ParticipantName: "Algorithmy",
+            ParticipantName: "Participant Name",
             EmotionReadings: new List<EmotionReading>
             {
                 readings,

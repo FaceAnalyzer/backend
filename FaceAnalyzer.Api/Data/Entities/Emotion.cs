@@ -1,7 +1,9 @@
 ﻿using FaceAnalyzer.Api.Shared.Enum;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FaceAnalyzer.Api.Data.Entities;
 
+[SwaggerSchema(Title = "Emotion")]
 public class Emotion : EntityBase, IDeletable
 {
     public double Value { get; set; }
