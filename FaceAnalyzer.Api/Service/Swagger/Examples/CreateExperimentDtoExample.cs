@@ -11,7 +11,7 @@ public class CreateExperimentDtoExample : IExamplesProvider<CreateExperimentDto>
     {
         return new CreateExperimentDto(
             "Experiment Name",
-            "A new and cool experiment",
+            "A new experiment",
             1
         );
     }

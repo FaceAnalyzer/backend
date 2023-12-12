@@ -10,8 +10,8 @@ public class EditExperimentDtoExample : IExamplesProvider<EditExperimentDto>
     public EditExperimentDto GetExamples()
     {
         return new EditExperimentDto(
-            "New Experiment Name",
-            "It now became more cooler experiment",
+            "Updated experiment name",
+            "Updated experiment name",
             1
         );
     }

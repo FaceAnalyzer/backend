@@ -10,7 +10,7 @@ public class CreateNoteDtoExample : IExamplesProvider<CreateNoteDto>
     public CreateNoteDto GetExamples()
     {
         return new CreateNoteDto(
-            "This is a note about an experiment",
+            "New note content",
             1,
             1
         );

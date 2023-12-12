@@ -62,6 +62,7 @@ public class ProjectController : ControllerBase
         OperationId = $"{nameof(Project)}_get")]
     [SwaggerResponse(StatusCodes.Status201Created, Type = typeof(ProjectDto))]
     [Authorize(Roles = nameof(UserRole.Admin))]
+    [SwaggerRequestExample(typeof(CreateProjectDto), typeof(CreateProjectDtoExample))]
     public async Task<ActionResult<ProjectDto>> Create([FromBody] CreateProjectDto dto)
     {
         var command = new CreateProjectCommand(Name: dto.Name);
@@ -75,6 +76,7 @@ public class ProjectController : ControllerBase
         "Modify a single project given its Id. Only the name of the project is modifiable.",
         OperationId = $"{nameof(Project)}_edit")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ProjectDto))]
+    [SwaggerRequestExample(typeof(EditProjectDto), typeof(EditProjectDtoExample))]
     public async Task<ActionResult<ProjectDto>> Edit(int id, [FromBody] EditProjectDto request)
     {
         var command = new EditProjectCommand(id, request.Name);

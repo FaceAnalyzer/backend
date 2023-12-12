@@ -5,14 +5,12 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace FaceAnalyzer.Api.Service.Swagger.Examples;
 
-public class EditNoteDtoExample : IExamplesProvider<EditNoteDto>
+public class CreateProjectDtoExample : IExamplesProvider<CreateProjectDto>
 {
-    public EditNoteDto GetExamples()
+    public CreateProjectDto GetExamples()
     {
-        return new EditNoteDto(
-            "Updated note content",
-            1,
-            1
+        return new CreateProjectDto(
+            "Project Name"
         );
     }
 }
