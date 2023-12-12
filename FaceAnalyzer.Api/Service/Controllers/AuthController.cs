@@ -14,6 +14,7 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
 [Route("auth")]
+[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class AuthController : ControllerBase
 {
     private readonly ISender _mediator;

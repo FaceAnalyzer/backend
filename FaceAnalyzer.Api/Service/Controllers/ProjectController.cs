@@ -16,6 +16,7 @@ using Swashbuckle.AspNetCore.Filters;
 namespace FaceAnalyzer.Api.Service.Controllers;
 
 [Route("projects")]
+[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class ProjectController : ControllerBase
 {
     private readonly ISender _mediator;

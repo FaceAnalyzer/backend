@@ -14,6 +14,7 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 
 [ApiController]
 [Route("experiments")]
+[SwaggerResponse(StatusCodes.Status400BadRequest, Type = typeof(ProblemDetails))]
 public class ExperimentController : ControllerBase
 {
     private readonly ISender _mediator;
