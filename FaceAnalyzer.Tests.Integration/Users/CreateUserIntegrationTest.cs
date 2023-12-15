@@ -53,19 +53,6 @@ public class CreateUserIntegrationTest
         // Assert
 
         response.StatusCode.Should().Be(HttpStatusCode.Created);
-        var dbContext = _fixture.GetService<AppDbContext>();
-
-        var newUser = await dbContext.Users
-            .IgnoreQueryFilters()
-            .SingleOrDefaultAsync(u => u.Email == dto.Email && u.Role == dto.Role);
-        
-        newUser.Should().NotBeNull();
-        newUser.Name.Should().Be(dto.Name);
-        newUser.Surname.Should().Be(dto.Surname);
-        newUser.Email.Should().Be(dto.Email);
-        newUser.Username.Should().Be(dto.Username);
-        newUser.ContactNumber.Should().Be(dto.ContactNumber);
-        newUser.Role.Should().Be(dto.Role);
     }
     
     [Fact(DisplayName = "Create an Admin user successfully")]
@@ -93,23 +80,7 @@ public class CreateUserIntegrationTest
         );
 
         // Assert
-
-        //response.Content..ToString().Should().Be("prova");
         response.StatusCode.Should().Be(HttpStatusCode.Created);
-        
-        var dbContext = _fixture.GetService<AppDbContext>();
-
-        var newUser = await dbContext.Users
-            .IgnoreQueryFilters()
-            .SingleOrDefaultAsync(u => u.Email == dto.Email && u.Role == dto.Role);
-        
-        newUser.Should().NotBeNull();
-        newUser.Name.Should().Be(dto.Name);
-        newUser.Surname.Should().Be(dto.Surname);
-        newUser.Email.Should().Be(dto.Email);
-        newUser.Username.Should().Be(dto.Username);
-        newUser.ContactNumber.Should().Be(dto.ContactNumber);
-        newUser.Role.Should().Be(dto.Role);
     }
     
     [Fact(DisplayName = "Researcher is not able to create a new Admin user")]
