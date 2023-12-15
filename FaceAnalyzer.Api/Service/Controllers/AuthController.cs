@@ -39,7 +39,7 @@ public class AuthController : ControllerBase
         var authResult = await _mediator.Send(command);
         var response = new LoginResponse(
             authResult.AccessToken,
-            authResult.Id
+            authResult.User
         );
         return Ok(response);
     }
