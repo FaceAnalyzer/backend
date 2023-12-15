@@ -1,0 +1,10 @@
+@startuml
+class GetReactionsUseCase {
+    + <<async>> Handle(request:GetReactionsQuery, cancellationToken:CancellationToken) : Task<QueryResult<ReactionDto>>
+    + GetReactionsUseCase(mapper:IMapper, dbContext:AppDbContext)
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- GetReactionsUseCase
+"IRequestHandler" <|-- "<GetReactionsQuery,QueryResult<ReactionDto>>" GetReactionsUseCase
+@enduml

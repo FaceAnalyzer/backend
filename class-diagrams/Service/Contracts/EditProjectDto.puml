@@ -1,0 +1,5 @@
+@startuml
+class EditProjectDto <<record>> {
+    + Name : string <<get>> <<init>>
+}
+@enduml

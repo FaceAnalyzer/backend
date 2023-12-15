@@ -1,0 +1,12 @@
+@startuml
+class GrantProjectPermissionCommand <<record>> {
+    + ProjectId : int <<get>> <<init>>
+    + "ResearcherIds : IList
+}
+class IList<T> {
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<ProjectDto>" GrantProjectPermissionCommand
+GrantProjectPermissionCommand --> IList: "ResearcherIds<int>"
+@enduml

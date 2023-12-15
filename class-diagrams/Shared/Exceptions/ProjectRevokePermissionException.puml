@@ -1,0 +1,8 @@
+@startuml
+class ProjectRevokePermissionException {
+    + ResearcherId : int <<get>> <<init>>
+    + ProjectName : string <<get>> <<init>>
+    + ProjectRevokePermissionException(researcherId:int, projectName:string)
+}
+Exception <|-- ProjectRevokePermissionException
+@enduml

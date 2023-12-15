@@ -1,0 +1,7 @@
+@startuml
+class SetSecurityPrincipalMiddleware {
+    + SetSecurityPrincipalMiddleware(securityContext:SecurityContext)
+    + <<async>> InvokeAsync(context:HttpContext, next:RequestDelegate) : Task
+}
+IMiddleware <|-- SetSecurityPrincipalMiddleware
+@enduml

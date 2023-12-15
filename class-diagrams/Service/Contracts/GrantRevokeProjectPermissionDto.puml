@@ -1,0 +1,8 @@
+@startuml
+class GrantRevokeProjectPermissionDto <<record>> {
+    + ResearchersIds: IList
+}
+interface "IList"<T> {
+}
+GrantRevokeProjectPermissionDto "ResearchersIds<int>" --> "IList"
+@enduml

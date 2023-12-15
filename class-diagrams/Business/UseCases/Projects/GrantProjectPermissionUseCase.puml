@@ -1,0 +1,10 @@
+@startuml
+class GrantProjectPermissionUseCase {
+    + GrantProjectPermissionUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:GrantProjectPermissionCommand, cancellationToken:CancellationToken) : Task<ProjectDto>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- GrantProjectPermissionUseCase
+"IRequestHandler" <|-- "<GrantProjectPermissionCommand,ProjectDto>" GrantProjectPermissionUseCase
+@enduml

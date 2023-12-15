@@ -1,0 +1,14 @@
+@startuml
+class ConnectionStrings <<record>> {
+    + AppDatabase : string <<get>> <<set>>
+    + DbVersion : string <<get>> <<set>>
+}
+class JwtConfig <<record>> {
+    + Expiry : int <<get>> <<set>>
+    + Secret : string <<get>> <<set>>
+}
+class AppConfiguration <<record>> {
+}
+AppConfiguration --> "ConnectionStrings" ConnectionStrings
+AppConfiguration --> "JwtConfig" JwtConfig
+@enduml

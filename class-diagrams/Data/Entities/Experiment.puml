@@ -1,0 +1,15 @@
+@startuml
+class Experiment {
+    + <<required>> Name : string <<get>> <<set>>
+    + <<required>> Description : string <<get>> <<set>>
+    + <<required>> ProjectId : int <<get>> <<set>>
+    + DeletedAt : DateTime? <<get>> <<set>>
+    + Delete() : void
+    + Project: Project
+    + Stimuli: ICollection
+}
+EntityBase <|-- Experiment
+IDeletable <|-- Experiment
+Experiment --> Project : "Project"
+Experiment o--> "ICollection" : "Stimuli<Stimuli>"
+@enduml

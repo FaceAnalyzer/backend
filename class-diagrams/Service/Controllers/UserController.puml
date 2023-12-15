@@ -1,0 +1,11 @@
+@startuml
+class UserController {
+    + UserController(mediator:ISender, mapper:IMapper)
+    + <<async>> Get(dto:UserQueryDto) : Task<ActionResult<QueryResult<UserDto>>>
+    + <<async>> Get(id:int) : Task<ActionResult<UserDto>>
+    + <<async>> Edit(id:int, dto:EditUserDto) : Task<ActionResult<UserDto>>
+    + <<async>> Create(dto:CreateUserDto) : Task<ActionResult<UserDto>>
+    + <<async>> Delete(id:int) : Task<NoContentResult>
+}
+ControllerBase <|-- UserController
+@enduml

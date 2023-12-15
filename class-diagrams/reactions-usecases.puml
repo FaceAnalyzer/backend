@@ -1,0 +1,10 @@
+@startuml
+
+'#UseCases
+!include ./Business/UseCases/Reactions/CreateReactionUseCase.puml
+!include ./Business/UseCases/Reactions/DeleteReactionUseCase.puml
+!include ./Business/UseCases/Reactions/GetReactionsUseCase.puml
+!include ./Business/UseCases/Reactions/GetReactionEmotionsUseCase.puml
+
+!include ./Business/UseCases/BaseUseCase.puml
+@enduml

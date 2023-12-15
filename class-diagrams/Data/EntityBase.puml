@@ -1,0 +1,9 @@
+@startuml
+abstract class EntityBase {
+    + Id : int <<get>> <<set>>
+    + CreatedAt: DateTime
+    + UpdatedAt: DateTime
+}
+EntityBase --> DateTime : "CreatedAt"
+EntityBase --> DateTime : "UpdatedAt"
+@enduml

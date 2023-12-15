@@ -1,0 +1,15 @@
+@startuml
+class CreateUserCommand <<record>> {
+    + Name : string <<get>> <<init>>
+    + Surname : string <<get>> <<init>>
+    + Email : string <<get>> <<init>>
+    + Username : string <<get>> <<init>>
+    + Password : string <<get>> <<init>>
+    + ContactNumber : string? <<get>> <<init>>
+    + Role: UserRole
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<UserDto>" CreateUserCommand
+CreateUserCommand --> UserRole : "Role"
+@enduml

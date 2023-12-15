@@ -1,0 +1,10 @@
+@startuml
+class GetNotesUseCase {
+    + <<async>> Handle(request:GetNotesQuery, cancellationToken:CancellationToken) : Task<QueryResult<NoteDto>>
+    + GetNotesUseCase(mapper:IMapper, dbContext:AppDbContext)
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- GetNotesUseCase
+"IRequestHandler" <|-- "<GetNotesQuery,QueryResult<NoteDto>>" GetNotesUseCase
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+class IServiceCollectionExtensions <<static>> {
+    + {static} AddAppAuthentication(services:IServiceCollection, config:AppConfiguration) : void
+    + {static} ConfigureSwagger(services:IServiceCollection) : void
+}
+@enduml

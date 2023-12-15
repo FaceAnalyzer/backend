@@ -1,0 +1,5 @@
+@startuml
+class StimuliQueryDto {
+    + ExperimentId : int? <<get>> <<init>>
+}
+@enduml

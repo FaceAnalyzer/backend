@@ -1,0 +1,10 @@
+@startuml
+class DeleteExperimentUseCase {
+    + DeleteExperimentUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:DeleteExperimentCommand, cancellationToken:CancellationToken) : Task
+}
+class "IRequestHandler"<T> {
+}
+BaseUseCase <|-- DeleteExperimentUseCase
+"IRequestHandler" <|-- "<DeleteExperimentCommand>" DeleteExperimentUseCase
+@enduml

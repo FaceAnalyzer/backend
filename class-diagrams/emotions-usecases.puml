@@ -1,0 +1,9 @@
+@startuml
+
+'#UseCases
+!include ./Business/UseCases/Emotions/CreateEmotionUseCase.puml
+
+!include ./Business/Commands/Emotions/CreateEmotionCommand.puml
+
+!include ./Business/UseCases/BaseUseCase.puml
+@enduml

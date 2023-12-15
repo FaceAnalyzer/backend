@@ -1,0 +1,10 @@
+@startuml
+
+'#UseCases
+!include ./Business/UseCases/Users/CreateUserUseCase.puml
+!include ./Business/UseCases/Users/DeleteUserUseCase.puml
+!include ./Business/UseCases/Users/EditUserUseCase.puml
+!include ./Business/UseCases/Users/GetUsersUseCase.puml
+
+!include ./Business/UseCases/BaseUseCase.puml
+@enduml

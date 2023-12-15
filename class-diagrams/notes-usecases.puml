@@ -1,0 +1,10 @@
+@startuml
+
+'#UseCases
+!include ./Business/UseCases/Notes/CreateNoteUseCase.puml
+!include ./Business/UseCases/Notes/DeleteNoteUseCase.puml
+!include ./Business/UseCases/Notes/EditNoteUseCase.puml
+!include ./Business/UseCases/Notes/GetNotesUseCase.puml
+
+!include ./Business/UseCases/BaseUseCase.puml
+@enduml

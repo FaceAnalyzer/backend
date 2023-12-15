@@ -1,0 +1,18 @@
+@startuml
+class Stimuli {
+    + <<required>> Link : string <<get>> <<set>>
+    + <<required>> ExperimentId : int <<get>> <<set>>
+    + <<required>> Description : string <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + DeletedAt : DateTime? <<get>> <<set>>
+    + Delete() : void
+    + Experiment: Experiment
+    + Reactions: ICollection
+}
+interface "ICollection"<T> {
+}
+EntityBase <|-- Stimuli
+IDeletable <|-- Stimuli
+Stimuli --> Experiment : "Experiment"
+Stimuli o--> "ICollection" : "Reactions<Reaction>"
+@enduml

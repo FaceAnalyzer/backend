@@ -1,0 +1,10 @@
+@startuml
+class DeleteStimuliUseCase {
+    + <<async>> Handle(request:DeleteStimuliCommand, cancellationToken:CancellationToken) : Task
+    + DeleteStimuliUseCase(mapper:IMapper, dbContext:AppDbContext)
+}
+class "IRequestHandler"<T> {
+}
+BaseUseCase <|-- DeleteStimuliUseCase
+"IRequestHandler" <|-- "<DeleteStimuliCommand>" DeleteStimuliUseCase
+@enduml

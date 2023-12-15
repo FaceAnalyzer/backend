@@ -1,0 +1,10 @@
+@startuml
+class GetReactionEmotionsUseCase {
+    + GetReactionEmotionsUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:GetReactionEmotionsQuery, cancellationToken:CancellationToken) : Task<QueryResult<EmotionDto>>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- GetReactionEmotionsUseCase
+"IRequestHandler" <|-- "<GetReactionEmotionsQuery,QueryResult<EmotionDto>>" GetReactionEmotionsUseCase
+@enduml

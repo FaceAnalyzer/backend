@@ -1,0 +1,6 @@
+@startuml
+class InvalidIdentityException {
+    + InvalidIdentityException(identity:ClaimsIdentity)
+}
+Exception <|-- InvalidIdentityException
+@enduml

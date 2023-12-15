@@ -1,0 +1,10 @@
+@startuml
+class DeleteProjectUseCase {
+    + DeleteProjectUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:DeleteProjectCommand, cancellationToken:CancellationToken) : Task
+}
+class "IRequestHandler"<T> {
+}
+BaseUseCase <|-- DeleteProjectUseCase
+"IRequestHandler" <|-- "<DeleteProjectCommand>" DeleteProjectUseCase
+@enduml

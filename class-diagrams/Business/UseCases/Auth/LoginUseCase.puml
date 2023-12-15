@@ -1,0 +1,10 @@
+@startuml
+class LoginUseCase {
+    + LoginUseCase(mapper:IMapper, dbContext:AppDbContext, securityContext:SecurityContext)
+    + <<async>> Handle(request:LoginCommand, cancellationToken:CancellationToken) : Task<AuthResult>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- LoginUseCase
+"IRequestHandler" <|-- "<LoginCommand,AuthResult>" LoginUseCase
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+class CreateExperimentUseCaseTest {
+    + <<async>> Should_Store_Experiment_Into_DB() : Task
+    + <<async>> Should_Fail_Storing_Experiment() : Task?
+}
+@enduml

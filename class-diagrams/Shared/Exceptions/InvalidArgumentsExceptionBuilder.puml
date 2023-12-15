@@ -1,0 +1,7 @@
+@startuml
+class InvalidArgumentsExceptionBuilder {
+    + AddArgument(argument:string, message:string) : InvalidArgumentsExceptionBuilder
+    + HasArguments : bool <<get>>
+    + Build() : InvalidArgumentsException
+}
+@enduml

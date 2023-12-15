@@ -1,0 +1,8 @@
+@startuml
+class GetReactionsQuery <<record>> {
+    + Id : int? <<get>> <<init>>
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<QueryResult<ReactionDto>>" GetReactionsQuery
+@enduml

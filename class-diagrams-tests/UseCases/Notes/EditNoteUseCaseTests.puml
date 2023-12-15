@@ -1,0 +1,8 @@
+@startuml
+class EditNoteUseCaseTests {
+    + <<async>> Should_Edit_Note_Into_DB() : Task
+    + <<async>> Should_Fail_Storing_Note_NotExistingExperiment() : Task?
+    + <<async>> Should_Fail_Storing_Note_NotExistingCreator() : Task?
+    + <<async>> Should_Fail_Storing_Note_NotExistingNote() : Task?
+}
+@enduml

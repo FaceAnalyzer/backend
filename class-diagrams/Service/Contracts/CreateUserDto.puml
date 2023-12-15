@@ -1,0 +1,12 @@
+@startuml
+class CreateUserDto <<record>> {
+    + Name : string <<get>> <<init>>
+    + Surname : string <<get>> <<init>>
+    + Email : string <<get>> <<init>>
+    + Username : string <<get>> <<init>>
+    + Password : string <<get>> <<init>>
+    + ContactNumber : string <<get>> <<init>>
+    + Role: UserRole
+}
+CreateUserDto --> UserRole : "Role"
+@enduml

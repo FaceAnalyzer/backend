@@ -1,0 +1,13 @@
+@startuml
+class Project {
+    + Name : string <<get>> <<set>>
+    + DeletedAt : DateTime? <<get>> <<set>>
+    + Delete() : void
+    + Experiments: ICollection
+    + Users: ICollection
+}
+EntityBase <|-- Project
+IDeletable <|-- Project
+Project o--> "ICollection" : "Experiments<Experiment>"
+Project o--> "ICollection" : "Users<User>"
+@enduml

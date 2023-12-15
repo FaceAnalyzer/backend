@@ -1,0 +1,7 @@
+@startuml
+class ReactionDto <<record>> {
+    + Id : int <<get>> <<init>>
+    + StimuliId : int <<get>> <<init>>
+    + ParticipantName : string <<get>> <<init>>
+}
+@enduml
