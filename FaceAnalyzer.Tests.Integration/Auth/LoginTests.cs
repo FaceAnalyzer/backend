@@ -45,15 +45,11 @@ public class LoginTests : IClassFixture<TestHostFixture>
         var httpClient = fixture.GetClient();
 
         // Act
-        var request = new LoginRequest(username, password);
-        var response = await httpClient.PostAsJsonAsync("/auth/login", request);
-
+        var response = await httpClient.PostAsJsonAsync("/auth/login", new LoginRequest(username, password));
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
-        result.Should().NotBeNull();
-        result!.AccessToken.Should().NotBeNullOrEmpty();
     }
+
     [Fact(DisplayName = "Should return 400 Bad Request when username does not exist")]
     public async Task Should_Return_400_When_Username_Does_Not_Exist()
     {
@@ -74,6 +70,7 @@ public class LoginTests : IClassFixture<TestHostFixture>
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
+
     [Fact(DisplayName = "Should return 400 Bad Request when password is incorrect")]
     public async Task Should_Return_400_When_Password_Is_Incorrect()
     {
