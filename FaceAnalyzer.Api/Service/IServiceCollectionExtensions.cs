@@ -50,6 +50,7 @@ public static class IServiceCollectionExtensions
                 Type = SecuritySchemeType.Http,
                 Scheme = JwtBearerDefaults.AuthenticationScheme
             });
+            c.EnableAnnotations();
         });
         services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
     }

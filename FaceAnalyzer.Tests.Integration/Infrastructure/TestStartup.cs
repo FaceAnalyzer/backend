@@ -35,7 +35,14 @@ public class TestStartup
             .AddJsonOptions(opt => { opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
         services.AddSingleton(AppConfiguration);
         services.AddBusinessModels();
-        services.AddDbContext<AppDbContext>(opt => { opt.UseInMemoryDatabase("FaceAnalyzerIntegrationTests"); });
+        services.AddSingleton<AppDbContext, TestDbContext>(sp =>
+        {
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+                .UseInMemoryDatabase("FaceAnalyzerIntegrationTests")
+                .Options;
+            var config = sp.GetRequiredService<AppConfiguration>();
+            return new TestDbContext(options, config);
+        });
         services.AddMappers();
         services.AddMediatR();
         services.AddHttpContextAccessor();

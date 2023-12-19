@@ -7,10 +7,5 @@ namespace FaceAnalyzer.Api.Service.Controllers;
 [Route("")]
 public class TestController : ControllerBase
 {
-    [AllowAnonymous]
-    [HttpGet("/ping")]
-    public IActionResult Ping()
-    {
-        return Ok("Hello From Face Analyzer backend");
-    }
+    
 }

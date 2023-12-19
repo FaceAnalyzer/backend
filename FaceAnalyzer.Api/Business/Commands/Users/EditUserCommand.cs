@@ -2,9 +2,11 @@
 using FaceAnalyzer.Api.Business.Contracts;
 using FaceAnalyzer.Api.Shared.Enum;
 using MediatR;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FaceAnalyzer.Api.Business.Commands.Users;
 
+[SwaggerSchema(Title = nameof(EditUserCommand))]
 public record EditUserCommand : IRequest<UserDto>
 {
     public int Id { get; set; }
