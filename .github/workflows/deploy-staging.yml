@@ -2,7 +2,8 @@ name: Build and Deploy
 
 on:
   push:
-    branches: [ ]
+    # branches: [ "develop", "cicd" ]
+    branches: [ "cicd" ]
 
 jobs:
   build:
@@ -25,7 +26,6 @@ jobs:
   deploy:
     name: Deploy backend to staging
     needs: build
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-22.04
     defaults:
       run:
