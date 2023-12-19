@@ -24,7 +24,6 @@ jobs:
       run: docker push plavy/faceanalyzer-backend:${{ github.sha }}
   deploy:
     name: Deploy backend to production
-    if: github.event.pull_request.merged == true
     needs: build
     runs-on: ubuntu-22.04
     defaults:
