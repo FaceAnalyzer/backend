@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FaceAnalyzer.Tests.Integration.Users;
 
-public class DeleteUserTests
+public class DeleteUser
     : IClassFixture<TestHostFixture>
 {
     private readonly TestHostFixture _fixture;
 
 
-    public DeleteUserTests(TestHostFixture fixture)
+    public DeleteUser(TestHostFixture fixture)
     {
         _fixture = fixture;
     }
