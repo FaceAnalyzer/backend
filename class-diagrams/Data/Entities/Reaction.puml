@@ -1,0 +1,14 @@
+@startuml
+class Reaction {
+    + <<required>> StimuliId : int <<get>> <<set>>
+    + <<required>> ParticipantName : string <<get>> <<set>>
+    + DeletedAt : DateTime? <<get>> <<set>>
+    + Delete() : void
+    + Stimuli: Stimuli
+    + Emotions: ICollection
+}
+EntityBase <|-- Reaction
+IDeletable <|-- Reaction
+Reaction --> Stimuli : "Stimuli"
+Reaction o--> "ICollection" : "Emotions<Emotion>"
+@enduml

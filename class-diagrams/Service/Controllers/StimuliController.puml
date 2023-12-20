@@ -1,0 +1,10 @@
+@startuml
+class StimuliController {
+    + StimuliController(mediator:ISender)
+    + <<async>> GetById(id:int) : Task<ActionResult<StimuliDto>>
+    + <<async>> Get(queryDto:StimuliQueryDto) : Task<ActionResult<QueryResult<StimuliDto>>>
+    + <<async>> Create(dto:CreateStimuliDto) : Task<ActionResult<IList<StimuliDto>>>
+    + <<async>> Delete(id:int) : Task<IActionResult>
+}
+ControllerBase <|-- StimuliController
+@enduml

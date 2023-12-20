@@ -1,0 +1,10 @@
+@startuml
+class CreateStimuliUseCase {
+    + CreateStimuliUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:CreateStimuliCommand, cancellationToken:CancellationToken) : Task<StimuliDto>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- CreateStimuliUseCase
+"IRequestHandler" <|-- "<CreateStimuliCommand,StimuliDto>" CreateStimuliUseCase
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+class DeleteExperimentCommand <<record>> {
+    + Id : int <<get>> <<init>>
+}
+IRequest <|-- DeleteExperimentCommand
+@enduml

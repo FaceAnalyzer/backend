@@ -1,0 +1,9 @@
+@startuml
+class StimuliDto <<record>> {
+    + Id : int <<get>> <<init>>
+    + Link : string <<get>> <<init>>
+    + Name : string <<get>> <<init>>
+    + ExperimentId : int <<get>> <<init>>
+    + Description : string <<get>> <<init>>
+}
+@enduml

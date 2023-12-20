@@ -1,0 +1,6 @@
+@startuml
+class DeleteNoteUseCaseTests {
+    + <<async>> Should_Delete_Note_Into_DB() : Task
+    + <<async>> Should_Fail_Storing_Note_NotExistingExperiment() : Task?
+}
+@enduml

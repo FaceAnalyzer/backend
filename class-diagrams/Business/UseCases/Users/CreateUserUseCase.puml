@@ -1,0 +1,10 @@
+@startuml
+class CreateUserUseCase {
+    + CreateUserUseCase(mapper:IMapper, dbContext:AppDbContext, securityContext:SecurityContext)
+    + <<async>> Handle(request:CreateUserCommand, cancellationToken:CancellationToken) : Task<UserDto>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- CreateUserUseCase
+"IRequestHandler" <|-- "<CreateUserCommand,UserDto>" CreateUserUseCase
+@enduml

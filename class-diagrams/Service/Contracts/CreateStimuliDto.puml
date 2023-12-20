@@ -1,0 +1,8 @@
+@startuml
+class CreateStimuliDto <<record>> {
+    + Link : string <<get>> <<init>>
+    + Name : string <<get>> <<init>>
+    + ExperimentId : int <<get>> <<init>>
+    + Description : string <<get>> <<init>>
+}
+@enduml

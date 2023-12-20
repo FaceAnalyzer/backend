@@ -1,0 +1,7 @@
+@startuml
+class EmotionController {
+    + EmotionController(mediator:ISender)
+    + <<async>> CreateEmotion(request:CreateEmotionDto) : Task<ActionResult<EmotionDto>>
+}
+ControllerBase <|-- EmotionController
+@enduml

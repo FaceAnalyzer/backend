@@ -108,7 +108,7 @@ public class ProjectController : ControllerBase
     [SwaggerResponse(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> GrantPermission(int id, [FromBody]GrantRevokeProjectPermissionDto request)
     {
-        var command = new GrantProjectPermissionCommand(id, request.ResearchersIds);
+        var command = new GrantProjectPermissionCommand(id, request.ResearchersIds.ToList());
         var project = await _mediator.Send(command);
         return NoContent();
     }
@@ -122,7 +122,7 @@ public class ProjectController : ControllerBase
     [SwaggerResponse(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> RevokePermission(int id, [FromBody]GrantRevokeProjectPermissionDto request)
     {
-        var command = new RevokeProjectPermissionCommand(id, request.ResearchersIds);
+        var command = new RevokeProjectPermissionCommand(id, request.ResearchersIds.ToList());
         var project = await _mediator.Send(command);
         return NoContent();
     }

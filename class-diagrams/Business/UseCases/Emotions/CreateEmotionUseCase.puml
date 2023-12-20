@@ -1,0 +1,10 @@
+@startuml
+class CreateEmotionUseCase {
+    + CreateEmotionUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:CreateEmotionCommand, cancellationToken:CancellationToken) : Task<EmotionDto>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- CreateEmotionUseCase
+"IRequestHandler" <|-- "<CreateEmotionCommand,EmotionDto>" CreateEmotionUseCase
+@enduml

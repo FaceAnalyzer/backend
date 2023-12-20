@@ -1,0 +1,12 @@
+@startuml
+!include ./Shared/Enum/EmotionType.puml
+!include ./Shared/Enum/UserRole.puml
+'#Contracts
+!include ./Service/Contracts/CreateEmotionDto.puml
+!include ./Service/Contracts/CreateExperimentDto.puml
+!include ./Service/Contracts/CreateNoteDto.puml
+!include ./Service/Contracts/CreateProjectDto.puml
+!include ./Service/Contracts/CreateReactionDto.puml
+!include ./Service/Contracts/CreateStimuliDto.puml
+!include ./Service/Contracts/CreateUserDto.puml
+@enduml

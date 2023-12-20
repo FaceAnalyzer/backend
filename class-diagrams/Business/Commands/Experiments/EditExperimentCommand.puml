@@ -1,0 +1,11 @@
+@startuml
+class EditExperimentCommand <<record>> {
+    + Id : int <<get>> <<init>>
+    + Name : string <<get>> <<init>>
+    + Description : string <<get>> <<init>>
+    + ProjectId : int? <<get>> <<init>>
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<ExperimentDto>" EditExperimentCommand
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+!include ./Shared/Enum/EmotionType.puml
+!include ./Shared/Enum/UserRole.puml
+'#Commands
+!include ./Business/Commands/Auth/LoginCommand.puml
+!include ./Business/Commands/Auth/ResetPasswordCommand.puml
+!include ./Business/Commands/Emotions/CreateEmotionCommand.puml
+!include ./Business/Commands/Experiments/CreateExperimentCommand.puml
+!include ./Business/Commands/Experiments/DeleteExperimentCommand.puml
+!include ./Business/Commands/Experiments/EditExperimentCommand.puml
+!include ./Business/Commands/Notes/CreateNoteCommand.puml
+!include ./Business/Commands/Notes/DeleteNoteCommand.puml
+!include ./Business/Commands/Notes/EditNoteCommand.puml
+!include ./Business/Commands/Projects/CreateProjectCommand.puml
+!include ./Business/Commands/Projects/DeleteProjectCommand.puml
+!include ./Business/Commands/Projects/EditProjectCommand.puml
+!include ./Business/Commands/Projects/GrantProjectPermissionCommand.puml
+!include ./Business/Commands/Projects/RevokeProjectPermissionCommand.puml
+!include ./Business/Commands/Reactions/CreateReactionCommand.puml
+!include ./Business/Commands/Reactions/DeleteReactionCommand.puml
+!include ./Business/Commands/Stimuli/CreateStimuliCommand.puml
+!include ./Business/Commands/Stimuli/DeleteStimuliCommand.puml
+!include ./Business/Commands/Users/CreateUserCommand.puml
+!include ./Business/Commands/Users/DeleteUserCommand.puml
+!include ./Business/Commands/Users/EditUserCommand.puml
+@enduml

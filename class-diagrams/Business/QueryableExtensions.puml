@@ -1,0 +1,5 @@
+@startuml
+class QueryableExtensions <<static>> {
+    + {static} ConditionalWhere(source:IQueryable<TSource>, condition:bool, predicate:Expression<Func<TSource, bool>>) : IQueryable<TSource>
+}
+@enduml

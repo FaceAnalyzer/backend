@@ -1,0 +1,15 @@
+@startuml
+class EditUserCommand <<record>> {
+    + Id : int <<get>> <<set>>
+    + <<required>> Name : string <<get>> <<init>>
+    + <<required>> Surname : string <<get>> <<init>>
+    + <<required>> Email : string <<get>> <<init>>
+    + <<required>> Username : string <<get>> <<init>>
+    + ContactNumber : string? <<get>> <<init>>
+    + Role: UserRole
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<UserDto>" EditUserCommand
+EditUserCommand --> UserRole : "Role"
+@enduml

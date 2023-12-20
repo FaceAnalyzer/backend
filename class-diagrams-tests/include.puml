@@ -1,0 +1,11 @@
+@startuml
+!include ./GlobalUsings.puml
+!include ./UseCases/IsolatedUseCaseTestServices.puml
+!include ./UseCases/Experiments/CreateExperimentUseCaseTest.puml
+!include ./UseCases/Projects/CreateProjectUseCaseTests.puml
+!include ./UseCases/Projects/GrantProjectPermissionUseCaseTests.puml
+!include ./UseCases/Notes/EditNoteUseCaseTests.puml
+!include ./UseCases/Notes/DeleteNoteUseCaseTests.puml
+!include ./UseCases/Notes/CreateNoteUseCaseTests.puml
+!include ./UseCases/StimuliTests/CreateStimuliUseCaseTests.puml
+@enduml

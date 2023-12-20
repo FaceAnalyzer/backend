@@ -1,0 +1,11 @@
+@startuml
+class ExperimentController {
+    + ExperimentController(mediator:ISender)
+    + <<async>> Get(id:int) : Task<ActionResult<ExperimentDto>>
+    + <<async>> Get(projectId:int?) : Task<ActionResult<List<ExperimentDto>>>
+    + <<async>> Create(dto:CreateExperimentDto) : Task<ActionResult<ExperimentDto>>
+    + <<async>> Edit(id:int, dto:EditExperimentDto) : Task<ActionResult<ExperimentDto>>
+    + <<async>> Delete(id:int) : Task<ActionResult<ExperimentDto>>
+}
+ControllerBase <|-- ExperimentController
+@enduml

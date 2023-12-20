@@ -1,0 +1,6 @@
+@startuml
+class CreateStimuliUseCaseTests {
+    + <<async>> Handle_ValidRequest_AddsStimuliToDbAndReturnsDto() : Task
+    + <<async>> Handle_InvalidExperimentId_ThrowsInvalidArgumentsException() : Task
+}
+@enduml

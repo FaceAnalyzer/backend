@@ -1,0 +1,10 @@
+@startuml
+class GetProjectsUseCase {
+    + GetProjectsUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:GetProjectsQuery, cancellationToken:CancellationToken) : Task<QueryResult<ProjectDto>>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- GetProjectsUseCase
+"IRequestHandler" <|-- "<GetProjectsQuery,QueryResult<ProjectDto>>" GetProjectsUseCase
+@enduml

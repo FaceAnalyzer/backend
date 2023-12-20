@@ -1,0 +1,6 @@
+@startuml
+class DeleteProjectCommand <<record>> {
+    + Id : int <<get>> <<init>>
+}
+IRequest <|-- DeleteProjectCommand
+@enduml

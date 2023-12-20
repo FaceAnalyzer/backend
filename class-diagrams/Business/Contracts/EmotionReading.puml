@@ -1,0 +1,9 @@
+@startuml
+class EmotionReading <<record>> {
+    + Time : long <<get>> <<init>>
+    + Values: IDictionary
+}
+class "IDictionary"<T1,T2> {
+}
+EmotionReading --> "Values<EmotionType,double>" "IDictionary"
+@enduml

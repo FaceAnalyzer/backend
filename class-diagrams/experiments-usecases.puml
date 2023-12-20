@@ -1,0 +1,9 @@
+@startuml
+
+'#UseCases
+!include ./Business/UseCases/Experiments/CreateExperimentUseCase.puml
+!include ./Business/UseCases/Experiments/DeleteExperimentUseCase.puml
+!include ./Business/UseCases/Experiments/EditExperimentUseCase.puml
+!include ./Business/UseCases/Experiments/GetExperimentsUseCase.puml
+!include ./Business/UseCases/BaseUseCase.puml
+@enduml

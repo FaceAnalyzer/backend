@@ -1,0 +1,7 @@
+@startuml
+class ErrorHandlerMiddleware {
+    + ErrorHandlerMiddleware(problemDetailsFactory:ProblemDetailsFactory)
+    + <<async>> InvokeAsync(context:HttpContext, next:RequestDelegate) : Task
+}
+IMiddleware <|-- ErrorHandlerMiddleware
+@enduml

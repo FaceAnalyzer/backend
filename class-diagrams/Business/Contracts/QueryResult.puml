@@ -1,0 +1,9 @@
+@startuml
+class "QueryResult"<T> <<record>> {
+    + Count : int <<get>> <<init>>
+    + Items: IList
+}
+class "IList"<T> {
+}
+"QueryResult" --> "Items<T>" "IList"
+@enduml

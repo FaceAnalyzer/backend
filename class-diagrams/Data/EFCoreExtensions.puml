@@ -1,0 +1,7 @@
+@startuml
+class EFCoreExtensions <<static>> {
+    + {static} AddDeletedAtQueryFilter(modelBuilder:ModelBuilder) : void
+    + {static} AddAutoCreatedAt(modelBuilder:ModelBuilder) : void
+    + {static} AddAutoUpdatedAt(modelBuilder:ModelBuilder) : void
+}
+@enduml

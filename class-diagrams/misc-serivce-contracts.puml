@@ -1,0 +1,14 @@
+@startuml
+'!include ./Shared/Enum/EmotionType.puml
+!include ./Shared/Enum/UserRole.puml
+'#Contracts
+!include ./Service/Contracts/GrantRevokeProjectPermissionDto.puml
+!include ./Service/Contracts/LoginRequest.puml
+!include ./Service/Contracts/LoginResponse.puml
+!include ./Service/Contracts/ProjectQueryDto.puml
+!include ./Service/Contracts/ResetPasswordDto.puml
+!include ./Service/Contracts/StimuliQueryDto.puml
+!include ./Service/Contracts/UserQueryDto.puml
+
+!include ./Business/Contracts/UserDto.puml
+@enduml

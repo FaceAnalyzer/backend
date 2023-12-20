@@ -1,0 +1,15 @@
+@startuml
+class Emotion {
+    + Value : double <<get>> <<set>>
+    + TimeOffset : long <<get>> <<set>>
+    + ReactionId : int <<get>> <<set>>
+    + DeletedAt : DateTime? <<get>> <<set>>
+    + Delete() : void
+    + EmotionType: EmotionType
+    + Reaction: Reaction
+}
+EntityBase <|-- Emotion
+IDeletable <|-- Emotion
+Emotion --> EmotionType : "EmotionType"
+Emotion --> Reaction : "Reaction"
+@enduml

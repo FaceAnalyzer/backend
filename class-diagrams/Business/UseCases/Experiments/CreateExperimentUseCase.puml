@@ -1,0 +1,10 @@
+@startuml
+class CreateExperimentUseCase {
+    + CreateExperimentUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:CreateExperimentCommand, cancellationToken:CancellationToken) : Task<ExperimentDto>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- CreateExperimentUseCase
+"IRequestHandler" <|-- "<CreateExperimentCommand,ExperimentDto>" CreateExperimentUseCase
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+
+
+!include ./Business/Commands/Projects/CreateProjectCommand.puml
+!include ./Business/Commands/Projects/DeleteProjectCommand.puml
+!include ./Business/Commands/Projects/EditProjectCommand.puml
+!include ./Business/Commands/Projects/GrantProjectPermissionCommand.puml
+!include ./Business/Commands/Projects/RevokeProjectPermissionCommand.puml
+@enduml

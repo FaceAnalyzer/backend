@@ -1,0 +1,6 @@
+@startuml
+class UserQueryDto <<record>> {
+    + ProjectId : int? <<get>> <<init>>
+    + Role : UserRole? <<get>> <<init>>
+}
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+class GetExperimentsQuery <<record>> {
+    + Id : int? <<get>> <<init>>
+    + ProjectId : int? <<get>> <<init>>
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<QueryResult<ExperimentDto>>" GetExperimentsQuery
+@enduml

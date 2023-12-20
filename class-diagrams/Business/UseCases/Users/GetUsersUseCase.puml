@@ -1,0 +1,10 @@
+@startuml
+class GetUsersUseCase {
+    + <<async>> Handle(request:GetUsersQuery, cancellationToken:CancellationToken) : Task<QueryResult<UserDto>>
+    + GetUsersUseCase(mapper:IMapper, dbContext:AppDbContext)
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- GetUsersUseCase
+"IRequestHandler" <|-- "<GetUsersQuery,QueryResult<UserDto>>" GetUsersUseCase
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+class AuthController {
+    + AuthController(mediator:ISender, securityContext:SecurityContext)
+    + <<async>> Login(dto:LoginRequest) : Task<ActionResult<AuthResult>>
+    + <<async>> ResetPassword(dto:ResetUserPasswordDto) : Task<ActionResult<ResetPasswordResult>>
+    + <<async>> ResetPassword(dto:ResetMyPasswordDto) : Task<ActionResult<ResetPasswordResult>>
+}
+ControllerBase <|-- AuthController
+@enduml

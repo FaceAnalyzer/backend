@@ -1,0 +1,7 @@
+@startuml
+class AuthResult <<record>> {
+    + AccessToken : string <<get>> <<init>>
+    + User: UserDto
+}
+AuthResult --> UserDto : "User"
+@enduml

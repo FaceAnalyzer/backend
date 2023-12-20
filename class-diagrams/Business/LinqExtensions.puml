@@ -1,0 +1,6 @@
+@startuml
+class LinqExtensions <<static>> {
+    + {static} ToQueryResult(enumerable:IEnumerable<T>) : QueryResult<T>
+    + {static} ConditionalWhere(source:IEnumerable<TSource>, condition:bool, predicate:Func<TSource, bool>) : IEnumerable<TSource>
+}
+@enduml

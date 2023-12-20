@@ -1,0 +1,7 @@
+@startuml
+class LoginResponse <<record>> {
+    + AccessToken : string <<get>> <<init>>
+    + User: UserDto
+}
+LoginResponse --> UserDto : "User"
+@enduml

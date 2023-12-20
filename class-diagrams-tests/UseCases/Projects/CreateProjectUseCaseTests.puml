@@ -1,0 +1,5 @@
+@startuml
+class CreateProjectUseCaseTests {
+    + <<async>> Should_Store_Project_Into_DB() : Task
+}
+@enduml

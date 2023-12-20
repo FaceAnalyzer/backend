@@ -1,0 +1,6 @@
+@startuml
+class DeleteNoteCommand <<record>> {
+    + Id : int <<get>> <<init>>
+}
+IRequest <|-- DeleteNoteCommand
+@enduml

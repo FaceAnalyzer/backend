@@ -1,0 +1,10 @@
+@startuml
+class "IsolatedUseCaseTestServices`1"<TUseCase> {
+    + IsolatedUseCaseTestServices(dbName:string, profiles:Profile[])
+    + UseCase : TUseCase <<get>>
+}
+"IsolatedUseCaseTestServices`1" --> "Mapper" IMapper
+"IsolatedUseCaseTestServices`1" --> "DbContext" AppDbContext
+"IsolatedUseCaseTestServices`1" o-> "Configuration" AppConfiguration
+"IsolatedUseCaseTestServices`1" --> "SecurityContext" SecurityContext
+@enduml
