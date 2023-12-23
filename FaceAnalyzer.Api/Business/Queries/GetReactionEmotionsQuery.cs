@@ -4,4 +4,4 @@ using MediatR;
 
 namespace FaceAnalyzer.Api.Business.Queries;
 
-public record GetReactionEmotionsQuery(int ReactionId, EmotionType? EmotionType): IRequest<QueryResult<EmotionDto>>;
+public record GetReactionEmotionsQuery(int ReactionId, EmotionType? EmotionType): IRequest<ExportReactionDto>;

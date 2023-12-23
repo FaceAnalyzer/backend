@@ -11,13 +11,13 @@ using Microsoft.EntityFrameworkCore;
 namespace FaceAnalyzer.Api.Business.UseCases.Reactions;
 
 public class GetReactionEmotionsUseCase : BaseUseCase,
-    IRequestHandler<GetReactionEmotionsQuery, QueryResult<EmotionDto>>
+    IRequestHandler<GetReactionEmotionsQuery, ExportReactionDto>
 {
     public GetReactionEmotionsUseCase(IMapper mapper, AppDbContext dbContext) : base(mapper, dbContext)
     {
     }
 
-    public async Task<QueryResult<EmotionDto>> Handle(GetReactionEmotionsQuery request,
+    public async Task<ExportReactionDto> Handle(GetReactionEmotionsQuery request,
         CancellationToken cancellationToken)
     {
         var reactionExist =
@@ -27,11 +27,11 @@ public class GetReactionEmotionsUseCase : BaseUseCase,
             throw new EntityNotFoundException(nameof(Reaction), request.ReactionId);
         }
 
-        var emotions = await DbContext.Emotions
-            .Where(emotion => emotion.ReactionId == request.ReactionId)
-            .ConditionalWhere(request.EmotionType.HasValue, emotion => emotion.EmotionType == request.EmotionType)
-            .ProjectTo<EmotionDto>(Mapper.ConfigurationProvider)
-            .ToListAsync(cancellationToken);
-        return emotions.ToQueryResult();
+        var emotions = await DbContext.Reactions
+            .Include(r => r.Emotions)
+            .Where(reaction => reaction.Id == request.ReactionId)
+            .ProjectTo<ExportReactionDto>(Mapper.ConfigurationProvider)
+            .FirstAsync(cancellationToken);
+        return emotions;
     }
 }

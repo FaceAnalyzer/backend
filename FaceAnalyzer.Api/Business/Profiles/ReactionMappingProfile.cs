@@ -10,5 +10,7 @@ public class ReactionMappingProfile : Profile
     {
         CreateMap<Reaction, ReactionDto>()
             .ReverseMap();
+        CreateMap<Reaction, ExportReactionDto>()
+            .ReverseMap();
     }
 }

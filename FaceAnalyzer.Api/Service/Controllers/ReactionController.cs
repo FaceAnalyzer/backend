@@ -44,7 +44,7 @@ public class ReactionController : ControllerBase
     [SwaggerOperation("Retrieve a single reaction.",
         "Retrieve a single reaction given its Id.",
         OperationId = $"{nameof(Reaction)}_get")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type=typeof(ReactionDto))]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ReactionDto))]
     public async Task<ActionResult<ReactionDto>> Get(int id)
     {
         var result = await _mediator.Send(new GetReactionsQuery(id));
@@ -83,11 +83,19 @@ public class ReactionController : ControllerBase
         await using (var writeFile = new StreamWriter(stream, leaveOpen: true))
         await using (var csv = new CsvWriter(writeFile, CultureInfo.InvariantCulture))
         {
-            await csv.WriteRecordsAsync(result.Items);
+            csv.WriteHeader<EmotionCsv>();
+            await csv.NextRecordAsync();
+            foreach (var records in result.Emotions
+                         .GroupBy(r => r.TimeOffset)
+                         .Select(r => r.ToList()).ToList())
+            {
+                csv.WriteRecord(new EmotionCsv(records));
+                await csv.NextRecordAsync();
+            }
         }
 
         stream.Position = 0;
-        return new FileStreamResult(stream, "text/csv") { FileDownloadName = $"{nameof(Reaction)}#{id}.csv" };
+        return new FileStreamResult(stream, "text/csv") { FileDownloadName = $"{nameof(Reaction)}_{id}_{result.ParticipantName.Replace(' ', '-')}.csv" };
     }
 
     [HttpPost]
