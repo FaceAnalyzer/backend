@@ -9,13 +9,17 @@ public class EmotionCsv
     {
         
         TimeOffset = emotionDto.First().TimeOffset;
-        Anger = emotionDto.First(r => r.EmotionType == EmotionType.Anger).Value;
-        Disgust = emotionDto.First(r => r.EmotionType == EmotionType.Disgust).Value;
-        Fear = emotionDto.First(r => r.EmotionType == EmotionType.Fear).Value;
-        Happiness = emotionDto.First(r => r.EmotionType == EmotionType.Happiness).Value;
-        Sadness = emotionDto.First(r => r.EmotionType == EmotionType.Sadness).Value;
-        Surprise = emotionDto.First(r => r.EmotionType == EmotionType.Surprise).Value;
-        Neutral = emotionDto.First(r => r.EmotionType == EmotionType.Neutral).Value;
+        Anger = emotionDto.FirstOrDefault(r => r.EmotionType == EmotionType.Anger)?.Value ?? 0.0;
+        Disgust = emotionDto.FirstOrDefault(r => r.EmotionType == EmotionType.Disgust)?.Value ?? 0.0;
+        Fear = emotionDto.FirstOrDefault(r => r.EmotionType == EmotionType.Fear)?.Value ?? 0.0;
+        Happiness = emotionDto.FirstOrDefault(r => r.EmotionType == EmotionType.Happiness)?.Value ?? 0.0;
+        Sadness = emotionDto.FirstOrDefault(r => r.EmotionType == EmotionType.Sadness)?.Value ?? 0.0;
+        Surprise = emotionDto.FirstOrDefault(r => r.EmotionType == EmotionType.Surprise)?.Value ?? 0.0;
+        Neutral = emotionDto.FirstOrDefault(r => r.EmotionType == EmotionType.Neutral)?.Value ?? 0.0;
+    }
+
+    public EmotionCsv()
+    {
     }
 
     public long TimeOffset { get; init; }
