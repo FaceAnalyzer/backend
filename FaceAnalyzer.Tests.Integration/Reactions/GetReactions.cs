@@ -107,13 +107,16 @@ public class GetReactions
         _testOutputHelper.WriteLine("Response Reactions: \n" + JsonSerializer.Serialize(responseReactions));
 
         responseReactions.Should().NotBeNull();
-        responseReactions?.Count.Should().Be(reactions.Count);
+        responseReactions?.Count.Should().Be(dbContext.Reactions.Count());
         responseReactions?.Items.Should().NotBeNull();
         responseReactions?.Items.Should().NotBeEmpty();
         responseReactions?.Items.Count.Should().Be(responseReactions.Count);
+
+        // Check that the returned list is the full reactions list from the database.
+        var dbReactions = dbContext.Reactions.ToList();
         foreach (var reaction in responseReactions!.Items)
         {
-            var dbReaction = reactions.Find(r =>
+            var dbReaction = dbReactions.Find(r =>
                 r.ParticipantName == reaction.ParticipantName && r.StimuliId == reaction.StimuliId);
             reaction.ParticipantName.Should().Be(dbReaction?.ParticipantName);
             reaction.StimuliId.Should().Be(dbReaction?.StimuliId);
@@ -223,7 +226,6 @@ public class GetReactions
 
         var reaction = new Reaction
         {
-            Id = 3,
             ParticipantName = "ExampleName",
             StimuliId = stimuli.Id
         };
