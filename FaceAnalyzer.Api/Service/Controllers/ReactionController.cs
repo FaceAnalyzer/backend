@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text.Json;
 using CsvHelper;
 using FaceAnalyzer.Api.Business.Commands.Reactions;
 using FaceAnalyzer.Api.Business.Contracts;
@@ -44,7 +45,7 @@ public class ReactionController : ControllerBase
     [SwaggerOperation("Retrieve a single reaction.",
         "Retrieve a single reaction given its Id.",
         OperationId = $"{nameof(Reaction)}_get")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type=typeof(ReactionDto))]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ReactionDto))]
     public async Task<ActionResult<ReactionDto>> Get(int id)
     {
         var result = await _mediator.Send(new GetReactionsQuery(id));
@@ -60,8 +61,8 @@ public class ReactionController : ControllerBase
     [SwaggerOperation("Retrieve a reaction emotions.",
         "Retrieve a reaction (using its Id) emotions.",
         OperationId = $"{nameof(Reaction)}_get_emotions")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(QueryResult<EmotionDto>))]
-    public async Task<ActionResult<QueryResult<EmotionDto>>> GetReactionEmotions(int id, [FromQuery] EmotionType? type)
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ExportReactionDto))]
+    public async Task<ActionResult<ExportReactionDto>> GetReactionEmotions(int id, [FromQuery] EmotionType? type)
     {
         var query = new GetReactionEmotionsQuery(id, type);
         var result = await _mediator.Send(query);
@@ -80,14 +81,25 @@ public class ReactionController : ControllerBase
 
         // Convert list to a csv file
         var stream = new MemoryStream();
+
         await using (var writeFile = new StreamWriter(stream, leaveOpen: true))
         await using (var csv = new CsvWriter(writeFile, CultureInfo.InvariantCulture))
         {
-            await csv.WriteRecordsAsync(result.Items);
+            csv.WriteHeader<EmotionCsv>();
+            await csv.NextRecordAsync();
+            foreach (var records in result.Emotions
+                         .GroupBy(r => r.TimeOffset)
+                         .Select(r => r.ToList()).ToList())
+            {
+                csv.WriteRecord(new EmotionCsv(records));
+                await csv.NextRecordAsync();
+            }
         }
 
+
         stream.Position = 0;
-        return new FileStreamResult(stream, "text/csv") { FileDownloadName = $"{nameof(Reaction)}#{id}.csv" };
+        return new FileStreamResult(stream, "text/csv")
+            { FileDownloadName = $"{nameof(Reaction)}_{id}_{result.ParticipantName.Replace(' ', '-')}.csv" };
     }
 
     [HttpPost]

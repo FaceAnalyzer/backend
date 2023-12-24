@@ -1,8 +1,6 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
-
+﻿
 namespace FaceAnalyzer.Api.Data.Entities;
 
-[SwaggerSchema(Title = "Stimuli")]
 public class Stimuli : EntityBase, IDeletable
 {
     public required string Link { get; set; }
