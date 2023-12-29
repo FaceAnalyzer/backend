@@ -1,0 +1,20 @@
+@startuml
+class User {
+    + Name : string <<get>> <<set>>
+    + Surname : string <<get>> <<set>>
+    + Email : string <<get>> <<set>>
+    + Username : string <<get>> <<set>>
+    + Password : string <<get>> <<set>>
+    + ContactNumber : string? <<get>> <<set>>
+    + DeletedAt : DateTime? <<get>> <<set>>
+    + Delete() : void
+    + Role: UserRole
+    + Projects: ICollection
+}
+interface ICollection<T> {
+}
+EntityBase <|-- User
+IDeletable <|-- User
+User --> UserRole : "Role"
+User o--> ICollection : "Projects<Project>"
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+class GetStimuliQuery {
+    + Id : int? <<get>> <<init>>
+    + ExperimentId : int? <<get>> <<init>>
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<QueryResult<StimuliDto>>" GetStimuliQuery
+@enduml

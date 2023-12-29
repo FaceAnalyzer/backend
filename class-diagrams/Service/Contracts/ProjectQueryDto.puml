@@ -1,0 +1,5 @@
+@startuml
+class ProjectQueryDto <<record>> {
+    + ProjectName : string? <<get>> <<init>>
+}
+@enduml

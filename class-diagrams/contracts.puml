@@ -1,0 +1,16 @@
+@startuml
+!include ./Shared/Enum/EmotionType.puml
+!include ./Shared/Enum/UserRole.puml
+'#Contracts
+!include ./Business/Contracts/AuthResult.puml
+!include ./Business/Contracts/EmotionDto.puml
+!include ./Business/Contracts/EmotionReading.puml
+!include ./Business/Contracts/ExperimentDto.puml
+!include ./Business/Contracts/NoteDto.puml
+!include ./Business/Contracts/ProjectDto.puml
+!include ./Business/Contracts/QueryResult.puml
+!include ./Business/Contracts/ReactionDto.puml
+!include ./Business/Contracts/ResetPasswordResult.puml
+!include ./Business/Contracts/StimuliDto.puml
+!include ./Business/Contracts/UserDto.puml
+@enduml

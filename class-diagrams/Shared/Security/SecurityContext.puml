@@ -1,0 +1,10 @@
+@startuml
+class SecurityContext {
+    + SecurityContext(configuration:AppConfiguration)
+    + CreateJwt(principal:SecurityPrincipal) : string
+    + SetPrincipal(principal:SecurityPrincipal) : void
+    + Hash(plainPassword:string) : string
+    + Compare(plainPassword:string, hashedPassword:string) : bool
+}
+SecurityContext --> "Principal" SecurityPrincipal
+@enduml

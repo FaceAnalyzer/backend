@@ -1,0 +1,8 @@
+@startuml
+class IServiceCollectionExtensions <<static>> {
+    + {static} AddBusinessModels(services:IServiceCollection) : void
+    + {static} AddMappers(services:IServiceCollection) : void
+    + {static} AddDbContexts(services:IServiceCollection, connectionString:string, dbVersion:string) : void
+    + {static} AddMediatR(services:IServiceCollection) : void
+}
+@enduml

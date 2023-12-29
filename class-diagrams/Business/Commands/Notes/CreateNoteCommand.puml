@@ -1,0 +1,10 @@
+@startuml
+class CreateNoteCommand <<record>> {
+    + Description : string <<get>> <<init>>
+    + ExperimentId : int <<get>> <<init>>
+    + CreatorId : int <<get>> <<init>>
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<NoteDto>" CreateNoteCommand
+@enduml

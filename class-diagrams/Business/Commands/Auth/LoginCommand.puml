@@ -1,0 +1,9 @@
+@startuml
+class LoginCommand <<record>> {
+    + Username : string <<get>> <<init>>
+    + Password : string <<get>> <<init>>
+}
+class "IRequest"<T> {
+}
+"IRequest" <-- "<AuthResult>" LoginCommand
+@enduml

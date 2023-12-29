@@ -1,0 +1,10 @@
+@startuml
+class EditNoteUseCase {
+    + EditNoteUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:EditNoteCommand, cancellationToken:CancellationToken) : Task<NoteDto>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- EditNoteUseCase
+"IRequestHandler" <|-- "<EditNoteCommand,NoteDto>" EditNoteUseCase
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+'#Queries
+!include ./Business/Queries/GetExperimentsQuery.puml
+!include ./Business/Queries/GetNotesQuery.puml
+!include ./Business/Queries/GetProjectsQuery.puml
+!include ./Business/Queries/GetReactionEmotionsQuery.puml
+!include ./Business/Queries/GetReactionsQuery.puml
+!include ./Business/Queries/GetStimuliQuery.puml
+!include ./Business/Queries/GetUsersQuery.puml
+@enduml

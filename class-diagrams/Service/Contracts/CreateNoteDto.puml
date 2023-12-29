@@ -1,0 +1,7 @@
+@startuml
+class CreateNoteDto <<record>> {
+    + Description : string <<get>> <<init>>
+    + ExperimentId : int <<get>> <<init>>
+    + CreatorId : int <<get>> <<init>>
+}
+@enduml

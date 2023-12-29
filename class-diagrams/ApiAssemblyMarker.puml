@@ -1,0 +1,4 @@
+@startuml
+class ApiAssemblyMarker <<sealed>> {
+}
+@enduml

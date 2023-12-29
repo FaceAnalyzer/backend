@@ -1,0 +1,6 @@
+@startuml
+enum UserRole {
+    Admin= 10,
+    Researcher= 20,
+}
+@enduml

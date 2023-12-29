@@ -1,0 +1,6 @@
+@startuml
+class LoginRequest <<record>> {
+    + Username : string <<get>> <<init>>
+    + Password : string <<get>> <<init>>
+}
+@enduml

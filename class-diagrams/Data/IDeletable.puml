@@ -1,0 +1,6 @@
+@startuml
+interface IDeletable {
+    + DeletedAt : DateTime? <<get>> <<set>>
+    + Delete() : void
+}
+@enduml

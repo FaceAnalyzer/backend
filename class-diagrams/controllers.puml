@@ -1,0 +1,15 @@
+@startuml
+'!include ./Shared/Enum/EmotionType.puml
+'!include ./Shared/Enum/UserRole.puml
+'#Contracts
+!include ./Service/Controllers/AuthController.puml
+!include ./Service/Controllers/EmotionController.puml
+!include ./Service/Controllers/ExperimentController.puml
+!include ./Service/Controllers/NoteController.puml
+!include ./Service/Controllers/ProjectController.puml
+!include ./Service/Controllers/ReactionController.puml
+!include ./Service/Controllers/StimuliController.puml
+!include ./Service/Controllers/UserController.puml
+
+'!include ./Business/Contracts/UserDto.puml
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+class DeleteReactionCommand <<record>> {
+    + Id : int <<get>> <<init>>
+}
+IRequest <|-- DeleteReactionCommand
+@enduml

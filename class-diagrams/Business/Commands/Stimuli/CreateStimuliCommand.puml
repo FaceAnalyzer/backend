@@ -1,0 +1,11 @@
+@startuml
+class CreateStimuliCommand <<record>> {
+    + Link : string <<get>> <<init>>
+    + Description : string <<get>> <<init>>
+    + Name : string <<get>> <<init>>
+    + ExperimentId : int <<get>> <<init>>
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<StimuliDto>" CreateStimuliCommand
+@enduml

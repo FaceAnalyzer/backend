@@ -1,0 +1,10 @@
+@startuml
+class DeleteNoteUseCase {
+    + DeleteNoteUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:DeleteNoteCommand, cancellationToken:CancellationToken) : Task
+}
+class "IRequestHandler"<T> {
+}
+BaseUseCase <|-- DeleteNoteUseCase
+"IRequestHandler" <|-- "<DeleteNoteCommand>" DeleteNoteUseCase
+@enduml

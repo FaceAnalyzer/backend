@@ -28,6 +28,7 @@ public class ResetUserPassword
         await dbContext.Users.AddAsync(user);
         await dbContext.SaveChangesAsync();
     }
+    
     [Fact(DisplayName = "Should return 200 OK when password is reset by admin")]
     public async Task Should_Return_200_When_Password_Is_Reset_By_Admin()
     {
@@ -108,4 +109,34 @@ public class ResetUserPassword
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
+    
+    [Fact(DisplayName = "Should return 200 OK when password is reset by the user himself")]
+    public async Task User_reset_own_password()
+    {
+        // Arrange
+        var fixture = new TestHostFixture();
+        fixture
+            .AddDefaultPrincipal(1, UserRole.Researcher)
+            .EnableAuthentication()
+            .Build();
+        
+        var username = "SUT User";
+        var password = "SUT Password";
+        await CreateUser(fixture, username, password);
+        
+
+
+        await fixture.StartHost();
+        var httpClient = fixture.GetClient();
+        var newPassword = "NewPassword";
+        
+        // Act
+        var request = new ResetMyPasswordDto(newPassword);
+        var response = await httpClient.PatchAsJsonAsync("/auth/reset-my-password", request);
+        
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+    
+    
 }

@@ -1,0 +1,10 @@
+@startuml
+class EditUserUseCase {
+    + EditUserUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:EditUserCommand, cancellationToken:CancellationToken) : Task<UserDto>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- EditUserUseCase
+"IRequestHandler" <|-- "<EditUserCommand,UserDto>" EditUserUseCase
+@enduml

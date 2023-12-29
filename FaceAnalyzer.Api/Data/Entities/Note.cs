@@ -1,8 +1,6 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
-
+﻿
 namespace FaceAnalyzer.Api.Data.Entities;
 
-[SwaggerSchema(Title = "Note")]
 public class Note : EntityBase, IDeletable
 {
     

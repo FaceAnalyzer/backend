@@ -1,0 +1,13 @@
+@startuml
+class ProjectController {
+    + ProjectController(mediator:ISender)
+    + <<async>> Get(dto:ProjectQueryDto) : Task<ActionResult<QueryResult<ProjectDto>>>
+    + <<async>> Get(id:int) : Task<ActionResult<ProjectDto>>
+    + <<async>> Create(dto:CreateProjectDto) : Task<ActionResult<ProjectDto>>
+    + <<async>> Edit(id:int, request:EditProjectDto) : Task<ActionResult<ProjectDto>>
+    + <<async>> Delete(id:int) : Task<ActionResult<ProjectDto>>
+    + <<async>> GrantPermission(id:int, request:GrantRevokeProjectPermissionDto) : Task<ActionResult>
+    + <<async>> RevokePermission(id:int, request:GrantRevokeProjectPermissionDto) : Task<ActionResult>
+}
+ControllerBase <|-- ProjectController
+@enduml

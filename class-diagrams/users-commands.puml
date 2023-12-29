@@ -1,0 +1,6 @@
+@startuml
+
+!include ./Business/Commands/Users/CreateUserCommand.puml
+!include ./Business/Commands/Users/DeleteUserCommand.puml
+!include ./Business/Commands/Users/EditUserCommand.puml
+@enduml

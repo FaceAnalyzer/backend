@@ -1,0 +1,6 @@
+@startuml
+class ProjectDto <<record>> {
+    + Id : int <<get>> <<init>>
+    + Name : string <<get>> <<init>>
+}
+@enduml

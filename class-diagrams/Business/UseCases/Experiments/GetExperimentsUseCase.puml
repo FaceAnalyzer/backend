@@ -1,0 +1,10 @@
+@startuml
+class GetExperimentsUseCase {
+    + <<async>> Handle(request:GetExperimentsQuery, cancellationToken:CancellationToken) : Task<QueryResult<ExperimentDto>>
+    + GetExperimentsUseCase(mapper:IMapper, dbContext:AppDbContext)
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- GetExperimentsUseCase
+"IRequestHandler" <|-- "<GetExperimentsQuery,QueryResult<ExperimentDto>>" GetExperimentsUseCase
+@enduml

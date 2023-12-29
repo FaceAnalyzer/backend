@@ -36,12 +36,10 @@ public class CreateUserIntegrationTest
 
 
         // Act
-
-
         await _fixture.StartHost();
         var httpClient = _fixture.GetClient();
-        var dto = new CreateUserDto("name", "surname", "example1@gmail.com",
-            "username1", "Password123", "+393456543333",
+        var dto = new CreateUserDto("nameNotused", "surnameNotUse", "example88@gmail.com",
+            "username88", "Password123!", "+393454545333",
             UserRole.Researcher);
         
 
@@ -51,11 +49,10 @@ public class CreateUserIntegrationTest
         );
 
         // Assert
-
         response.StatusCode.Should().Be(HttpStatusCode.Created);
     }
     
-    [Fact(DisplayName = "Create an Admin user successfully")]
+    [Fact(DisplayName = "Create an admin user successfully")]
     public async Task CreateAdminUser()
     {
         _fixture
@@ -65,8 +62,6 @@ public class CreateUserIntegrationTest
 
 
         // Act
-
-
         await _fixture.StartHost();
         var httpClient = _fixture.GetClient();
         var dto = new CreateUserDto("name", "surname", "example2@gmail.com",

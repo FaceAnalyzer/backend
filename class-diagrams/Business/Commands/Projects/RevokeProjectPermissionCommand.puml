@@ -1,0 +1,12 @@
+@startuml
+class RevokeProjectPermissionCommand <<record>> {
+    + ProjectId : int <<get>> <<init>>
+    + ResearcherIds : IList
+}
+class IList<T> {
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<ProjectDto>" RevokeProjectPermissionCommand
+RevokeProjectPermissionCommand --> IList : "ResearcherIds<int>"
+@enduml

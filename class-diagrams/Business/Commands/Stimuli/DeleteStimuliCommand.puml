@@ -1,0 +1,6 @@
+@startuml
+class DeleteStimuliCommand <<record>> {
+    + Id : int <<get>> <<init>>
+}
+IRequest <|-- DeleteStimuliCommand
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+class ReactionController {
+    + ReactionController(mediator:ISender)
+    + <<async>> Get() : Task<ActionResult<List<ReactionDto>>>
+    + <<async>> Get(id:int) : Task<ActionResult<ReactionDto>>
+    + <<async>> GetReactionEmotions(id:int, type:EmotionType?) : Task<ActionResult<QueryResult<EmotionDto>>>
+    + <<async>> GetReactionEmotionsCsv(id:int) : Task<IActionResult>
+    + <<async>> Create(dto:CreateReactionDto) : Task<ActionResult<ReactionDto>>
+    + <<async>> Delete(id:int) : Task<ActionResult<ReactionDto>>
+}
+ControllerBase <|-- ReactionController
+@enduml

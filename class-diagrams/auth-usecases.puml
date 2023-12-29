@@ -1,0 +1,11 @@
+@startuml
+
+'#UseCases
+!include ./Business/UseCases/Auth/LoginUseCase.puml
+!include ./Business/UseCases/Auth/ResetPasswordUseCase.puml
+
+!include ./Business/Commands/Auth/LoginCommand.puml
+!include ./Business/Commands/Auth/ResetPasswordCommand.puml
+
+!include ./Business/UseCases/BaseUseCase.puml
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+
+'#UseCases
+!include ./Business/UseCases/StimuliUseCases/CreateStimuliUseCase.puml
+!include ./Business/UseCases/StimuliUseCases/DeleteStimuliUseCase.puml
+!include ./Business/UseCases/StimuliUseCases/GetStimuliUseCase.puml
+
+!include ./Business/UseCases/BaseUseCase.puml
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class GrantProjectPermissionUseCaseTests {
+    + <<async>> AssignUsersToProject() : Task
+    + <<async>> ThrowErrorIfProjectDoesNotExists() : Task
+    + <<async>> ThrowErrorWhenUsersAlreadyAdded() : Task
+}
+@enduml

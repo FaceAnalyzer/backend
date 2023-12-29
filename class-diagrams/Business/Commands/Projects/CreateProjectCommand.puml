@@ -1,0 +1,8 @@
+@startuml
+class CreateProjectCommand <<record>> {
+    + Name : string <<get>> <<init>>
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<ProjectDto>" CreateProjectCommand
+@enduml

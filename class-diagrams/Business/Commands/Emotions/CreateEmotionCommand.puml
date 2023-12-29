@@ -1,0 +1,11 @@
+@startuml
+class CreateEmotionCommand <<record>> {
+    + Value : double <<get>> <<init>>
+    + TimeOffset : long <<get>> <<init>>
+    + ReactionId : int <<get>> <<init>>
+}
+class "IRequest"<T> {
+}
+"IRequest"  <|-- "<EmotionDto>" CreateEmotionCommand
+CreateEmotionCommand --> "EmotionType" EmotionType
+@enduml

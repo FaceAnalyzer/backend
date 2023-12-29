@@ -1,0 +1,10 @@
+@startuml
+class EditExperimentUseCase {
+    + EditExperimentUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:EditExperimentCommand, cancellationToken:CancellationToken) : Task<ExperimentDto>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- EditExperimentUseCase
+"IRequestHandler" <|-- "<EditExperimentCommand,ExperimentDto>" EditExperimentUseCase
+@enduml

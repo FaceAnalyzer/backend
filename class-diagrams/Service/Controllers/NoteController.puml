@@ -1,0 +1,11 @@
+@startuml
+class NoteController {
+    + NoteController(mediator:ISender)
+    + <<async>> Get(id:int) : Task<ActionResult<NoteDto>>
+    + <<async>> Get(experimentId:int?) : Task<ActionResult<List<NoteDto>>>
+    + <<async>> Create(dto:CreateNoteCommand) : Task<ActionResult<NoteDto>>
+    + <<async>> Edit(id:int, dto:EditNoteDto) : Task<ActionResult<NoteDto>>
+    + <<async>> Delete(id:int) : Task<ActionResult<NoteDto>>
+}
+ControllerBase <|-- NoteController
+@enduml

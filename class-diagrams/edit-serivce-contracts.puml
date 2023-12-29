@@ -1,0 +1,9 @@
+@startuml
+'!include ./Shared/Enum/EmotionType.puml
+!include ./Shared/Enum/UserRole.puml
+'#Contracts
+!include ./Service/Contracts/EditExperimentDto.puml
+!include ./Service/Contracts/EditNoteDto.puml
+!include ./Service/Contracts/EditProjectDto.puml
+!include ./Service/Contracts/EditUserDto.puml
+@enduml

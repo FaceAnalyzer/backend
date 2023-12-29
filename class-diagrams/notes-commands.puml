@@ -1,0 +1,7 @@
+@startuml
+
+'#UseCases
+!include ./Business/Commands/Notes/CreateNoteCommand.puml
+!include ./Business/Commands/Notes/DeleteNoteCommand.puml
+!include ./Business/Commands/Notes/EditNoteCommand.puml
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+class EditProjectUseCase {
+    + EditProjectUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:EditProjectCommand, cancellationToken:CancellationToken) : Task<ProjectDto>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- EditProjectUseCase
+"IRequestHandler" <|-- "<EditProjectCommand,ProjectDto>" EditProjectUseCase
+@enduml

@@ -1,0 +1,13 @@
+@startuml
+class CreateReactionCommand <<record>> {
+    + StimuliId : int <<get>> <<init>>
+    + ParticipantName : string <<get>> <<init>>
+    + "EmotionReadings: IList
+}
+class IList<T> {
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- CreateReactionCommand : "<ReactionDto>"
+CreateReactionCommand --> IList : "EmotionReadings<EmotionReading>"
+@enduml

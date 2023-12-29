@@ -1,0 +1,10 @@
+@startuml
+class RevokeProjectPermissionUseCase {
+    + RevokeProjectPermissionUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:RevokeProjectPermissionCommand, cancellationToken:CancellationToken) : Task<ProjectDto>
+}
+class "IRequestHandler"<T1,T2> {
+}
+BaseUseCase <|-- RevokeProjectPermissionUseCase
+"IRequestHandler" <|-- "<RevokeProjectPermissionCommand,ProjectDto>" RevokeProjectPermissionUseCase
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+class CreateReactionDto <<record>> {
+    + StimuliId : int <<get>> <<init>>
+    + ParticipantName : string <<get>> <<init>>
+    + EmotionReadings: IList
+}
+interface "IList"<T> {
+}
+CreateReactionDto --> "IList" : "EmotionReadings<EmotionReading>"
+@enduml

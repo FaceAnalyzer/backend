@@ -1,0 +1,15 @@
+@startuml
+class Note {
+    + <<required>> Description : string <<get>> <<set>>
+    + <<required>> ExperimentId : int <<get>> <<set>>
+    + <<required>> CreatorId : int <<get>> <<set>>
+    + DeletedAt : DateTime? <<get>> <<set>>
+    + Delete() : void
+    + Experiment: Experiment
+    + Creator: User
+}
+EntityBase <|-- Note
+IDeletable <|-- Note
+Note --> Experiment : "Experiment"
+Note --> User : "Creator"
+@enduml

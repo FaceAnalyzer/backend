@@ -1,0 +1,14 @@
+@startuml
+!include ./Data/AppDbContext.puml
+!include ./Data/EntityBase.puml
+!include ./Data/IDeletable.puml
+!include ./Data/Entities/Emotion.puml
+!include ./Data/Entities/Experiment.puml
+!include ./Data/Entities/Note.puml
+!include ./Data/Entities/Project.puml
+!include ./Data/Entities/Reaction.puml
+!include ./Data/Entities/Stimuli.puml
+!include ./Data/Entities/User.puml
+!include ./Shared/Enum/EmotionType.puml
+!include ./Shared/Enum/UserRole.puml
+@enduml

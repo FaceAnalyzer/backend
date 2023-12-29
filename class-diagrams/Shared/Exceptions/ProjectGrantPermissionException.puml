@@ -1,0 +1,8 @@
+@startuml
+class ProjectGrantPermissionException {
+    + ResearcherId : int <<get>> <<init>>
+    + ProjectName : string <<get>> <<init>>
+    + ProjectGrantPermissionException(researcherId:int, projectName:string)
+}
+Exception <|-- ProjectGrantPermissionException
+@enduml

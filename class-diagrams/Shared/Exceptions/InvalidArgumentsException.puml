@@ -1,0 +1,6 @@
+@startuml
+class InvalidArgumentsException {
+    + InvalidArgumentsException(message:string)
+}
+Exception <|-- InvalidArgumentsException
+@enduml

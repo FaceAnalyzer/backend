@@ -1,0 +1,5 @@
+@startuml
+
+!include ./Business/Commands/Stimuli/CreateStimuliCommand.puml
+!include ./Business/Commands/Stimuli/DeleteStimuliCommand.puml
+@enduml

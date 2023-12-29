@@ -1,0 +1,10 @@
+@startuml
+class DeleteReactionUseCase {
+    + DeleteReactionUseCase(mapper:IMapper, dbContext:AppDbContext)
+    + <<async>> Handle(request:DeleteReactionCommand, cancellationToken:CancellationToken) : Task
+}
+class "IRequestHandler"<T> {
+}
+BaseUseCase <|-- DeleteReactionUseCase
+"IRequestHandler" <|-- "<DeleteReactionCommand>" DeleteReactionUseCase
+@enduml

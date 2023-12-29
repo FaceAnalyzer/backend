@@ -1,9 +1,7 @@
 ﻿using FaceAnalyzer.Api.Shared.Enum;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace FaceAnalyzer.Api.Data.Entities;
 
-[SwaggerSchema(Title = "User")]
 public class User : EntityBase, IDeletable
 {
     public string Name { get; set; } = string.Empty;

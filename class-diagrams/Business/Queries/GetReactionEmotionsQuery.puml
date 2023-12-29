@@ -1,0 +1,9 @@
+@startuml
+class GetReactionEmotionsQuery <<record>> {
+    + ReactionId : int <<get>> <<init>>
+    + EmotionType : EmotionType? <<get>> <<init>>
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<QueryResult<EmotionDto>>" GetReactionEmotionsQuery
+@enduml

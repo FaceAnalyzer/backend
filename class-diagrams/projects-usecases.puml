@@ -1,0 +1,12 @@
+@startuml
+
+'#UseCases
+!include ./Business/UseCases/Projects/CreateProjectUseCase.puml
+!include ./Business/UseCases/Projects/DeleteProjectUseCase.puml
+!include ./Business/UseCases/Projects/EditProjectUseCase.puml
+!include ./Business/UseCases/Projects/GetProjectsUseCase.puml
+!include ./Business/UseCases/Projects/GrantProjectPermissionUseCase.puml
+!include ./Business/UseCases/Projects/RevokeProjectPermissionUseCase.puml
+
+!include ./Business/UseCases/BaseUseCase.puml
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+
+'#UseCases
+!include ./Business/UseCases/Auth/LoginUseCase.puml
+!include ./Business/UseCases/Auth/ResetPasswordUseCase.puml
+!include ./Business/UseCases/Emotions/CreateEmotionUseCase.puml
+!include ./Business/UseCases/Experiments/CreateExperimentUseCase.puml
+!include ./Business/UseCases/Experiments/DeleteExperimentUseCase.puml
+!include ./Business/UseCases/Experiments/EditExperimentUseCase.puml
+!include ./Business/UseCases/Experiments/GetExperimentsUseCase.puml
+!include ./Business/UseCases/Notes/CreateNoteUseCase.puml
+!include ./Business/UseCases/Notes/DeleteNoteUseCase.puml
+!include ./Business/UseCases/Notes/EditNoteUseCase.puml
+!include ./Business/UseCases/Notes/GetNotesUseCase.puml
+!include ./Business/UseCases/Projects/CreateProjectUseCase.puml
+!include ./Business/UseCases/Projects/DeleteProjectUseCase.puml
+!include ./Business/UseCases/Projects/EditProjectUseCase.puml
+!include ./Business/UseCases/Projects/GetProjectsUseCase.puml
+!include ./Business/UseCases/Projects/GrantProjectPermissionUseCase.puml
+!include ./Business/UseCases/Projects/RevokeProjectPermissionUseCase.puml
+!include ./Business/UseCases/Reactions/CreateReactionUseCase.puml
+!include ./Business/UseCases/Reactions/DeleteReactionUseCase.puml
+!include ./Business/UseCases/Reactions/GetReactionsUseCase.puml
+!include ./Business/UseCases/Reactions/GetReactionEmotionsUseCase.puml
+!include ./Business/UseCases/StimuliUseCases/CreateStimuliUseCase.puml
+!include ./Business/UseCases/StimuliUseCases/DeleteStimuliUseCase.puml
+!include ./Business/UseCases/StimuliUseCases/GetStimuliUseCase.puml
+!include ./Business/UseCases/Users/CreateUserUseCase.puml
+!include ./Business/UseCases/Users/DeleteUserUseCase.puml
+!include ./Business/UseCases/Users/EditUserUseCase.puml
+!include ./Business/UseCases/Users/GetUsersUseCase.puml
+
+!include ./Business/UseCases/BaseUseCase.puml
+@enduml

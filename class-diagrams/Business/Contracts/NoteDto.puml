@@ -1,0 +1,8 @@
+@startuml
+class NoteDto <<record>> {
+    + Id : int <<get>> <<init>>
+    + Description : string <<get>> <<init>>
+    + ExperimentId : int <<get>> <<init>>
+    + CreatorId : int <<get>> <<init>>
+}
+@enduml

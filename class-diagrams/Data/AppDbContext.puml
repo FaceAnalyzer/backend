@@ -1,0 +1,23 @@
+@startuml
+class AppDbContext {
+    + AppDbContext(options:DbContextOptions<AppDbContext>, securityContext:SecurityContext)
+    + Delete(entity:TEntity) : void
+    + Users: DbSet<User>
+    + Experiments: DbSet<Experiment>
+    + Stimuli: DbSet<Stimuli>
+    + Projects: DbSet<Project>
+    + Reactions: DbSet<Reaction>
+    + Emotions: DbSet<Emotion>
+    + Note: DbSet<Note>
+}
+abstract class "DbSet"<T> {
+}
+DbContext <|-- AppDbContext
+AppDbContext --> "DbSet" : "Users<User>"
+AppDbContext --> "DbSet" : "Experiments<Experiment>"
+AppDbContext --> "DbSet" : "Stimuli<Stimuli>"
+AppDbContext --> "DbSet" : "Projects<Project>"
+AppDbContext --> "DbSet" : "Reactions<Reaction>"
+AppDbContext --> "DbSet" : "Emotions<Emotion>"
+AppDbContext --> "DbSet" : "Note<Note>"
+@enduml

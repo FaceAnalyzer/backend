@@ -1,0 +1,7 @@
+@startuml
+class SecurityPrincipal {
+    + <<required>> Id : int <<get>> <<set>>
+    + Role: UserRole
+}
+SecurityPrincipal --> UserRole : "Role"
+@enduml

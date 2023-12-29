@@ -1,0 +1,10 @@
+@startuml
+class EmotionDto <<record>> {
+    + Id : int <<get>> <<init>>
+    + Value : double <<get>> <<init>>
+    + TimeOffset : long <<get>> <<init>>
+    + ReactionId : int <<get>> <<init>>
+    + EmotionType: EmotionType
+}
+EmotionDto --> EmotionType : "EmotionType"
+@enduml

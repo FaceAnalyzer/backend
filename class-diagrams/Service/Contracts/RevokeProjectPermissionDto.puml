@@ -1,0 +1,8 @@
+@startuml
+class RevokeProjectPermissionDto <<record>> {
+    + ResearchersIds: IList
+}
+class "IList"<T> {
+}
+RevokeProjectPermissionDto --> "IList" : "ResearchersIds<int>"
+@enduml

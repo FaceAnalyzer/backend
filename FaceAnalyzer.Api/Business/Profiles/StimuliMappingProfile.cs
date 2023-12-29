@@ -10,5 +10,7 @@ public class StimuliMappingProfile : Profile
     {
         CreateMap<Stimuli, StimuliDto>()
             .ReverseMap();
+        CreateMap<Stimuli, ExportStimuliDto>()
+            .ReverseMap();
     }
 }

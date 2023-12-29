@@ -1,0 +1,10 @@
+@startuml
+class GetUsersQuery <<record>> {
+    + Id : int? <<get>> <<init>>
+    + ProjectId : int? <<get>> <<init>>
+    + Role : UserRole? <<get>> <<init>>
+}
+class "IRequest"<T> {
+}
+"IRequest" <|-- "<QueryResult<UserDto>>" GetUsersQuery
+@enduml

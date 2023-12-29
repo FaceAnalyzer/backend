@@ -13,5 +13,7 @@ public class ExperimentMappingProfile: Profile
         CreateMap<Experiment, CreateExperimentCommand>().ReverseMap();
         CreateMap<Experiment, EditExperimentCommand>().ReverseMap();
         CreateMap<Experiment, DeleteExperimentCommand>().ReverseMap();
+        CreateMap<Experiment, ExportExperimentDto>()
+            .ReverseMap();
     }
 }
