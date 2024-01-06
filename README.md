@@ -58,8 +58,8 @@ Here is an example of appsettings.Development.json
 ```json
 {
   "ConnectionStrings": {
-    "AppDatabase": "server=localhost;user=<db user>;password=<password>;database=<datatabase name>",
-    "DbVersion": "<mysql version>",
+    "AppDatabase": "server=localhost;user=<db user>;password=<password>;database=face_analyzer",
+    "DbVersion": "8.0.34",
     "RawData": "<mongodb connection string>",
     "NoSqlDatabaseName": "<mongodb database>"
   },
@@ -73,10 +73,11 @@ Here is an example of appsettings.Development.json
 
 ### Architecure
 
-FaceAnalyzer backend is built as a cloud-native app. It is deployed as 2 containers. One container runs `mysql:8.0` image, while the other one runs our ASP.NET app.
+FaceAnalyzer backend is built as a cloud-native app. It is deployed as 2 containers. One container runs `mysql:8.0` image, while the other one runs our ASP.NET backend app. Both of these containers are deployed together to a [Kubernetes cluster](https://github.com/FaceAnalyzer/aks-cluster). The deployment manifest is located in `FaceAnalyzer.Api`. `manifest-production.yaml` is for production environment, while `manifest-staging.yaml` is for staging environment. At this time the only difference is the domain for backend container, configuration is the same for both environments. Apart from having Deployment, backend also has Service and Ingress. This exposes backend to the Internet. Ingress resource is picked up by Ingress-nginx, that should already be deployed into the cluster. MySQL has Depoyment, Service and PVC. Service makes MySQL Deployment exposed to other Deployments in the cluster, but not outside the cluster. PVC is linked to a persistant volume. This means MySQL will not lose data if it's restarted.
 
 ### CI/CD
 
+Requires a working Kubernetes cluster.
 
 ## Project Dependencies
 
