@@ -6,7 +6,6 @@ This repository contains the FaceAnalyzer backend solution. The project is writt
 - **/Data**: Contains database entities, migrations, and database context.
     - **/Entities**: Database entity classes.
     - **/Migrations**: Database migration scripts.
-    - ...
 - **/Service**: Includes the service layer, controllers, middlewares, and filters.
     - **/Controllers**: API controllers.
     - **/Middlewares**: Custom middleware components.
@@ -22,7 +21,6 @@ This repository contains the FaceAnalyzer backend solution. The project is writt
     - **/Enum**: Enumeration types.
     - **/Security**: Authentication and Authorization
     - **/Exceptions**: Shared exceptions thrown by the application. 
-  
 
 ## Getting Started
 
@@ -115,7 +113,6 @@ If you want to keep data persistant, add a [volume](https://tecadmin.net/docker-
 - .NET7.0
 
 ## Git Workflow
-(this is just a placeholder we can change it later if we agreed on something else )
 
 Our project follows a Git workflow to manage development, feature integration, and hotfixes.
 
