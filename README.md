@@ -70,7 +70,14 @@ Here is an example of appsettings.Development.json
 }
 ```
 ## Deployment
-...
+
+### Architecure
+
+FaceAnalyzer backend is built as a cloud-native app. It is deployed as 2 containers. One container runs `mysql:8.0` image, while the other one runs our ASP.NET app.
+
+### CI/CD
+
+
 ## Project Dependencies
 
 - ASP.NET Core: [Link to ASP.NET Core](https://dotnet.microsoft.com/apps/aspnet)
