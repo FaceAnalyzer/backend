@@ -80,7 +80,8 @@ Apart from having Deployment, backend also has Service and Ingress. This exposes
 ### CI/CD
 
 Backend repo is supported by CI/CD. We use GitHub Actions that are built-in to GitHub.
-The deployment pipeline is straightforward. It has two jobs. The first job builds a Docker image using the Dockerfile in the repo, and then pushes the Docker image to a Docker registry, in our case DockerHub.
+The deployment pipeline is straightforward. It has two jobs.
+The first job builds a Docker image using the Dockerfile in the repo, and then pushes the Docker image to a Docker registry, in our case DockerHub.
 The second job deploys a  Kubernetes YAML manifest to the Kubernetes cluster. Based on this manifest, Kubernetes cluster pulls the right image from the DockerHub. After applying the manifests, database migrations are applied. The job creates ASP.NET migration bundle locally, then copies it to the backend Deployment, and finally executes it.
 
 For CI/CD to work properly, a working Kubernetes cluster is required, including access to the cluster. Learn more on [aks-cluster](https://github.com/FaceAnalyzer/aks-cluster) repo.
