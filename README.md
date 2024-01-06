@@ -92,17 +92,19 @@ There is also `Build and Test` job that runs tests written by us.
 
 ### Makefile
 
-You can also deploy this project manually, without CI/CD. A Makefile is provided in `FaceAnalyzer.Api` directory.
+You can also deploy this project manually, without CI/CD. A Makefile is provided in `FaceAnalyzer.Api` directory. Be sure to set the right kubeconfig before deploying, since this uses your local `kubectl`.
 
 Run `make deploy VERSION=<version>` to build the Docker image, push the image, and apply the Kubernetes manifest.
 You must set a version.
+
+When everything is up, you need to apply migrations with `make migrate-deployment`. This will create ASP.NET migration bundle locally and copy it to the backend container running in the cluster.
 
 ### Docker Compose
 
 For easier local deployment and testing, `docker-compose.yml` is provided.
 
 1. Run `docker compose up` to start backend and MySQL server inside the Docker network.
-2. Run `make migrate-local` to apply migrations. This will create ASP.NET migration bundle and copy it to the backend container.
+2. Run `make migrate-local` to apply migrations. This will create ASP.NET migration bundle locally and copy it to the backend container.
 
 If you want to keep data persistant, add a [volume](https://tecadmin.net/docker-compose-persistent-mysql-data/) to MySQL service in `docker-compose.yml`.
 
