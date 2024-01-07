@@ -86,7 +86,7 @@ The second job deploys a  Kubernetes YAML manifest to the Kubernetes cluster. Ba
 
 For CI/CD to work properly, a working Kubernetes cluster is required, including access to the cluster. Learn more on [aks-cluster](https://github.com/FaceAnalyzer/aks-cluster) repo.
 
-Additionaly, there are a few test jobs in the pipeline.
+Additionally, there are a few test jobs in the pipeline.
 [CodeQL](https://codeql.github.com/) checks for code quality. It's a static linter that scans for common issues and vulnerabilities.
 There is also `Build and Test` job that runs tests written by us.
 
