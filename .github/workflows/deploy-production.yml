@@ -51,6 +51,10 @@ jobs:
       run: kubectl apply -n faceanalyzer -f manifest-production.yaml
     - name: Set the image tag
       run: kubectl set image -n faceanalyzer deployment/faceanalyzer-backend faceanalyzer-backend=plavy/faceanalyzer-backend:${{ github.sha }}
+    - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0.x'
     - name: Install dotnet ef
       run: dotnet tool install dotnet-ef --global
     - name: Set appsettings
