@@ -56,7 +56,7 @@ jobs:
       with:
         dotnet-version: '7.x'
     - name: Install dotnet ef
-      run: dotnet tool install dotnet-ef --global
+      run: dotnet tool install dotnet-ef --global --version 7.0.14
     - name: Set appsettings
       run: cp appsettings.Production.json appsettings.Development.json
     - name: Create migration bundle
